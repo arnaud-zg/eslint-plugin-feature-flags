@@ -31,10 +31,16 @@
   "license": "MIT",
   "scripts": {
     "build": "tsup",
-    "dev": "tsup --watch"
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@eslint-plugin-feature-flags/types": "workspace:^"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@vitest/coverage-v8": "^3.2.1",
+    "vitest": "^3.2.1"
+  }
 }
