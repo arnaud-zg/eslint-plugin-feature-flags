@@ -1,8 +1,16 @@
 # eslint-plugin-feature-flags
 
-> ESLint plugin to help manage feature flags and detect flags that should be removed based on their expiration dates.
+<p align="center">
+  <img src="./assets/icon.svg" width="128" height="128" alt="Eslint Plugin Feature Flags Logo" />
+</p>
+
+<div align="center">
+  <b>ESLint plugin to help manage feature flags and detect flags that should be removed based on their expiration dates.</b>
+</div>
 
 `eslint-plugin-feature-flags` provides rules to enforce feature flag hygiene in your codebase. Currently, it includes a rule to detect expired feature flags that should be removed, based on declarative configuration.
+
+---
 
 ## Documentation
 
