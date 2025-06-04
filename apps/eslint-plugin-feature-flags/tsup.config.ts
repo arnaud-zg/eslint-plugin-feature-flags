@@ -15,6 +15,18 @@ const buildEnvironment = {
 };
 
 /**
+ * Footer text to append at the end of the bundle
+ */
+const currentYear = new Date().getFullYear();
+const footerText = `
+// 🚩 Eslint Plugin Feature Flags v${version}
+// Lint rules to enforce feature flag hygiene.
+// Copyright © ${currentYear} | Made with ❤️
+`;
+
+
+
+/**
  * Creates a build time logging plugin
  * @returns An esbuild plugin that logs build time
  */
@@ -80,6 +92,12 @@ export default defineConfig({
   metafile: true,
   treeshake: true,
   circular: true,
+
+  // Footer
+  footer: {
+    js: footerText,
+  },
+
 
   // Environment and platform
   env: buildEnvironment,
