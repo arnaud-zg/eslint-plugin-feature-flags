@@ -1,0 +1,28 @@
+{
+  "name": "@eslint-plugin-feature-flags/eslint-config-base",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./typescript": "./typescript.js"
+  },
+  "files": [
+    "index.js",
+    "typescript.js"
+  ],
+  "scripts": {
+    "lint": "eslint .",
+    "test": "echo \"Error: no test specified\""
+  },
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^7.3.1",
+    "@typescript-eslint/parser": "^7.3.1",
+    "eslint-config-prettier": "^9.0.0"
+  },
+  "peerDependencies": {
+    "eslint": ">=8.0.0",
+    "typescript": ">=5.0.0"
+  }
+}
