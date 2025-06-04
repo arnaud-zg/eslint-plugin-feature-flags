@@ -1,0 +1,40 @@
+{
+  "name": "@eslint-plugin-feature-flags/expiration-utils",
+  "version": "0.0.0",
+  "description": "Utilities for managing expiration of feature flags, including date calculations and validation.",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/arnaud-zg/eslint-plugin-feature-flags.git",
+    "directory": "packages/expiration-utils"
+  },
+  "main": "./dist/index.esm.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.esm.js",
+      "default": "./dist/index.esm.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "eslint",
+    "eslint-plugin",
+    "feature-flags",
+    "expiration",
+    "utilities"
+  ],
+  "author": "Arnaud Zheng",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch"
+  },
+  "dependencies": {
+    "@eslint-plugin-feature-flags/types": "workspace:^"
+  },
+  "devDependencies": {}
+}
