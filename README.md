@@ -57,6 +57,7 @@ eslint-plugin-feature-flags/
 ### Directory Links
 
 - **Apps**
+
   - 🔍 [ESLint Plugin](./apps/eslint-plugin/) — The main ESLint plugin package
 
 - **Packages**

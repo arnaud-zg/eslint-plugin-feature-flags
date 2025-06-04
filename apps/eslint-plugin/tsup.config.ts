@@ -24,8 +24,6 @@ const footerText = `
 // Copyright © ${currentYear} | Made with ❤️
 `;
 
-
-
 /**
  * Creates a build time logging plugin
  * @returns An esbuild plugin that logs build time
@@ -97,7 +95,6 @@ export default defineConfig({
   footer: {
     js: footerText,
   },
-
 
   // Environment and platform
   env: buildEnvironment,

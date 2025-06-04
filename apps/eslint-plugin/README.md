@@ -33,16 +33,19 @@
 ## 📦 Installation
 
 ### npm
+
 ```bash
 npm install --save-dev eslint-plugin-feature-flags
 ```
 
 ### yarn
+
 ```bash
 yarn add --dev eslint-plugin-feature-flags
 ```
 
 ### pnpm
+
 ```bash
 pnpm add --save-dev eslint-plugin-feature-flags
 ```
@@ -60,32 +63,35 @@ import featureFlags from 'eslint-plugin-feature-flags';
 export default [
   // Use one of the pre-configured configs
   featureFlags.configs.recommended,
-  
+
   // Or configure manually
   {
     plugins: {
-      'feature-flags': featureFlags
+      'feature-flags': featureFlags,
     },
     rules: {
-      'feature-flags/expired-feature-flag': ['error', {
-        featureFlags: {
-          'new-homepage': {
-            expires: '2025-12-31',
-            description: 'New homepage redesign'
+      'feature-flags/expired-feature-flag': [
+        'error',
+        {
+          featureFlags: {
+            'new-homepage': {
+              expires: '2025-12-31',
+              description: 'New homepage redesign',
+            },
+            'dark-mode': {
+              expires: '2025-06-30',
+              description: 'Dark mode feature',
+            },
+            'legacy-feature': {
+              expires: '2023-01-01',
+              description: 'Legacy feature that should be removed',
+            },
           },
-          'dark-mode': {
-            expires: '2025-06-30',
-            description: 'Dark mode feature'
-          },
-          'legacy-feature': {
-            expires: '2023-01-01',
-            description: 'Legacy feature that should be removed'
-          }
+          identifiers: ['getFeatureFlag', 'isFeatureEnabled'],
         },
-        identifiers: ['getFeatureFlag', 'isFeatureEnabled']
-      }]
-    }
-  }
+      ],
+    },
+  },
 ];
 ```
 
@@ -97,28 +103,31 @@ module.exports = {
   plugins: ['feature-flags'],
   extends: [
     // You can use the recommended configuration
-    'plugin:feature-flags/recommended'
+    'plugin:feature-flags/recommended',
   ],
   rules: {
     // Or configure the rule manually
-    'feature-flags/expired-feature-flag': ['error', {
-      featureFlags: {
-        'new-homepage': {
-          expires: '2025-12-31',
-          description: 'New homepage redesign'
+    'feature-flags/expired-feature-flag': [
+      'error',
+      {
+        featureFlags: {
+          'new-homepage': {
+            expires: '2025-12-31',
+            description: 'New homepage redesign',
+          },
+          'dark-mode': {
+            expires: '2025-06-30',
+            description: 'Dark mode feature',
+          },
+          'legacy-feature': {
+            expires: '2023-01-01',
+            description: 'Legacy feature that should be removed',
+          },
         },
-        'dark-mode': {
-          expires: '2025-06-30',
-          description: 'Dark mode feature'
-        },
-        'legacy-feature': {
-          expires: '2023-01-01',
-          description: 'Legacy feature that should be removed'
-        }
+        identifiers: ['getFeatureFlag', 'isFeatureEnabled'],
       },
-      identifiers: ['getFeatureFlag', 'isFeatureEnabled']
-    }]
-  }
+    ],
+  },
 };
 ```
 
@@ -135,7 +144,6 @@ Detects usage of feature flags that have passed their expiration date.
 - `featureFlags` (required): An object mapping flag names to their configuration.
   - `expires`: Date in YYYY-MM-DD format when the flag should be removed.
   - `description`: Optional description of what the flag controls.
-  
 - `identifiers` (optional): Array of function names that are used to access feature flags. Defaults to `['getFeatureFlag']`.
 
 #### Message
@@ -225,7 +233,7 @@ export function Homepage() {
   if (getFeatureFlag('new-homepage')) {
     return <NewHomepage />;
   }
-  
+
   return <DefaultHomepage />;
 }
 ```
@@ -241,7 +249,7 @@ function App() {
   const showNewUI = getFeatureFlag('new-homepage');
   const enableDarkMode = getFeatureFlag('dark-mode');
   const useOldCheckout = getFeatureFlag('legacy-feature'); // ESLint error here
-  
+
   return (
     <div className={enableDarkMode ? 'dark-theme' : 'light-theme'}>
       <Header />
