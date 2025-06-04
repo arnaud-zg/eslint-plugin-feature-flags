@@ -8,7 +8,7 @@
  * 
  * @see https://github.com/your-username/eslint-plugin-feature-flags
  */
-import expiredFeatureFlagRule from './rules/expired-feature-flag.js';
+import expiredFeatureFlagRule from './rules/expired-feature-flag';
 
 /**
  * Export the plugin with all available rules and configs
