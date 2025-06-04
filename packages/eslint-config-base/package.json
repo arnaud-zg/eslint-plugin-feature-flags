@@ -3,26 +3,22 @@
   "version": "0.0.1",
   "private": true,
   "type": "module",
-  "main": "index.js",
+  "main": "./index.mjs",
   "exports": {
-    ".": "./index.js",
-    "./typescript": "./typescript.js"
+    ".": "./index.mjs",
+    "./typescript": "./typescript.mjs",
+    "./test": "./test.mjs",
+    "./build": "./build.mjs"
   },
   "files": [
-    "index.js",
-    "typescript.js"
+    "*.mjs"
   ],
   "scripts": {
-    "lint": "eslint .",
-    "test": "echo \"Error: no test specified\""
+    "lint": "eslint ."
   },
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^7.3.1",
     "@typescript-eslint/parser": "^7.3.1",
     "eslint-config-prettier": "^9.0.0"
-  },
-  "peerDependencies": {
-    "eslint": ">=8.0.0",
-    "typescript": ">=5.0.0"
   }
 }

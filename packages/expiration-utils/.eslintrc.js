@@ -1,9 +1,2 @@
-export default {
-  extends: ['@eslint-plugin-feature-flags/eslint-config-base/typescript'],
-  parserOptions: {
-    project: './tsconfig.json',
-  },
-  rules: {
-    // Add specific rules for the plugin if needed
-  }
-};
+// All configuration moved to root eslint.config.js
+export default {};

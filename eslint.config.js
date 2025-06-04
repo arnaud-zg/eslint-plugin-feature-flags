@@ -1,34 +1,11 @@
-import js from '@eslint/js';
-import tsPlugin from '@typescript-eslint/eslint-plugin';
-import tsParser from '@typescript-eslint/parser';
+import { baseConfig } from './packages/eslint-config-base/index.mjs';
+import { typescriptConfig } from './packages/eslint-config-base/typescript.mjs';
+import { testConfig } from './packages/eslint-config-base/test.mjs';
+import { buildConfig } from './packages/eslint-config-base/build.mjs';
 
 export default [
-  js.configs.recommended,
-  // Base TypeScript rules
-  {
-    files: ['**/*.ts'],
-    plugins: {
-      '@typescript-eslint': tsPlugin,
-    },
-    languageOptions: {
-      parser: tsParser,
-      parserOptions: {
-        ecmaVersion: 2020,
-        sourceType: 'module',
-      },
-    },
-  },
-  // Specific rules for tsup config files that need console and process access
-  {
-    files: ['**/tsup.config.ts'],
-    languageOptions: {
-      globals: {
-        console: 'readonly',
-        process: 'readonly',
-      },
-    },
-    rules: {
-      'no-console': 'off', // Allow all console usage in tsup config files
-    },
-  },
+  ...baseConfig,
+  ...typescriptConfig,
+  ...testConfig,
+  ...buildConfig,
 ];
