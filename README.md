@@ -1,4 +1,4 @@
-# eslint-plugin-feature-flags
+# 🚀 eslint-plugin-feature-flags
 
 <p align="center">
   <img src="./assets/icon.svg" width="128" height="128" alt="Eslint Plugin Feature Flags Logo" />
@@ -8,71 +8,69 @@
   <b>ESLint plugin to help manage feature flags and detect flags that should be removed based on their expiration dates.</b>
 </div>
 
-`eslint-plugin-feature-flags` provides rules to enforce feature flag hygiene in your codebase. Currently, it includes a rule to detect expired feature flags that should be removed, based on declarative configuration.
+---
+
+<div align="center">
+  
+  <!-- Badges -->
+  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a>
+  <a href="https://turbo.build/"><img src="https://img.shields.io/badge/Built%20with-Turborepo-blueviolet" alt="Built with Turbo"></a>
+  <img src="https://img.shields.io/badge/ESM-Ready-green" alt="ESM Ready">
+  <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white" alt="TypeScript"></a>
+  <a href="https://nodejs.org"><img src="https://img.shields.io/badge/node-v18+-green.svg" alt="Node"></a>
+</div>
 
 ---
 
-## Documentation
+## ✨ What is eslint-plugin-feature-flags?
 
-- [Usage Guide](docs/USAGE.md) - How to install and use the plugin
-- [API Reference](docs/API.md) - Detailed API information
-- [Contributing](CONTRIBUTING.md) - How to contribute to this project
+`eslint-plugin-feature-flags` provides rules to enforce feature flag hygiene in your codebase. It detects expired feature flags that should be removed based on declarative configuration, helping teams maintain clean code and technical debt management.
 
-## Monorepo Structure
+---
 
-This project is set up as a monorepo using pnpm and Turborepo. The structure is:
+## 🛠️ Development
+
+### Common Commands
+
+- `pnpm install` — Install dependencies
+- `pnpm build` — Build all packages
+- `pnpm dev` — Run in development mode
+- `pnpm test` — Run tests
+- `pnpm lint` — Run linting across the entire monorepo
+- `pnpm format` — Format code
+
+### Monorepo Structure
 
 ```
 eslint-plugin-feature-flags/
-├── apps/               # Application packages
-├── packages/           # Library packages
-├── pnpm-workspace.yaml # Workspace configuration
-├── turbo.json          # Turborepo configuration
-└── package.json        # Root package.json
+├── apps/
+│   └── eslint-plugin/  # 🔍 The main ESLint plugin package
+├── packages/
+│   ├── types/           # 📝 TypeScript typings
+│   └── expiration-utils/  # 🧩 Utilities for handling expiration dates
+├── docs/                # 📚 Documentation
+├── pnpm-workspace.yaml  # Workspace configuration
+├── turbo.json           # Turborepo configuration
+└── package.json         # Root package.json
 ```
 
-## Getting Started
+### Directory Links
 
-### Prerequisites
+- **Apps**
+  - 🔍 [ESLint Plugin](./apps/eslint-plugin/) — The main ESLint plugin package
 
-- [Node.js](https://nodejs.org/) (v18 or later recommended)
-- [pnpm](https://pnpm.io/) (v7 or later recommended)
+- **Packages**
+  - 📝 [Types](./packages/types/) — TypeScript type definitions
+  - 🧩 [Expiration Utils](./packages/expiration-utils/) — Date handling utilities
 
-### Installation
+---
 
-```bash
-# Install dependencies
-pnpm install
-```
-
-### Development Workflow
-
-```bash
-# Run development servers for all apps
-pnpm dev
-
-# Build all packages and apps
-pnpm build
-
-# Run tests across the entire monorepo
-pnpm test
-
-# Run linting across the entire monorepo
-pnpm lint
-
-# Format code
-pnpm format
-```
-
-### Adding a New Package
-
-To add a new package:
-
-1. Create a new directory in `packages/` or `apps/`
-2. Initialize the package with `pnpm init`
-3. Install dependencies as needed
-4. Add scripts that correspond to the Turborepo pipeline
-
-## License
+## 📄 License
 
 See the [LICENSE](LICENSE) file for details.
+
+---
+
+## 🙏 Acknowledgments
+
+Built with [Turborepo](https://turbo.build/)
