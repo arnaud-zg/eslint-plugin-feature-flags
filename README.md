@@ -5,7 +5,7 @@
 </p>
 
 <div align="center">
-  <b>ESLint plugin to help manage feature flags and detect flags that should be removed based on their expiration dates.</b>
+  <b>ESLint plugin to enforce feature flag hygiene and prevent technical debt by automatically detecting expired flags.</b>
 </div>
 
 ---
@@ -20,11 +20,27 @@
   <a href="https://nodejs.org"><img src="https://img.shields.io/badge/node-v18+-green.svg" alt="Node"></a>
 </div>
 
----
+## 🌱 Why This Project Exists
 
-## ✨ What is eslint-plugin-feature-flags?
+This project was born from an article I wrote on [Effective Feature Flag Management](https://arnaudzg.substack.com/p/effective-feature-flag-management), which explored common challenges in feature flag maintenance.
 
-`eslint-plugin-feature-flags` provides rules to enforce feature flag hygiene in your codebase. It detects expired feature flags that should be removed based on declarative configuration, helping teams maintain clean code and technical debt management.
+In my experience, feature flags often start with good intentions but can quickly become sources of technical debt. Common issues include:
+
+- **Dead flags** bloating the codebase
+- **Stale flags** creating ambiguity
+- **Hidden logic** behind flags where it doesn't belong
+- **Lack of clear ownership** of flags across teams
+
+After publishing the article, a discussion with Kevin Marques sparked the idea: *"What if we created a lint rule that automatically triggers an error when a feature flag's expiration date is exceeded? Your CI/CD could run the script, and your IDE would show you in the code where the feature flag is used."*
+
+This insight led to bootstrapping this project to:
+
+1. Provide automated enforcement of feature flag hygiene
+2. Integrate directly with existing developer workflows
+3. Create visibility around outdated flags
+4. Encourage good practices like setting clear expirations
+
+The goal is to build a solution that addresses a wide range of use cases while remaining flexible enough to adapt to different team workflows. I'm open to suggestions and insights from others as we refine this tool together.
 
 ---
 
@@ -64,11 +80,21 @@ eslint-plugin-feature-flags/
   - 📝 [Types](./packages/types/) — TypeScript type definitions
   - 🧩 [Expiration Utils](./packages/expiration-utils/) — Date handling utilities
 
+- **Documentation**
+  - 📚 [Usage Guide](./docs/USAGE.md) — How to install and use the plugin
+  - 📚 [API Reference](./docs/API.md) — Detailed API information
+
 ---
 
 ## 📄 License
 
 See the [LICENSE](LICENSE) file for details.
+
+---
+
+## 📚 Further Reading
+
+- [Effective Feature Flag Management](https://arnaudzg.substack.com/p/effective-feature-flag-management) - The article that inspired this project
 
 ---
 
