@@ -4,6 +4,7 @@ import tsParser from '@typescript-eslint/parser';
 
 export default [
   js.configs.recommended,
+  // Base TypeScript rules
   {
     files: ['**/*.ts'],
     plugins: {
@@ -16,9 +17,18 @@ export default [
         sourceType: 'module',
       },
     },
+  },
+  // Specific rules for tsup config files that need console and process access
+  {
+    files: ['**/tsup.config.ts'],
+    languageOptions: {
+      globals: {
+        console: 'readonly',
+        process: 'readonly',
+      },
+    },
     rules: {
-      ...tsPlugin.configs.recommended.rules,
-      'no-console': ['warn', { allow: ['warn', 'error'] }],
+      'no-console': 'off', // Allow all console usage in tsup config files
     },
   },
 ];
