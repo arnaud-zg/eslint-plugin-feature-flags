@@ -42,7 +42,7 @@ importers:
         specifier: ^3.2.1
         version: 3.2.1(@types/node@20.17.57)
 
-  apps/eslint-plugin-feature-flags:
+  apps/eslint-plugin:
     dependencies:
       '@eslint-plugin-feature-flags/expiration-utils':
         specifier: workspace:^
