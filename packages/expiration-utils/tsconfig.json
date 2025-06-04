@@ -1,11 +1,17 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "rootDir": "src",
     "outDir": "dist",
-    "resolveJsonModule": true,
-    "esModuleInterop": true
+    "rootDir": "."
   },
   "include": ["src/**/*.ts"],
-  "exclude": ["node_modules", "dist"]
+  "files": [
+    "tsup.config.ts",
+    "vitest.config.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "coverage"
+  ]
 }

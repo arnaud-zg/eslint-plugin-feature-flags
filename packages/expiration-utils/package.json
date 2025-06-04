@@ -15,7 +15,8 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.esm.js",
       "default": "./dist/index.esm.js"
-    }
+    },
+    "./package.json": "./package.json"
   },
   "files": [
     "dist"

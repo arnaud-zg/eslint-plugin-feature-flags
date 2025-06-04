@@ -14,7 +14,6 @@ const buildEnvironment = {
   BUILD_TIMESTAMP: new Date().toISOString(),
 };
 
-
 /**
  * Creates a build time logging plugin
  * @returns An esbuild plugin that logs build time
@@ -64,7 +63,7 @@ export default defineConfig({
 
   // Bundle configuration
   splitting: false,
-  sourcemap: false,
+  sourcemap: true,
   clean: true,
   dts: true,
   shims: true,
