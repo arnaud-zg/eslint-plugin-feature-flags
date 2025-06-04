@@ -1,20 +1,17 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-    "esModuleInterop": true,
-    "strict": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
+    // Modern ESM setup
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    
+    // Type generation for packages
     "declaration": true,
-    "declarationMap": true,
-    "sourceMap": true,
-    "composite": true,
-    "noEmit": false,
-    "outDir": "dist",
-    "rootDir": ".",
-    "resolveJsonModule": true
-  },
-  "exclude": ["node_modules", "dist"]
+    
+    // Strong type checking
+    "strict": true,
+    
+    // Build performance
+    "skipLibCheck": true,
+  }
 }
