@@ -75,7 +75,7 @@ export default defineConfig({
   ],
 
   // Optimization options
-  minify: false,
+  minify: true,
   skipNodeModulesBundle: false,
   metafile: true,
   treeshake: true,
