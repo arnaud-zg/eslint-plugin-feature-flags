@@ -3,6 +3,13 @@
   "version": "0.0.1",
   "description": "Lint rules to enforce feature flag hygiene: expire old flags, restrict usage, ensure test coverage.",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/arnaud-zg/eslint-plugin-feature-flags.git",
+    "directory": "apps/eslint-plugin-feature-flags"
+  },
+  "main": "./dist/index.esm.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -10,14 +17,12 @@
       "default": "./dist/index.esm.js"
     }
   },
-  "main": "./dist/index.esm.js",
-  "types": "./dist/index.d.ts",
-  "engines": {
-    "node": "^20.0.0 || ^18.0.0"
-  },
   "files": [
     "dist"
   ],
+  "engines": {
+    "node": "^20.0.0 || ^18.0.0"
+  },
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
