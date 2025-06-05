@@ -1,0 +1,13 @@
+{
+  "name": "eslint-plugin-feature-flags-example",
+  "version": "1.0.0",
+  "description": "Example usage of eslint-plugin-feature-flags",
+  "type": "module",
+  "scripts": {
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "eslint": "^9.0.0"
+  }
+}
+

@@ -42,6 +42,8 @@ This insight led to bootstrapping this project to:
 
 The goal is to build a solution that addresses a wide range of use cases while remaining flexible enough to adapt to different team workflows. I'm open to suggestions and insights from others as we refine this tool together.
 
+📋 **Looking for examples?** Check out our [example project](./examples/test-project/) that demonstrates how to use this plugin with both TypeScript and JavaScript files.
+
 ---
 
 ## 🛠️ Development
@@ -64,6 +66,8 @@ eslint-plugin-feature-flags/
 ├── packages/
 │   ├── types/           # 📝 TypeScript typings
 │   └── expiration-utils/  # 🧩 Utilities for handling expiration dates
+├── examples/
+│   └── test-project/    # 🧪 Example usage with TypeScript and JavaScript
 ├── docs/                # 📚 Documentation
 ├── pnpm-workspace.yaml  # Workspace configuration
 ├── turbo.json           # Turborepo configuration
@@ -79,6 +83,9 @@ eslint-plugin-feature-flags/
 - **Packages**
   - 📝 [Types](./packages/types/) — TypeScript type definitions
   - 🧩 [Expiration Utils](./packages/expiration-utils/) — Date handling utilities
+
+- **Examples**
+  - 🧪 [Test Project](./examples/test-project/) — Example project demonstrating plugin usage with TypeScript and JavaScript
 
 - **Documentation**
   - 📚 [Usage Guide](./docs/USAGE.md) — How to install and use the plugin
