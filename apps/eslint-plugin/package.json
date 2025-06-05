@@ -5,7 +5,7 @@
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "https://github.com/arnaud-zg/eslint-plugin-feature-flags.git",
+    "url": "git+https://github.com/arnaud-zg/eslint-plugin-feature-flags.git",
     "directory": "apps/eslint-plugin-feature-flags"
   },
   "main": "./dist/index.esm.js",
