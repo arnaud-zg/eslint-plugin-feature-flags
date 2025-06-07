@@ -34,7 +34,7 @@ function createBuildTimePlugin(): Plugin {
     setup(build) {
       const startTime = Date.now();
       build.onStart(() => {
-        console.info('\n🚀 [eslint-plugin-feature-flags:expiration-utils] Build started...');
+        console.info('\n🚀 [eslint-plugin-feature-flags:core] Build started...');
       });
       build.onEnd(() => {
         const endTime = Date.now();
@@ -80,7 +80,7 @@ export default defineConfig({
 
   // External dependencies
   noExternal: [
-    '@eslint-plugin-feature-flags/expiration-utils',
+    '@eslint-plugin-feature-flags/core',
     '@eslint-plugin-feature-flags/types',
   ],
 

@@ -65,7 +65,7 @@ eslint-plugin-feature-flags/
 │   └── eslint-plugin/  # 🔍 The main ESLint plugin package
 ├── packages/
 │   ├── types/           # 📝 TypeScript typings
-│   └── expiration-utils/  # 🧩 Utilities for handling expiration dates
+│   └── core/            # 🧩 Utilities for feature flag lifecycle
 ├── examples/
 │   └── test-project/    # 🧪 Example usage with TypeScript and JavaScript
 ├── docs/                # 📚 Documentation
@@ -82,14 +82,10 @@ eslint-plugin-feature-flags/
 
 - **Packages**
   - 📝 [Types](./packages/types/) — TypeScript type definitions
-  - 🧩 [Expiration Utils](./packages/expiration-utils/) — Date handling utilities
+  - 🧩 [Core](./packages/core/) — Rules for managing the lifecycle of feature flags
 
 - **Examples**
   - 🧪 [Test Project](./examples/test-project/) — Example project demonstrating plugin usage with TypeScript and JavaScript
-
-- **Documentation**
-  - 📚 [Usage Guide](./docs/USAGE.md) — How to install and use the plugin
-  - 📚 [API Reference](./docs/API.md) — Detailed API information
 
 ---
 

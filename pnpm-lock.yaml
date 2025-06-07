@@ -44,16 +44,32 @@ importers:
 
   apps/eslint-plugin:
     dependencies:
-      '@eslint-plugin-feature-flags/expiration-utils':
+      '@eslint-plugin-feature-flags/core':
         specifier: workspace:^
-        version: link:../../packages/expiration-utils
+        version: link:../../packages/core
       '@eslint-plugin-feature-flags/types':
         specifier: workspace:^
         version: link:../../packages/types
+      eslint:
+        specifier: '>=8.0.0 <10.0.0'
+        version: 9.28.0
     devDependencies:
       '@eslint-plugin-feature-flags/eslint-config-base':
         specifier: workspace:^
         version: link:../../packages/eslint-config-base
+
+  packages/core:
+    dependencies:
+      '@eslint-plugin-feature-flags/types':
+        specifier: workspace:^
+        version: link:../types
+    devDependencies:
+      '@vitest/coverage-v8':
+        specifier: ^3.2.1
+        version: 3.2.1(vitest@3.2.1(@types/node@20.17.57))
+      vitest:
+        specifier: ^3.2.1
+        version: 3.2.1(@types/node@20.17.57)
 
   packages/eslint-config-base:
     dependencies:
@@ -66,19 +82,6 @@ importers:
       eslint-config-prettier:
         specifier: ^9.0.0
         version: 9.1.0(eslint@9.28.0)
-
-  packages/expiration-utils:
-    dependencies:
-      '@eslint-plugin-feature-flags/types':
-        specifier: workspace:^
-        version: link:../types
-    devDependencies:
-      '@vitest/coverage-v8':
-        specifier: ^3.2.1
-        version: 3.2.1(vitest@3.2.1(@types/node@20.17.57))
-      vitest:
-        specifier: ^3.2.1
-        version: 3.2.1(@types/node@20.17.57)
 
   packages/types: {}
 

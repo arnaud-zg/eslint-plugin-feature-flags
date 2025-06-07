@@ -40,10 +40,13 @@
   "author": "Arnaud Zheng",
   "license": "MIT",
   "dependencies": {
-    "@eslint-plugin-feature-flags/expiration-utils": "workspace:^",
+    "@eslint-plugin-feature-flags/core": "workspace:^",
     "@eslint-plugin-feature-flags/types": "workspace:^"
   },
   "devDependencies": {
     "@eslint-plugin-feature-flags/eslint-config-base": "workspace:^"
+  },
+  "peerDependencies": {
+    "eslint": ">=8.0.0 <10.0.0"
   }
 }

@@ -5,7 +5,7 @@
  * code related to feature flags that have passed their expiration date.
  */
 import { FeatureFlagsConfig, FeatureFlag } from '@eslint-plugin-feature-flags/types';
-import { formatExpirationDate, isExpired } from '@eslint-plugin-feature-flags/expiration-utils';
+import { formatExpirationDate, isExpired } from '@eslint-plugin-feature-flags/core';
 import { Rule } from 'eslint';
 
 /**

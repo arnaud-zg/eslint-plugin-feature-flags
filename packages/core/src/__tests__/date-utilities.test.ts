@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeAll, afterAll } from 'vitest';
 import { isExpired, formatExpirationDate } from '../index.js';
 import type { FeatureFlag } from '@eslint-plugin-feature-flags/types';
 
-describe('expiration-utils', () => {
+describe('core', () => {
   // Fixed current date for consistent tests (June 4, 2025)
   const fixedDate = new Date(2025, 5, 4);
 
