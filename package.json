@@ -9,6 +9,9 @@
   ],
   "scripts": {
     "build": "turbo run build",
+    "changeset": "changeset",
+    "version": "changeset version",
+    "publish": "changeset publish",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "lint:examples": "cd examples/test-project && pnpm lint",
@@ -22,6 +25,8 @@
   "license": "ISC",
   "packageManager": "pnpm@10.11.1",
   "devDependencies": {
+    "@changesets/changelog-github": "^0.5.1",
+    "@changesets/cli": "^2.29.4",
     "@eslint-plugin-feature-flags/eslint-config-base": "workspace:*",
     "@types/eslint": "^8.56.6",
     "@types/node": "^20.12.0",

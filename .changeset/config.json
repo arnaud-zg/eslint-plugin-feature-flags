@@ -1,0 +1,17 @@
+{
+  "$schema": "https://unpkg.com/@changesets/config@3.1.1/schema.json",
+  "changelog": ["@changesets/changelog-github", { "repo": "arnaud-zg/eslint-plugin-feature-flags" }],
+  "commit": false,
+  "fixed": [
+    [
+      "eslint-plugin-feature-flags",
+      "@eslint-plugin-feature-flags/core",
+      "@eslint-plugin-feature-flags/types"
+    ]
+  ],
+  "linked": [],
+  "access": "public",
+  "baseBranch": "main",
+  "updateInternalDependencies": "patch",
+  "ignore": []
+}
