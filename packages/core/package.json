@@ -1,6 +1,6 @@
 {
   "name": "@eslint-plugin-feature-flags/core",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "description": "Utilities for managing expiration of feature flags, including date calculations and validation.",
   "type": "module",
   "repository": {
