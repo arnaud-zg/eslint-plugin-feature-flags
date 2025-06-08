@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-feature-flags",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Lint rules to enforce feature flag hygiene: expire old flags, restrict usage, ensure test coverage.",
   "type": "module",
   "repository": {
@@ -42,9 +42,6 @@
   "dependencies": {
     "@eslint-plugin-feature-flags/core": "workspace:^",
     "@eslint-plugin-feature-flags/types": "workspace:^"
-  },
-  "devDependencies": {
-    "@eslint-plugin-feature-flags/eslint-config-base": "workspace:^"
   },
   "peerDependencies": {
     "eslint": ">=8.0.0 <10.0.0"
