@@ -1,0 +1,18 @@
+{
+  "$schema": "https://unpkg.com/@changesets/config@3.1.1/schema.json",
+  "changelog": ["@changesets/changelog-github", { "repo": "arnaud-zg/blast-shield" }],
+  "commit": false,
+  "fixed": [
+    [
+      "eslint-plugin-feature-flags",
+      "@eslint-plugin-feature-flags/core",
+      "@eslint-plugin-feature-flags/types",
+      "@eslint-plugin-feature-flags/eslint-config-base"
+    ]
+  ],
+  "linked": [],
+  "access": "public",
+  "baseBranch": "main",
+  "updateInternalDependencies": "patch",
+  "ignore": []
+}
