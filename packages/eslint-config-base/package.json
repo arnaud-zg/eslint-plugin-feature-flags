@@ -1,7 +1,6 @@
 {
   "name": "@eslint-plugin-feature-flags/eslint-config-base",
   "version": "0.0.2",
-  "private": true,
   "type": "module",
   "main": "./index.mjs",
   "exports": {
