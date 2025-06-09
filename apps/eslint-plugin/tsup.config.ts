@@ -78,12 +78,6 @@ export default defineConfig({
   dts: true,
   shims: true,
 
-  // External dependencies
-  noExternal: [
-    '@eslint-plugin-feature-flags/core',
-    '@eslint-plugin-feature-flags/types',
-  ],
-
   // Optimization options
   minify: true,
   skipNodeModulesBundle: false,
