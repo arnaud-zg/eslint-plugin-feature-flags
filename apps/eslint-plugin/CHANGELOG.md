@@ -1,5 +1,15 @@
 # eslint-plugin-feature-flags
 
+## 0.0.4
+
+### Patch Changes
+
+- Fix build configuration for ESLint plugin and core packages
+
+- Updated dependencies []:
+  - @eslint-plugin-feature-flags/core@0.0.4
+  - @eslint-plugin-feature-flags/types@0.0.4
+
 ## 0.0.3
 
 ### Patch Changes
