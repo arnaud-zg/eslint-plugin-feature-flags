@@ -63,7 +63,7 @@ export default defineConfig({
 
   // Bundle configuration
   splitting: false,
-  sourcemap: true,
+  sourcemap: false,
   clean: true,
   dts: true,
   shims: true,
