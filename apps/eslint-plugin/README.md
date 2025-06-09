@@ -5,7 +5,7 @@
 </p>
 
 <div align="center">
-  <b>ESLint plugin to help manage feature flags and detect flags that should be removed based on their expiration dates.</b>
+  <b>ESLint plugin for feature flag hygiene and prevent technical debt by automatically detecting expired flags.</b>
 </div>
 
 ---

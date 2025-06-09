@@ -5,7 +5,7 @@
 </p>
 
 <div align="center">
-  <b>ESLint plugin to enforce feature flag hygiene and prevent technical debt by automatically detecting expired flags.</b>
+  <b>ESLint plugin for feature flag hygiene and prevent technical debt by automatically detecting expired flags.</b>
 </div>
 
 ---
@@ -33,14 +33,7 @@ In my experience, feature flags often start with good intentions but can quickly
 
 After publishing the article, a discussion with Kevin Marques sparked the idea: *"What if we created a lint rule that automatically triggers an error when a feature flag's expiration date is exceeded? Your CI/CD could run the script, and your IDE would show you in the code where the feature flag is used."*
 
-This insight led to bootstrapping this project to:
-
-1. Provide automated enforcement of feature flag hygiene
-2. Integrate directly with existing developer workflows
-3. Create visibility around outdated flags
-4. Encourage good practices like setting clear expirations
-
-The goal is to build a solution that addresses a wide range of use cases while remaining flexible enough to adapt to different team workflows. I'm open to suggestions and insights from others as we refine this tool together.
+This insight led to bootstrapping this project. The goal is to build a solution for a large use cases while remaining flexible enough. I'm open to suggestions and insights from others as we refine this tool together.
 
 📋 **Looking for examples?** Check out our [example project](./examples/test-project/) that demonstrates how to use this plugin with both TypeScript and JavaScript files.
 
