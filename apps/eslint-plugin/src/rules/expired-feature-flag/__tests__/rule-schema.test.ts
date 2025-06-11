@@ -1,3 +1,4 @@
+/** Tests for the expired-feature-flag rule schema */
 import { describe, it, expect } from 'vitest';
 import rule from '..';
 
@@ -20,6 +21,7 @@ describe('expired-feature-flag rule configuration', () => {
                 additionalProperties: false,
               },
             },
+            // Custom identifiers for feature flag functions
             identifiers: {
               type: 'array',
               items: {
