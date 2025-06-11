@@ -1,17 +1,13 @@
-/**
- * ESLint Plugin for Feature Flag Management
- *
- * @see https://github.com/your-username/eslint-plugin-feature-flags
- */
+/** ESLint Plugin for Feature Flag Management */
 import expiredFeatureFlagRule from './rules/expired-feature-flag';
+import noUndefinedFeatureFlagsRule from './rules/no-undefined-feature-flags';
 import { configs } from './configs';
 
-/**
- * Export the plugin with all available rules and configs
- */
+
 export default {
   rules: {
     'expired-feature-flag': expiredFeatureFlagRule,
+    'no-undefined-feature-flags': noUndefinedFeatureFlagsRule,
   },
   configs,
 };

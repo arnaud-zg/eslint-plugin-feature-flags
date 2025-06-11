@@ -1,28 +1,26 @@
-/**
- * Pre-configured ESLint settings for different use cases
- */
+/** Pre-configured ESLint settings */
 export const configs = {
-  // Recommended configuration - catches the most important issues
   recommended: {
     plugins: ['feature-flags'],
     rules: {
       'feature-flags/expired-feature-flag': 'error',
+      'feature-flags/no-undefined-feature-flags': 'error',
     },
   },
 
-  // Strict configuration - enforces all best practices
   strict: {
     plugins: ['feature-flags'],
     rules: {
       'feature-flags/expired-feature-flag': 'error',
+      'feature-flags/no-undefined-feature-flags': 'error',
     },
   },
 
-  // Base configuration with warnings instead of errors
   base: {
     plugins: ['feature-flags'],
     rules: {
       'feature-flags/expired-feature-flag': 'warn',
+      'feature-flags/no-undefined-feature-flags': 'warn',
     },
   },
 };
