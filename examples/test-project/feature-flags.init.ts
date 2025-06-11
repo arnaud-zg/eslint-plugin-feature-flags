@@ -1,6 +1,4 @@
-/**
- * Type definition for feature flags
- */
+/** Type definition for feature flags */
 export type FeatureFlags = {
   'new-homepage': boolean;
   'dark-mode': boolean;
@@ -8,9 +6,7 @@ export type FeatureFlags = {
   'experimental-search': boolean;
 };
 
-/**
- * Map of feature flags and their status
- */
+/** Map of feature flags and their status */
 export const FLAGS: FeatureFlags = {
   'new-homepage': true,
   'dark-mode': false, 

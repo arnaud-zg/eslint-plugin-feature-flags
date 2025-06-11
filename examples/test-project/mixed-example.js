@@ -2,7 +2,7 @@
  * Mixed example - JavaScript file demonstrating both valid and expired feature flags
  * This file is intentionally kept as JavaScript to show the plugin works with both JS and TS
  */
-import { getFeatureFlag, isFeatureEnabled } from './feature-flags.js';
+import { getFeatureFlag, isFeatureEnabled } from './feature-flags.helpers';
 
 /**
  * Function demonstrating mixed feature flag usage
