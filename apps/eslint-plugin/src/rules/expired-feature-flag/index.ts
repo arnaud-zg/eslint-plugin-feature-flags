@@ -1,16 +1,9 @@
-/**
- * ESLint rule to detect and report usage of expired feature flags
- *
- * This rule helps teams maintain clean code by identifying and removing
- * code related to feature flags that have passed their expiration date.
- */
+/** ESLint rule to detect and report usage of expired feature flags */
 import { FeatureFlagsConfig, FeatureFlag } from '@eslint-plugin-feature-flags/types';
 import { formatExpirationDate, isExpired } from '@eslint-plugin-feature-flags/core';
 import { Rule } from 'eslint';
 
-/**
- * The ESLint rule definition
- */
+
 const rule: Rule.RuleModule = {
   meta: {
     type: 'problem',

@@ -1,9 +1,8 @@
-import { customFlagFunction } from './helpers.js';
+// Expired feature flags with custom accessor functions
+import { customFlagFunction, checkFlag } from './helpers';
 
-// This file uses a custom accessor function for feature flags
-export function demoFunction(): void {
-  // This should trigger an error since 'expired-flag' has expired
-  // and 'customFlagFunction' is configured as an identifier
+// Custom function usage
+export function customFunctionUsage(): void {
   const enabled = customFlagFunction('expired-flag');
 
   if (enabled) {
@@ -11,6 +10,25 @@ export function demoFunction(): void {
   } else {
     console.log('Feature is disabled!');
   }
+  
+  // Another custom function that should be configured
+  if (checkFlag('legacy-feature')) {
+    console.log('Legacy feature is still enabled');
+  }
 }
 
-demoFunction();
+// Multiple custom functions
+export function multipleCustomFunctions(): void {
+  // Custom functions with expired flags
+  const flag1 = customFlagFunction('expired-flag');
+  const flag2 = checkFlag('expired-flag');
+  
+  // Different expired flags
+  const legacy1 = customFlagFunction('legacy-feature');
+  const legacy2 = customFlagFunction('deprecated-feature');
+  
+  console.log(flag1, flag2, legacy1, legacy2);
+}
+
+// Export for reuse in tests
+export { customFunctionUsage, multipleCustomFunctions };
