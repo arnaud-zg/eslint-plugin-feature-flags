@@ -1,6 +1,6 @@
-# @eslint-plugin-feature-flags/core
+# @eslint-plugin-feature-flags/eslint-config-base
 
-## 0.1.1
+## 0.0.3
 
 ### Patch Changes
 
@@ -19,31 +19,3 @@
   - Updated helper functions, test fixtures, and utilities.
   - Created an example project with test cases to demonstrate real-world usage.
   - Refactored related logic for expired and undefined flags.
-
-- Updated dependencies []:
-  - @eslint-plugin-feature-flags/types@0.1.1
-
-## 0.1.0
-
-### Patch Changes
-
-- Updated dependencies []:
-  - @eslint-plugin-feature-flags/types@0.1.0
-
-## 0.0.4
-
-### Patch Changes
-
-- Fix build configuration for ESLint plugin and core packages
-
-- Updated dependencies []:
-  - @eslint-plugin-feature-flags/types@0.0.4
-
-## 0.0.3
-
-### Patch Changes
-
-- Initial release with expired-feature-flag rule and proper ESLint v8-v9 compatibility
-
-- Updated dependencies []:
-  - @eslint-plugin-feature-flags/types@0.0.3

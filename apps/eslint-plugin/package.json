@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-feature-flags",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Lint rules to enforce feature flag hygiene: expire old flags, restrict usage, ensure test coverage.",
   "type": "module",
   "repository": {
