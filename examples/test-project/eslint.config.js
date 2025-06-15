@@ -1,25 +1,28 @@
-import { baseConfig } from '../../packages/eslint-config-base/index.mjs';
-import { typescriptConfig } from '../../packages/eslint-config-base/typescript.mjs';
+// Import dependencies
+import { fileURLToPath } from 'node:url';
 
+// Import ESLint plugins
 import featureFlagsPlugin from '../../apps/eslint-plugin/dist/index.esm.js';
+import typescript from '@typescript-eslint/eslint-plugin';
+import tsParser from '@typescript-eslint/parser';
 
 // Define feature flags configuration once and reuse across rules
 const featureFlagsConfig = {
-  'new-homepage': {
-    expires: '2106-12-31',
-    description: 'New homepage redesign',
+  'enable-ui-v1': {
+    expires: '2025-01-01',
+    description: 'Legacy UI components',
   },
-  'dark-mode': {
-    expires: '2106-06-30',
-    description: 'Dark mode feature',
+  'enable-beta-feature': {
+    expires: '2025-12-31',
+    description: 'Beta features under testing',
   },
-  'legacy-feature': {
-    expires: '2023-01-01',
-    description: 'Legacy feature that should be removed',
+  'enable-dark-mode': {
+    expires: '2026-06-30',
+    description: 'Dark mode support',
   },
-  'experimental-search': {
-    expires: '2106-01-01',
-    description: 'Experimental search functionality',
+  'enable-analytics': {
+    expires: '2026-01-15',
+    description: 'Analytics tracking',
   },
 };
 
@@ -30,11 +33,20 @@ const ruleOptions = {
 };
 
 export default [
-  ...baseConfig,
-  ...typescriptConfig,
   {
+    ignores: ['**/dist/**', '**/node_modules/**'],
     files: ['**/*.js', '**/*.ts'],
+    plugins: {
+      '@typescript-eslint': typescript
+    },
     languageOptions: {
+      ecmaVersion: 2022,
+      sourceType: 'module',
+      parser: tsParser,
+      parserOptions: {
+        ecmaVersion: 2022,
+        project: "./tsconfig.json"
+      },
       globals: {
         console: 'readonly',
       },
@@ -52,6 +64,13 @@ export default [
     rules: {
       'feature-flags/expired-feature-flag': ['error', ruleOptions],
       'feature-flags/no-undefined-feature-flags': ['error', ruleOptions],
+      'feature-flags/cleanup-feature-flag': ['warn', {
+        ...ruleOptions,
+        flagsToCleanup: {
+          'enable-ui-v1': 'preserve-enabled-path',
+          'enable-beta-feature': 'preserve-disabled-path',
+        }
+      }],
     },
   },
 ];
