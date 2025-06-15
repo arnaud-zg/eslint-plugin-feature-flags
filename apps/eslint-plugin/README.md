@@ -5,10 +5,8 @@
 </p>
 
 <div align="center">
-  <b>ESLint plugin for feature flag hygiene and prevent technical debt</b>
+  ESLint plugin to manage feature flags and prevent technical debt
 </div>
-
----
 
 <div align="center">
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a>
@@ -17,330 +15,375 @@
   <a href="https://nodejs.org"><img src="https://img.shields.io/badge/node-v18+-green.svg" alt="Node"></a>
 </div>
 
----
+## Table of Contents
 
-## What This Plugin Does
+- [Overview](#overview)
+- [Quick Start](#quick-start)
+- [Available Rules](#available-rules)
+  - [1. expired-feature-flag](#1-expired-feature-flag)
+  - [2. no-undefined-feature-flags](#2-no-undefined-feature-flags)
+  - [3. cleanup-feature-flag](#3-cleanup-feature-flag)
+- [Configuration Examples](#configuration-examples)
+- [Common Setup Pattern](#common-setup-pattern)
+- [Best Practices](#best-practices)
+- [Troubleshooting](#troubleshooting)
 
-`eslint-plugin-feature-flags` provides rules to enforce feature flag hygiene in your codebase by:
+## Overview
 
-- 🔍 **Detecting expired feature flags** that should be removed
-- ⚠️ **Preventing undefined feature flags** to avoid typos and mistakes
-- 🚨 **Warning about technical debt** before it piles up
+This ESLint plugin helps you:
 
----
+- 🔍 Detect expired feature flags
+- ⚠️ Prevent undefined feature flag usage
+- 🚨 Clean up technical debt
 
-## 📦 Installation
+## Quick Start
 
-### npm
+### Install
 
 ```bash
 npm install --save-dev eslint-plugin-feature-flags
 ```
 
-### yarn
+### Configure
 
-```bash
-yarn add --dev eslint-plugin-feature-flags
+```js
+// eslint.config.js (ESLint v9+)
+import featureFlags from 'eslint-plugin-feature-flags';
+
+const config = {
+  'new-feature': {
+    expires: '2025-12-31',
+    description: 'New feature rollout',
+  }
+};
+
+export default [
+  featureFlags.configs.recommended,
+  {
+    plugins: { 'feature-flags': featureFlags },
+    rules: {
+      'feature-flags/expired-feature-flag': ['error', {
+        featureFlags: config,
+        identifiers: ['isFeatureEnabled']
+      }]
+    }
+  }
+];
 ```
 
-### pnpm
+### Use in Your Code
 
-```bash
-pnpm add --save-dev eslint-plugin-feature-flags
+```typescript
+// Define your feature flags
+type Features = {
+  'new-feature': boolean;
+};
+
+const FLAGS: Features = {
+  'new-feature': false
+};
+
+function isFeatureEnabled(flag: keyof Features): boolean {
+  return FLAGS[flag];
+}
+
+// ESLint will check this usage
+if (isFeatureEnabled('new-feature')) {
+  // New code
+} else {
+  // Old code
+}
 ```
 
----
+## Available Rules
 
-## ⚙️ Setting Up Your Configuration
+This plugin provides three powerful rules to help manage feature flags throughout their lifecycle.
 
-### Using ESLint Flat Config (ESLint v9+)
+### 1. expired-feature-flag
+
+**Purpose**: Detects usage of feature flags that have passed their expiration date.
+
+```js
+// Configuration
+{
+  'feature-flags/expired-feature-flag': ['error', {
+    featureFlags: {
+      'old-feature': {
+        expires: '2025-01-01',
+        description: 'Deprecated feature'
+      }
+    },
+    identifiers: ['isFeatureEnabled']
+  }]
+}
+```
+
+**Examples**:
+```js
+// ❌ Error: Feature flag "old-feature" expired on 2025-01-01
+if (isFeatureEnabled('old-feature')) {
+  doSomething();
+}
+
+// ✅ OK: Feature not expired
+if (isFeatureEnabled('new-feature')) {
+  doSomething();
+}
+```
+
+### 2. no-undefined-feature-flags
+
+**Purpose**: Prevents typos and references to flags not defined in your configuration.
+
+```js
+// Configuration
+{
+  'feature-flags/no-undefined-feature-flags': ['error', {
+    featureFlags: {
+      'enable-dark-mode': {
+        expires: '2025-12-31'
+      }
+    },
+    identifiers: ['isFeatureEnabled']
+  }]
+}
+```
+
+**Examples**:
+```js
+// ❌ Error: Feature flag "unknown-flag" is not defined
+if (isFeatureEnabled('unknown-flag')) {
+  doSomething();
+}
+
+// ✅ OK: Feature is defined in config
+if (isFeatureEnabled('enable-dark-mode')) {
+  doSomething();
+}
+```
+
+### 3. cleanup-feature-flag
+
+**Purpose**: Automates the removal of feature flag code with three strategies.
+
+```js
+// Configuration
+{
+  'feature-flags/cleanup-feature-flag': ['warn', {
+    identifiers: ['isFeatureEnabled'],
+    flagsToCleanup: {
+      'legacy-ui': 'preserve-enabled-path',      // Keep the "if" branch
+      'enable-beta-feature': 'preserve-disabled-path',  // Keep the "else" branch
+      'temp-flag': 'remove-entirely'             // Remove the entire statement
+    }
+  }]
+}
+```
+
+**Cleanup Strategies**:
+
+1. **preserve-enabled-path**: Keeps only the code inside the "if" condition
+   ```js
+   // Before:
+   if (isFeatureEnabled('legacy-ui')) {
+     showNewUI();
+   } else {
+     showOldUI();
+   }
+
+   // After:
+   showNewUI();
+   ```
+
+2. **preserve-disabled-path**: Keeps only the code inside the "else" condition
+   ```js
+   // Before:
+   if (isFeatureEnabled('enable-beta-feature')) {
+     enableBeta();
+   } else {
+     useStable();
+   }
+
+   // After:
+   useStable();
+   ```
+
+3. **remove-entirely**: Removes the entire statement
+   ```js
+   // Before:
+   if (isFeatureEnabled('temp-flag')) {
+     doTemporaryThing();
+   }
+
+   // After:
+   // (code removed)
+   ```
+
+## Configuration Examples
+
+### ESLint v9+ (Flat Config)
 
 ```js
 // eslint.config.js
 import featureFlags from 'eslint-plugin-feature-flags';
 
-// List all your feature flags here with their expiration dates
-const featureFlagsConfig = {
-  'new-homepage': {
+// Define your feature flags
+const flags = {
+  'ui-v1': {
+    expires: '2025-01-01',
+    description: 'Legacy UI (deprecated)',
+  },
+  'ui-v2': {
     expires: '2025-12-31',
-    description: 'New homepage redesign with improved UX',
-  },
-  'dark-mode': {
-    expires: '2025-06-30',
-    description: 'Dark mode theme toggle for all pages',
-  },
-  'legacy-feature': {
-    expires: '2023-01-01', // This one has expired!
-    description: 'Old checkout flow that should be removed',
-  },
+    description: 'Current UI version',
+  }
 };
 
-// Tell the plugin which functions you use to access your flags
-const ruleOptions = {
-  featureFlags: featureFlagsConfig,
-  identifiers: ['getFeatureFlag', 'isFeatureEnabled'],
+// Shared options for rules
+const options = {
+  featureFlags: flags,
+  identifiers: ['isFeatureEnabled', 'getFlag'],
 };
 
 export default [
-  // Quick setup: use the recommended config
   featureFlags.configs.recommended,
-
-  // Or customize it yourself
   {
-    plugins: {
-      'feature-flags': featureFlags,
-    },
+    plugins: { 'feature-flags': featureFlags },
     rules: {
-      'feature-flags/expired-feature-flag': ['error', ruleOptions],
-      'feature-flags/no-undefined-feature-flags': ['error', ruleOptions],
+      // Detect expired flags
+      'feature-flags/expired-feature-flag': ['error', options],
+      
+      // Prevent undefined flags
+      'feature-flags/no-undefined-feature-flags': ['error', options],
+      
+      // Clean up old flags
+      'feature-flags/cleanup-feature-flag': ['warn', {
+        ...options,
+        flagsToCleanup: {
+          'ui-v1': 'preserve-enabled-path'
+        }
+      }]
     },
   },
 ];
 ```
 
-### Using Traditional ESLint Config (ESLint v8 and earlier)
+### ESLint v8 and Earlier
 
 ```js
 // .eslintrc.js
-
-// List all your feature flags here with their expiration dates
-const featureFlagsConfig = {
-  'new-homepage': {
+const flags = {
+  'ui-v1': {
+    expires: '2025-01-01',
+    description: 'Legacy UI (deprecated)',
+  },
+  'ui-v2': {
     expires: '2025-12-31',
-    description: 'New homepage redesign with improved UX',
-  },
-  'dark-mode': {
-    expires: '2025-06-30',
-    description: 'Dark mode theme toggle for all pages',
-  },
-  'legacy-feature': {
-    expires: '2023-01-01', // This one has expired!
-    description: 'Old checkout flow that should be removed',
-  },
-};
-
-// Tell the plugin which functions you use to access your flags
-const ruleOptions = {
-  featureFlags: featureFlagsConfig,
-  identifiers: ['getFeatureFlag', 'isFeatureEnabled'],
+    description: 'Current UI version',
+  }
 };
 
 module.exports = {
   plugins: ['feature-flags'],
-  extends: [
-    // Quick setup: use the recommended configuration
-    'plugin:feature-flags/recommended',
-  ],
+  extends: ['plugin:feature-flags/recommended'],
   rules: {
-    // Or customize the rules yourself
-    'feature-flags/expired-feature-flag': ['error', ruleOptions],
-    'feature-flags/no-undefined-feature-flags': ['error', ruleOptions],
+    'feature-flags/expired-feature-flag': ['error', {
+      featureFlags: flags,
+      identifiers: ['isFeatureEnabled']
+    }],
+    'feature-flags/no-undefined-feature-flags': ['error', {
+      featureFlags: flags,
+      identifiers: ['isFeatureEnabled']
+    }],
   },
 };
 ```
 
----
+## Common Setup Pattern
 
-## 🔍 Rules to Keep Your Codebase Clean
+A typical setup follows these steps:
 
-### `expired-feature-flag`
+1. **Define your feature flags in a central file**
 
-Detects usage of feature flags that have passed their expiration date.
+```ts
+// feature-flags.ts
+export const FLAGS = {
+  'enable-dark-mode': false,
+  'experimental-ui': false,
+  'enable-beta-feature': false
+};
 
-#### What you need to configure:
+export type FeatureFlag = keyof typeof FLAGS;
 
-- `featureFlags` (required): An object with all your flags and their details:
-  - `expires`: When should this flag be removed? Use YYYY-MM-DD format (e.g., "2023-12-31")
-  - `description`: What does this flag do? Help your future self and teammates understand
-- `identifiers`: What function names do you use to access flags? Defaults to just `['getFeatureFlag']` but you can add more.
-
-#### What you'll see when there's a problem:
-When a flag has expired, you'll see an error like:
-
-```
-Feature flag "legacy-feature" has expired on January 1, 2023. It should be removed.
-```
-
-### `no-undefined-feature-flags`
-
-Detects usage of feature flags and references to flags don't exist.
-
-#### What you need to configure:
-
-- `featureFlags` (required): Same object as above with all your flags defined
-- `identifiers`: Same as above - all the functions you use to get flag values
-
-#### What you'll see when there's a problem:
-
-```
-Feature flag "new-hompage" is not defined in the ESLint configuration.
+export function isFeatureEnabled(flag: FeatureFlag): boolean {
+  return FLAGS[flag];
+}
 ```
 
----
-
-## 📚 Pre-configured Configs
-
-### `recommended`
-
-Enables both rules with 'error' severity.
+2. **Configure the ESLint plugin**
 
 ```js
-{
-  plugins: ['feature-flags'],
-  rules: {
-    'feature-flags/expired-feature-flag': 'error',
-    'feature-flags/no-undefined-feature-flags': 'error',
+// eslint.config.js
+import featureFlags from 'eslint-plugin-feature-flags';
+
+const flagDefinitions = {
+  'enable-dark-mode': {
+    expires: null, // permanent flag
+    description: 'Dark mode theme option'
   },
-}
-```
-
-### `strict`
-
-Same as recommended for now, may include additional rules in the future.
-
-### `base`
-
-Enables both rules with 'warn' severity.
-
-```js
-{
-  plugins: ['feature-flags'],
-  rules: {
-    'feature-flags/expired-feature-flag': 'warn',
-    'feature-flags/no-undefined-feature-flags': 'warn',
+  'experimental-ui': {
+    expires: '2025-12-31',
+    description: 'New UI components being tested'
   },
-}
-```
-
----
-
-## 🌟 Examples
-
-### Set Up Your Feature Flag System
-
-Here's a simple TypeScript implementation to get you started:
-
-```typescript
-// src/utils/feature-flags.ts
-type FeatureFlags = {
-  'new-homepage': boolean;
-  'dark-mode': boolean;
-  'legacy-feature': boolean;
+  'enable-beta-feature': {
+    expires: '2025-06-30',
+    description: 'Beta feature for select users'
+  }
 };
 
-const FLAGS: FeatureFlags = {
-  'new-homepage': true,
-  'dark-mode': false,
-  'legacy-feature': false,
-};
-
-export function getFeatureFlag<T extends keyof FeatureFlags>(name: T): FeatureFlags[T] {
-  return FLAGS[name];
-}
-
-export function isFeatureEnabled<T extends keyof FeatureFlags>(name: T): boolean {
-  return !!FLAGS[name];
-}
-```
-
-### Using Flags in Your Components
-
-Let's see what happens in a typical component:
-
-```typescript
-// src/components/Homepage.tsx
-import { getFeatureFlag } from '../utils/feature-flags';
-
-export function Homepage() {
-  // If 'legacy-feature' has expired, ESLint will warn you to clean this up
-  if (getFeatureFlag('legacy-feature')) {
-    return <LegacyHomepage />;
+export default [
+  featureFlags.configs.recommended,
+  {
+    plugins: { 'feature-flags': featureFlags },
+    rules: {
+      'feature-flags/expired-feature-flag': ['error', {
+        featureFlags: flagDefinitions,
+        identifiers: ['isFeatureEnabled']
+      }],
+      'feature-flags/no-undefined-feature-flags': ['error', {
+        featureFlags: flagDefinitions,
+        identifiers: ['isFeatureEnabled']
+      }]
+    }
   }
+];
+```
 
-  // No warning here if 'new-homepage' is still active
-  if (getFeatureFlag('new-homepage')) {
-    return <NewHomepage />;
+3. **Use the flags in your code**
+
+```ts
+import { isFeatureEnabled } from './feature-flags';
+
+function renderButton() {
+  if (isFeatureEnabled('experimental-ui')) {
+    return <NewButton />;
   }
-
-  return <DefaultHomepage />;
+  return <Button />;
 }
 ```
 
-### React Example with Multiple Flags
+## Best Practices
 
-Here's how you'd use multiple flags in a React component:
+- **Set realistic expiration dates** - Plan your feature deprecation timeline
+- **Document all flags** - Add meaningful descriptions for each flag
+- **Schedule regular cleanups** - Remove flags after they're no longer needed
+- **Add to CI pipeline** - Catch issues before they reach production
+- **Centralize flag management** - Keep definitions in one place
+- **Use typed flags** - Get TypeScript autocomplete and validation
 
-```jsx
-// src/components/App.jsx
-import React from 'react';
-import { getFeatureFlag } from '../utils/feature-flags';
+## Troubleshooting
 
-function App() {
-  const showNewUI = getFeatureFlag('new-homepage');
-  const enableDarkMode = getFeatureFlag('dark-mode');
-  // This will trigger an ESLint error if the flag has expired
-  const useOldCheckout = getFeatureFlag('legacy-feature');
-
-  return (
-    <div className={enableDarkMode ? 'dark-theme' : 'light-theme'}>
-      <Header />
-      {showNewUI ? <NewContent /> : <LegacyContent />}
-      {useOldCheckout && <OldCheckoutProcess />}
-    </div>
-  );
-}
-```
-
----
-
-## 🔧 Adding to Your CI/CD Pipeline
-
-Add the ESLint check to your CI pipeline to prevent merging code with expired feature flags:
-
-```yaml
-# .github/workflows/lint.yml
-name: Lint
-on: [push, pull_request]
-jobs:
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-      - run: npm ci
-      - run: npm run lint
-```
-
----
-
-## 📋 Best Practices for Feature Flag Success
-
-1. **Be realistic with expiration dates** - Don't set a date next week if you know it'll take a month. Give your team enough time to properly clean up the code.
-
-2. **Explain what your flags do** - Future you will thank you for using the `description` field to document what each flag controls.
-
-3. **Schedule regular clean-up days** - Make it a habit to run linting and remove expired flags. "Flag Friday" anyone?
-
-4. **Let your CI/CD help you** - Add the ESLint plugin to your CI pipeline so you catch expired flags before they make it to production.
-
-5. **Keep your flags in one place** - Centralizing your feature flag management makes them much easier to track and update.
-
-6. **Define every flag you use** - Adding all flags to your ESLint config helps catch typos and prevents those "why isn't my flag working?" debugging sessions.
-
----
-
-## 💡 Troubleshooting
-
-### Rule not working as expected?
-
-If you're not seeing the linting results you expect:
-
-1. Double-check your plugin installation and config a simple typo can break things.
-
-2. Make sure your feature flag function names match what you put in the `identifiers` option.
-
-3. Check your date formats - they must be YYYY-MM-DD (e.g., 2023-12-31).
-
-4. Verify that ESLint is actually using your configuration file.
+- **Plugin not working?** - Check that it's correctly installed
+- **Rules not triggering?** - Ensure function names match your `identifiers` config
+- **Date issues?** - Use `YYYY-MM-DD` format for all dates
+- **Config not found?** - Check that ESLint is finding your config file
