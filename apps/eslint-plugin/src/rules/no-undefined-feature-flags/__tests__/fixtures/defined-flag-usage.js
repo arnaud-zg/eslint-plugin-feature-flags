@@ -6,11 +6,11 @@ import { getFeatureFlag, isFeatureEnabled, checkFlag, getFeatureConfig } from '.
 
 // Basic cases - direct function calls with string literals
 const homepage = getFeatureFlag('new-homepage');      // Valid: defined flag
-const darkMode = isFeatureEnabled('dark-mode');       // Valid: defined flag
+const darkMode = isFeatureEnabled('enable-dark-mode');       // Valid: defined flag
 const featureA = checkFlag('feature-a');              // Valid: defined flag
 
 // Different function calls with the same flags
-const darkModeConfig = getFeatureConfig('dark-mode'); // Valid: defined flag
+const darkModeConfig = getFeatureConfig('enable-dark-mode'); // Valid: defined flag
 const homepageStatus = {
   enabled: isFeatureEnabled('new-homepage'),          // Valid: defined flag
   config: getFeatureConfig('new-homepage')            // Valid: defined flag
@@ -24,7 +24,7 @@ const templateLiteral = getFeatureFlag(`${flagName}`); // Valid: defined flag
 function conditionalFeatureUsage() {
   if (getFeatureFlag('new-homepage')) {
     enableNewHomepage();
-  } else if (isFeatureEnabled('dark-mode')) {
+  } else if (isFeatureEnabled('enable-dark-mode')) {
     enableDarkMode();
   }
 }

@@ -1,12 +1,13 @@
 /** Tests for the no-undefined-feature-flags rule visitor */
 import { describe } from 'vitest';
 import { RuleTester } from 'eslint';
+import * as parser from '@typescript-eslint/parser';
 import rule from '..';
 
 describe('no-undefined-feature-flags rule visitor', () => {
   const ruleTester = new RuleTester({
     languageOptions: {
-      parser: require('@typescript-eslint/parser'),
+      parser,
       ecmaVersion: 2022,
       sourceType: 'module',
     },
@@ -16,7 +17,7 @@ describe('no-undefined-feature-flags rule visitor', () => {
       expires: '2025-12-31',
       description: 'New homepage redesign',
     },
-    'dark-mode': {
+    'enable-dark-mode': {
       expires: '2025-06-30',
       description: 'Dark mode feature',
     },
@@ -40,7 +41,7 @@ describe('no-undefined-feature-flags rule visitor', () => {
       },
       {
         name: 'Custom identifier with defined flag',
-        code: 'const enabled = isFeatureEnabled("dark-mode");',
+        code: 'const enabled = isFeatureEnabled("enable-dark-mode");',
         options: [{ 
           featureFlags: featureFlagsConfig,
           identifiers: ['isFeatureEnabled', 'getFeatureFlag'],
@@ -50,7 +51,7 @@ describe('no-undefined-feature-flags rule visitor', () => {
         name: 'Multiple valid flags with different accessor functions',
         code: `
           const homepage = getFeatureFlag('new-homepage');
-          const darkMode = isFeatureEnabled("dark-mode");
+          const darkMode = isFeatureEnabled("enable-dark-mode");
           const featureA = checkFlag('feature-a');
         `,
         options: [{ 
@@ -70,12 +71,12 @@ describe('no-undefined-feature-flags rule visitor', () => {
       {
         name: 'Feature flags in complex expressions',
         code: `
-          if (getFeatureFlag('new-homepage') && getFeatureFlag('dark-mode')) {
+          if (getFeatureFlag('new-homepage') && getFeatureFlag('enable-dark-mode')) {
             console.log('Both features enabled');
           }
           const config = {
             homepage: getFeatureFlag('new-homepage'),
-            darkMode: getFeatureFlag('dark-mode')
+            darkMode: getFeatureFlag('enable-dark-mode')
           };
         `,
         options: [{ featureFlags: featureFlagsConfig }],
@@ -120,11 +121,11 @@ describe('no-undefined-feature-flags rule visitor', () => {
       },
       {
         name: 'Wrong case in flag name',
-        code: 'const flag = getFeatureFlag("Dark-Mode");', // Wrong case
+        code: 'const flag = getFeatureFlag("enable-dark-mode");', // Wrong case
         options: [{ featureFlags: featureFlagsConfig }],
         errors: [{
           messageId: 'undefinedFeatureFlag',
-          data: { name: 'Dark-Mode' },
+          data: { name: 'enable-dark-mode' },
         }],
       },
       
@@ -192,7 +193,7 @@ describe('no-undefined-feature-flags rule visitor', () => {
             invalid: getFeatureFlag('unpublished-feature')
           };
           someFunction(
-            getFeatureFlag('dark-mode'),
+            getFeatureFlag('enable-dark-mode'),
             getFeatureFlag('missing-feature')
           );
         `,

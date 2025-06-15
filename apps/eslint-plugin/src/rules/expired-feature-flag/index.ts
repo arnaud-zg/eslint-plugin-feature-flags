@@ -97,7 +97,7 @@ const rule: Rule.RuleModule = {
     return {
       /**
        * Checks string literals that might directly reference feature flags
-       * Example: 'legacy-ui' in const flag = 'legacy-ui';
+       * Example: 'enable-ui-v1' in const flag = 'enable-ui-v1';
        */
       Literal(node) {
         if (typeof node.value === 'string') {
@@ -107,7 +107,7 @@ const rule: Rule.RuleModule = {
 
       /**
        * Checks feature flag access functions
-       * Example: getFeatureFlag('legacy-ui')
+       * Example: getFeatureFlag('enable-ui-v1')
        */
       CallExpression(node) {
         if (
@@ -125,7 +125,7 @@ const rule: Rule.RuleModule = {
        * Checks object property access that might reference feature flags
        * Examples:
        * - flags.legacyUI (dot notation)
-       * - flags['legacy-ui'] (bracket notation)
+       * - flags['enable-ui-v1'] (bracket notation)
        */
       MemberExpression(node) {
         // Check property access with dot notation (obj.prop)

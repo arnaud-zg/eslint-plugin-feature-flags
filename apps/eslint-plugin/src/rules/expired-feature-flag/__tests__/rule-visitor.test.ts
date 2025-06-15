@@ -65,11 +65,11 @@ describe('expired-feature-flag rule (no mocks)', () => {
       const testOptions = [
         {
           featureFlags: {
-            'legacy-feature': {
+            'enable-ui-v1': {
               expires: '2025-01-01',  // Expired feature
               description: 'A feature that has expired'
             },
-            'active-feature': {
+            'enable-ui-v2': {
               expires: '2026-01-01',  // Active feature
               description: 'A feature that has not expired yet'
             }
@@ -82,7 +82,7 @@ describe('expired-feature-flag rule (no mocks)', () => {
         ruleTester.run('expired-feature-flag', rule, {
           valid: [
             {
-              code: `const activeFeature = 'active-feature';`,
+              code: `const activeFeature = 'enable-ui-v2';`,
               options: testOptions
             },
             {
@@ -92,7 +92,7 @@ describe('expired-feature-flag rule (no mocks)', () => {
           ],
           invalid: [
             {
-              code: `const legacyFeature = 'legacy-feature';`,
+              code: `const legacyFeature = 'enable-ui-v1';`,
               options: testOptions,
               errors: [{ messageId: 'expiredFeatureFlag' }]
             }
@@ -104,17 +104,17 @@ describe('expired-feature-flag rule (no mocks)', () => {
         ruleTester.run('expired-feature-flag', rule, {
           valid: [
             {
-              code: `getFeatureFlag('active-feature');`,
+              code: `getFeatureFlag('enable-ui-v2');`,
               options: testOptions
             },
             {
-              code: `otherFunction('legacy-feature');`, // Different function name
+              code: `otherFunction('enable-ui-v1');`, // Different function name
               options: testOptions
             }
           ],
           invalid: [
             {
-              code: `getFeatureFlag('legacy-feature');`,
+              code: `getFeatureFlag('enable-ui-v1');`,
               options: testOptions,
               errors: [{ messageId: 'expiredFeatureFlag' }]
             }
@@ -126,7 +126,7 @@ describe('expired-feature-flag rule (no mocks)', () => {
         ruleTester.run('expired-feature-flag', rule, {
           valid: [
             {
-              code: `const flags = {'active-feature': true}; const value = flags['active-feature'];`,
+              code: `const flags = {'enable-ui-v2': true}; const value = flags['enable-ui-v2'];`,
               options: testOptions
             },
             {
@@ -136,7 +136,7 @@ describe('expired-feature-flag rule (no mocks)', () => {
           ],
           invalid: [
             {
-              code: `const flags = {'legacy-feature': true}; const value = flags['legacy-feature'];`,
+              code: `const flags = {'enable-ui-v1': true}; const value = flags['enable-ui-v1'];`,
               options: testOptions,
               errors: [
                 { messageId: 'expiredFeatureFlag' }, 
@@ -162,11 +162,11 @@ describe('expired-feature-flag rule (no mocks)', () => {
       ruleTester.run('expired-feature-flag', rule, {
         valid: [
           {
-            code: `getFeatureFlag('new-feature')`,
+            code: `getFeatureFlag('enable-ui-v2')`,
             options: [
               {
                 featureFlags: {
-                  'new-feature': {
+                  'enable-ui-v2': {
                     expires: '2025-12-31',
                     description: 'A feature that has not expired yet',
                   },
@@ -222,11 +222,11 @@ describe('expired-feature-flag rule (no mocks)', () => {
       ruleTester.run('expired-feature-flag', rule, {
         valid: [
           {
-            code: `isFeatureEnabled('new-feature')`,
+            code: `isFeatureEnabled('enable-ui-v2')`,
             options: [
               {
                 featureFlags: {
-                  'new-feature': {
+                  'enable-ui-v2': {
                     expires: '2025-12-31',
                   },
                 },
@@ -246,11 +246,11 @@ describe('expired-feature-flag rule (no mocks)', () => {
         valid: [],
         invalid: [
           {
-            code: `getFeatureFlag('legacy-feature')`,
+            code: `getFeatureFlag('enable-ui-v1')`,
             options: [
               {
                 featureFlags: {
-                  'legacy-feature': {
+                  'enable-ui-v1': {
                     expires: '2025-01-01', // Expired as of June 10, 2025
                     description: 'A feature that has expired',
                   },
@@ -271,16 +271,16 @@ describe('expired-feature-flag rule (no mocks)', () => {
           {
             code: `
               const flags = { 
-                'legacy-feature': true,
+                'enable-ui-v1': true,
                 'another-legacy': false 
               };
-              getFeatureFlag('legacy-feature');
+              getFeatureFlag('enable-ui-v1');
               isFeatureEnabled('another-legacy');
             `,
             options: [
               {
                 featureFlags: {
-                  'legacy-feature': {
+                  'enable-ui-v1': {
                     expires: '2024-12-31',
                     description: 'First expired feature',
                   },
@@ -309,11 +309,11 @@ describe('expired-feature-flag rule (no mocks)', () => {
       ruleTester.run('expired-feature-flag', rule, {
         valid: [
           {
-            code: '`test-${getFeatureFlag("active-flag")}`',
+            code: '`test-${getFeatureFlag("enable-ui-v2")}`',
             options: [
               {
                 featureFlags: {
-                  'active-flag': {
+                  'enable-ui-v2': {
                     expires: '2026-01-01',
                     description: 'A feature that has not expired yet',
                   },
@@ -325,11 +325,11 @@ describe('expired-feature-flag rule (no mocks)', () => {
         ],
         invalid: [
           {
-            code: '`test-${getFeatureFlag("legacy-feature")}`',
+            code: '`test-${getFeatureFlag("enable-ui-v1")}`',
             options: [
               {
                 featureFlags: {
-                  'legacy-feature': {
+                  'enable-ui-v1': {
                     expires: '2025-01-01',
                     description: 'An expired feature',
                   },
@@ -348,13 +348,13 @@ describe('expired-feature-flag rule (no mocks)', () => {
         valid: [
           {
             code: `
-              const flagName = 'active-flag';
+              const flagName = 'enable-ui-v2';
               getFeatureFlag(flagName);
             `,
             options: [
               {
                 featureFlags: {
-                  'active-flag': {
+                  'enable-ui-v2': {
                     expires: '2026-01-01',
                     description: 'A feature that has not expired yet',
                   },

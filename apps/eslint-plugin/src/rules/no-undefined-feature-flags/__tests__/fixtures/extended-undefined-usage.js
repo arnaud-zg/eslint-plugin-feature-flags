@@ -1,44 +1,45 @@
 /**
- * This file demonstrates complex/advanced scenarios for feature flag usage
- * that should be detected by the no-undefined-feature-flags rule.
+ * Tests undefined feature flag detection
+ * 
+ * Valid flags:
+ * - enable-homepage
+ * - enable-dark-mode
+ * - enable-feature-a
  */
 import { getFeatureFlag, isFeatureEnabled, checkFlag, getFeatureConfig } from './helpers.js';
 
-// Function with mixed valid and invalid flags
+// Check mixed valid and invalid flag usage
 function mixedFlagUsage() {
-  // Valid flags
+  // Valid flags 
   const validFlags = [
-    getFeatureFlag('new-homepage'),  // Valid
-    getFeatureFlag('dark-mode'),     // Valid
-    getFeatureFlag('feature-a'),     // Valid
+    getFeatureFlag('enable-homepage'),
+    getFeatureFlag('enable-dark-mode'),
+    getFeatureFlag('enable-feature-a'),
   ];
 
   // Invalid flags
   const invalidFlags = [
-    getFeatureFlag('experimental'),    // Error: undefined flag
-    getFeatureFlag('advanced-search'), // Error: undefined flag
-    getFeatureFlag('new-checkout'),    // Error: undefined flag
+    getFeatureFlag('enable-test'),     // undefined
+    getFeatureFlag('enable-search'),   // undefined
+    getFeatureFlag('enable-checkout'), // undefined
   ];
 
   return { validFlags, invalidFlags };
 }
 
-// Usage in complex expressions
+// Check nested and complex expressions
 function complexExpressions() {
-  // Nested function calls with undefined flags
-  const result = compute(getFeatureFlag('premium-feature')); // Error: undefined flag
+  const result = compute(getFeatureFlag('enable-premium')); // undefined
   
-  // Conditional (ternary) expressions
-  const display = getFeatureFlag('new-design')  // Error: undefined flag
+  const display = getFeatureFlag('enable-new-ui')    // undefined
     ? 'new' 
-    : getFeatureFlag('legacy-mode')  // Error: undefined flag
+    : getFeatureFlag('enable-legacy-ui')  // undefined
       ? 'legacy' 
       : 'default';
   
   return { result, display };
 }
 
-// Helper function
 function compute(value) {
   return value ? 'enabled' : 'disabled';
 }

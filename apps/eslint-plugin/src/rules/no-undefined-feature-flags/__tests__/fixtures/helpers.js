@@ -1,24 +1,20 @@
 /**
- * Helper functions for feature flag testing
- * 
- * These functions simulate feature flag access mechanisms commonly used in applications.
- * In a real application, these would check against a configuration or external service.
+ * Feature flag accessor functions for testing
  */
 
 /**
- * Get the value of a feature flag
- * @param {string} name The name of the feature flag
- * @returns {boolean} The value of the feature flag
+ * Get feature flag value
+ * @param {string} name Flag name, must use enable-* prefix
+ * @returns {boolean} Flag value
  */
 export function getFeatureFlag(name) {
-  console.log(`Checking feature flag: ${name}`);
   return true;
 }
 
 /**
- * Check if a feature is enabled
- * @param {string} name The name of the feature flag
- * @returns {boolean} Whether the feature is enabled
+ * Check if feature is enabled
+ * @param {string} name Flag name, must use enable-* prefix
+ * @returns {boolean} Whether feature is enabled
  */
 export function isFeatureEnabled(name) {
   return getFeatureFlag(name);

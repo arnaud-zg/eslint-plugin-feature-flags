@@ -4,26 +4,26 @@ import { isExpired, formatExpirationDate } from '../index.js';
 import type { FeatureFlag } from '@eslint-plugin-feature-flags/types';
 
 describe('Date Utilities', () => {
-  const fixedDate = new Date(2025, 5, 10);
+  const fixedDate = new Date(2025, 5, 10); // June 10, 2025
   
   const TEST_FLAGS: Record<string, FeatureFlag> = {
     EXPIRED: {
-      name: 'legacy-feature',
-      description: 'A legacy feature that has expired',
-      defaultValue: false,
+      name: 'enable-ui-v1',
       expiresOn: '2025-01-01',
+      description: 'Expired feature',
+      defaultValue: false,
     },
     CURRENT: {
       name: 'current-feature',
-      description: 'A feature expiring today',
-      defaultValue: true,
       expiresOn: '2025-06-10',
+      description: 'Feature expiring today',
+      defaultValue: true,
     },
     FUTURE: {
       name: 'new-feature',
-      description: 'A new feature that has not expired',
-      defaultValue: true,
       expiresOn: '2025-12-31',
+      description: 'Not expired feature',
+      defaultValue: true,
     }
   };
 
@@ -35,16 +35,17 @@ describe('Date Utilities', () => {
   afterAll(() => {
     vi.useRealTimers();
   });
+
   describe('isExpired', () => {
-    it('should return true for a flag with a past expiration date', () => {
+    it('returns true for expired flag', () => {
       expect(isExpired(TEST_FLAGS.EXPIRED)).toBe(true);
     });
 
-    it('should return false for a flag with a future expiration date', () => {
+    it('returns false for future flag', () => {
       expect(isExpired(TEST_FLAGS.FUTURE)).toBe(false);
     });
 
-    it('should return false for a flag expiring exactly today', () => {
+    it('returns false for flag expiring today', () => {
       expect(isExpired(TEST_FLAGS.CURRENT)).toBe(false);
     });
   });
