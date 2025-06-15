@@ -19,14 +19,12 @@
 ## Table of Contents
 
 - [Overview](#overview)
-- [Features](#features)
 - [Development](#development)
 - [Project Structure](#project-structure)
 - [Key Components](#key-components)
-- [Using Cleanup](#using-cleanup)
-- [References](#feature-flags-reference)
-- [License](#-license)
-- [Learn More](#-want-to-learn-more)
+- [License](#license)
+- [Learn More](#want-to-learn-more)
+- [Acknowledgments](#acknowledgments)
 
 ## Overview
 
@@ -89,19 +87,19 @@ eslint-plugin-feature-flags/
 - 📝 **[Types](./packages/types/)** - TypeScript definitions
 - 🧪 **[Example Project](./examples/test-project/)** - Working example
 
-## 📄 License
+## License
 
 This project is MIT licensed - see the [LICENSE](LICENSE) file for details.
 
-## 📚 Want to Learn More?
+## Want to Learn More?
 
 Resources on feature flag best practices:
 
 - [Effective Feature Flag Management](https://arnaudzg.substack.com/p/effective-feature-flag-management) - The article that inspired this plugin
 - [ESLint Plugin Documentation](./apps/eslint-plugin/README.md) - Full plugin details and examples
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
-Special thanks to Kevin Marques for the idea that sparked this project, and to all contributors who help make it better!
+Special thanks to [Kevin Marques](https://github.com/marques-kevin) for the idea that sparked this project, and to all contributors who help make it better!
 
 Built with [Turborepo](https://turbo.build/) ⚡️
