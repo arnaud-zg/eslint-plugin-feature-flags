@@ -121,11 +121,11 @@ describe('no-undefined-feature-flags rule visitor', () => {
       },
       {
         name: 'Wrong case in flag name',
-        code: 'const flag = getFeatureFlag("enable-dark-mode");', // Wrong case
+        code: 'const flag = getFeatureFlag("ENABLE-DARK-MODE");', // Wrong case (uppercase)
         options: [{ featureFlags: featureFlagsConfig }],
         errors: [{
           messageId: 'undefinedFeatureFlag',
-          data: { name: 'enable-dark-mode' },
+          data: { name: 'ENABLE-DARK-MODE' },
         }],
       },
       
