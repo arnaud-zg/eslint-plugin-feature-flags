@@ -9,28 +9,29 @@ import process from 'process';
 const FIXTURES_BASE_PATH = 'src/rules';
 const EXPIRED_FLAG_FIXTURES = path.join(process.cwd(), FIXTURES_BASE_PATH, 'expired-feature-flag/__tests__/fixtures');
 const UNDEFINED_FLAG_FIXTURES = path.join(process.cwd(), FIXTURES_BASE_PATH, 'no-undefined-feature-flags/__tests__/fixtures');
+
 const TEST_FLAGS = {
   // Active flags
-  'new-homepage': {
+  'enable-homepage': {
     expires: '2026-01-01',
-    description: 'New homepage redesign',
+    description: 'Homepage redesign',
   },
-  'dark-mode': {
+  'enable-dark-mode': {
     expires: '2026-01-01',
-    description: 'Dark mode feature',
+    description: 'Dark mode',
   },
-  'active-flag': {
+  'enable-analytics': {
     expires: '2026-01-01',
-    description: 'This flag is still active',
+    description: 'Active flag',
   },
   // Expired flags
-  'expired-flag': {
+  'enable-dashboard-v1': {
     expires: '2024-12-31',
-    description: 'This flag has expired',
+    description: 'Expired flag',
   },
 };
 
-describe('eslint-plugin-feature-flags integration', () => {
+describe('eslint-plugin-feature-flags', () => {
   // Fixed current date for consistent tests (June 10, 2025)
   const fixedDate = new Date(2025, 5, 10);
 
@@ -46,14 +47,14 @@ describe('eslint-plugin-feature-flags integration', () => {
 
   describe('Plugin Structure', () => {
     describe('Exported Rules', () => {
-      it('should export the expired-feature-flag rule correctly', () => {
+      it('exports expired-feature-flag rule', () => {
         expect(plugin.rules).toHaveProperty('expired-feature-flag');
         expect(typeof plugin.rules['expired-feature-flag']).toBe('object');
         expect(plugin.rules['expired-feature-flag']).toHaveProperty('meta');
         expect(plugin.rules['expired-feature-flag']).toHaveProperty('create');
       });
 
-      it('should export the no-undefined-feature-flags rule correctly', () => {
+      it('exports no-undefined-feature-flags rule', () => {
         expect(plugin.rules).toHaveProperty('no-undefined-feature-flags');
         expect(typeof plugin.rules['no-undefined-feature-flags']).toBe('object');
         expect(plugin.rules['no-undefined-feature-flags']).toHaveProperty('meta');
@@ -62,24 +63,24 @@ describe('eslint-plugin-feature-flags integration', () => {
     });
 
     describe('Exported Configs', () => {
-      it('should export all predefined configs', () => {
+      it('exports all predefined configs', () => {
         expect(plugin).toHaveProperty('configs');
         expect(plugin.configs).toHaveProperty('recommended');
         expect(plugin.configs).toHaveProperty('strict');
         expect(plugin.configs).toHaveProperty('base');
       });
 
-      it('should configure recommended config with error severity', () => {
+      it('configures recommended config with error severity', () => {
         expect(plugin.configs.recommended.rules['feature-flags/expired-feature-flag']).toBe('error');
         expect(plugin.configs.recommended.rules['feature-flags/no-undefined-feature-flags']).toBe('error');
       });
 
-      it('should configure strict config with error severity', () => {
+      it('configures strict config with error severity', () => {
         expect(plugin.configs.strict.rules['feature-flags/expired-feature-flag']).toBe('error');
         expect(plugin.configs.strict.rules['feature-flags/no-undefined-feature-flags']).toBe('error');
       });
 
-      it('should configure base config with warn severity', () => {
+      it('configures base config with warn severity', () => {
         expect(plugin.configs.base.rules['feature-flags/expired-feature-flag']).toBe('warn');
         expect(plugin.configs.base.rules['feature-flags/no-undefined-feature-flags']).toBe('warn');
       });
@@ -95,10 +96,10 @@ describe('eslint-plugin-feature-flags integration', () => {
     });
 
     describe('2.1 expired-feature-flag rule', () => {
-      it('should detect expired feature flags and allow active ones', () => {
+      it('detects expired feature flags and allows active ones', () => {
         // Read sample fixture files
         const expiredFlagContent = fs.readFileSync(
-          path.join(EXPIRED_FLAG_FIXTURES, 'expired-flag-usage.js'),
+          path.join(EXPIRED_FLAG_FIXTURES, 'enable-dashboard-v1-usage.js'),
           'utf8'
         );
 
@@ -114,7 +115,7 @@ describe('eslint-plugin-feature-flags integration', () => {
               code: activeFlagContent,
               options: [{
                 featureFlags: {
-                  'active-flag': TEST_FLAGS['active-flag'],
+                  'enable-analytics': TEST_FLAGS['enable-analytics'],
                 },
                 identifiers: ['getFeatureFlag'],
               }],
@@ -125,7 +126,7 @@ describe('eslint-plugin-feature-flags integration', () => {
               code: expiredFlagContent,
               options: [{
                 featureFlags: {
-                  'expired-flag': TEST_FLAGS['expired-flag'],
+                  'enable-dashboard-v1': TEST_FLAGS['enable-dashboard-v1'],
                 },
                 identifiers: ['getFeatureFlag'],
               }],
@@ -137,7 +138,7 @@ describe('eslint-plugin-feature-flags integration', () => {
     });
 
     describe('2.2 no-undefined-feature-flags rule', () => {
-      it('should detect undefined feature flags and allow defined ones', () => {
+      it('detects undefined feature flags and allows defined ones', () => {
         // Read sample fixture files
         const undefinedFlagContent = fs.readFileSync(
           path.join(UNDEFINED_FLAG_FIXTURES, 'undefined-flag-usage.js'),
@@ -148,10 +149,10 @@ describe('eslint-plugin-feature-flags integration', () => {
         ruleTester.run('no-undefined-feature-flags', plugin.rules['no-undefined-feature-flags'], {
           valid: [
             {
-              code: 'const flag = getFeatureFlag("new-homepage");',
+              code: 'const flag = getFeatureFlag("enable-ui-v1");',
               options: [{
                 featureFlags: {
-                  'new-homepage': TEST_FLAGS['new-homepage'],
+                  'enable-homepage': TEST_FLAGS['enable-homepage'],
                 },
               }],
             },
@@ -161,7 +162,7 @@ describe('eslint-plugin-feature-flags integration', () => {
               code: undefinedFlagContent,
               options: [{
                 featureFlags: {
-                  'dark-mode': TEST_FLAGS['dark-mode'],
+                  'enable-dark-mode': TEST_FLAGS['enable-dark-mode'],
                 },
                 identifiers: ['getFeatureFlag'],
               }],

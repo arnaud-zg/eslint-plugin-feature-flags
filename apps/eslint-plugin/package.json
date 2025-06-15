@@ -41,7 +41,8 @@
   "license": "MIT",
   "dependencies": {
     "@eslint-plugin-feature-flags/core": "workspace:^",
-    "@eslint-plugin-feature-flags/types": "workspace:^"
+    "@eslint-plugin-feature-flags/types": "workspace:^",
+    "@typescript-eslint/utils": "^8.34.0"
   },
   "peerDependencies": {
     "eslint": ">=8.0.0 <10.0.0"

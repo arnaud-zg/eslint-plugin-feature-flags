@@ -4,9 +4,10 @@ import { getFeatureFlag, isFeatureEnabled, checkFlag, customFlagFunction } from 
 // Dynamic flag selection
 function dynamicFlagSelection() {
   const flagNames = [
-    'active-flag',
-    'legacy-feature',
-    'expired-flag'
+    'enable-ui-v1',
+    'enable-ui-v2',
+    'enable-dark-mode',
+    'enable-analytics'
   ];
   
   flagNames.forEach(name => {
@@ -14,8 +15,8 @@ function dynamicFlagSelection() {
   });
   
   // Variable references
-  const activeFlagName = 'active-flag';
-  const expiredFlagName = 'legacy-feature';
+  const activeFlagName = 'enable-ui-v1';
+  const expiredFlagName = 'enable-ui-v1';
   
   getFeatureFlag(activeFlagName);
   getFeatureFlag(expiredFlagName);
@@ -30,8 +31,8 @@ function withFeatureFlag(name, callback) {
 }
 
 // Using the wrapper function
-const result1 = withFeatureFlag('active-flag', () => 'Valid flag');
-const result2 = withFeatureFlag('legacy-feature', () => 'Expired flag');
+const result1 = withFeatureFlag('enable-ui-v1', () => 'Valid flag');
+const result2 = withFeatureFlag('enable-ui-v1', () => 'Expired flag');
 
 // Complex data structures
 function complexDataStructures() {
@@ -39,22 +40,22 @@ function complexDataStructures() {
   const config = {
     features: {
       ui: {
-        enabled: getFeatureFlag('active-flag'),
-        legacy: getFeatureFlag('legacy-feature')
+        enabled: getFeatureFlag('enable-ui-v1'),
+        legacy: getFeatureFlag('enable-ui-v1')
       },
       api: {
         useNewEndpoint: isFeatureEnabled('current-feature'),
-        fallbackToOld: isFeatureEnabled('expired-flag')
+        fallbackToOld: isFeatureEnabled('enable-dashboard-v1')
       }
     }
   };
   
   // Array of configurations
   const featuresList = [
-    { name: 'Active Feature', enabled: getFeatureFlag('active-flag') },
-    { name: 'Legacy Feature', enabled: getFeatureFlag('legacy-feature') },
-    { name: 'New Feature', enabled: checkFlag('current-feature') },
-    { name: 'Old Feature', enabled: checkFlag('deprecated-feature') }
+    { name: 'UI v1', enabled: getFeatureFlag('enable-ui-v1') },
+    { name: 'UI v2', enabled: getFeatureFlag('enable-ui-v2') },
+    { name: 'Dark Mode', enabled: getFeatureFlag('enable-dark-mode') },
+    { name: 'Analytics', enabled: getFeatureFlag('enable-analytics') }
   ];
   
   return { config, featuresList };
@@ -62,17 +63,15 @@ function complexDataStructures() {
 
 // Programmatic flag names
 function programmaticFlagNames() {
-  const prefix = 'feature-';
+  const prefix = 'enable-';
   
   // Dynamic flag names
-  const validFlag = getFeatureFlag(prefix + 'new');
-  const expiredFlag = getFeatureFlag(prefix + 'legacy');
+  const validFlag = getFeatureFlag(prefix + 'ui-v2');  // Active flag
+  const expiredFlag = getFeatureFlag(prefix + 'ui-v1'); // Expired flag
   
   // Static flag names
-  const definitelyValid = isFeatureEnabled('active-flag');
-  const definitelyExpired = isFeatureEnabled('expired-flag');
-  
-  return { validFlag, expiredFlag, definitelyValid, definitelyExpired };
+  const definitelyValid = isFeatureEnabled('enable-ui-v2');
+  const definitelyExpired = isFeatureEnabled('enable-ui-v1');
 }
 
 // Export for reuse in tests

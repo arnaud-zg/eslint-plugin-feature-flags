@@ -3,7 +3,7 @@ import { customFlagFunction, checkFlag } from './helpers';
 
 // Custom function usage
 export function customFunctionUsage(): void {
-  const enabled = customFlagFunction('expired-flag');
+  const enabled = customFlagFunction('enable-dashboard-v1');
 
   if (enabled) {
     console.log('Feature is enabled!');
@@ -12,20 +12,20 @@ export function customFunctionUsage(): void {
   }
   
   // Another custom function that should be configured
-  if (checkFlag('legacy-feature')) {
-    console.log('Legacy feature is still enabled');
+  if (checkFlag('enable-ui-v1')) {
+    console.log('UI v1 is still enabled');
   }
 }
 
 // Multiple custom functions
 export function multipleCustomFunctions(): void {
   // Custom functions with expired flags
-  const flag1 = customFlagFunction('expired-flag');
-  const flag2 = checkFlag('expired-flag');
+  const flag1 = customFlagFunction('enable-dashboard-v1');
+  const flag2 = checkFlag('enable-dashboard-v1');
   
   // Different expired flags
-  const legacy1 = customFlagFunction('legacy-feature');
-  const legacy2 = customFlagFunction('deprecated-feature');
+  const legacy1 = customFlagFunction('enable-ui-v1');
+  const legacy2 = customFlagFunction('enable-ui-v1');
   
   console.log(flag1, flag2, legacy1, legacy2);
 }

@@ -1,12 +1,13 @@
 /** Tests for the no-undefined-feature-flags rule schema */
 import { describe, it, expect } from 'vitest';
 import { RuleTester } from 'eslint';
+import * as parser from '@typescript-eslint/parser';
 import rule from '..';
 
 describe('no-undefined-feature-flags rule schema', () => {
   const ruleTester = new RuleTester({
     languageOptions: {
-      parser: require('@typescript-eslint/parser'),
+      parser,
       ecmaVersion: 2022,
       sourceType: 'module',
     },
@@ -30,7 +31,7 @@ describe('no-undefined-feature-flags rule schema', () => {
         name: 'Configuration with custom identifiers',
         config: {
           featureFlags: {
-            'dark-mode': {
+            'enable-dark-mode': {
               expires: '2025-06-30',
               description: 'Dark mode feature',
             },
@@ -56,7 +57,7 @@ describe('no-undefined-feature-flags rule schema', () => {
               expires: '2025-12-31',
               description: 'New homepage redesign',
             },
-            'dark-mode': {
+            'enable-dark-mode': {
               expires: '2025-06-30',
               description: 'Dark mode feature',
             },

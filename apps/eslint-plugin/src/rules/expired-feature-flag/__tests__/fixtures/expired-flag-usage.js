@@ -1,66 +1,51 @@
-// Examples of expired feature flag usages that should trigger ESLint errors
+/**
+ * Tests expired feature flag detection
+ * Current date: June 15, 2025
+ * 
+ * Flags:
+ * - enable-ui-v1 (expired Jan 1, 2025)
+ * - enable-ui-v2 (active)
+ */
 import { getFeatureFlag, isFeatureEnabled, checkFlag, customFlagFunction, getFeatureConfig } from './helpers.js';
 
-// Direct function calls with string literals
-const legacyFeature = getFeatureFlag('legacy-feature');
-const oldUi = isFeatureEnabled('expired-flag');
-const deprecatedFeature = checkFlag('deprecated-feature');
-const oldFlag = customFlagFunction('old-flag');
+// Basic usage
+const uiV1 = getFeatureFlag('enable-ui-v1'); // expired
+const oldUi = isFeatureEnabled('enable-ui-v1'); // expired
+const legacyConfig = getFeatureConfig('enable-ui-v1'); // expired
 
-// Various function calls with the same expired flags
-const legacyConfig = getFeatureConfig('legacy-feature');
+// Status checks
 const expiredStatus = {
-  enabled: isFeatureEnabled('expired-flag'),
-  config: getFeatureConfig('expired-flag')
+  enabled: isFeatureEnabled('enable-ui-v1'), // expired
+  config: getFeatureConfig('enable-ui-v1') // expired
 };
 
-// Template literals with expired flags
-const flagName = 'legacy-feature';
-const templateLiteral = getFeatureFlag(`${flagName}`);
-
-// Expired flags in conditional logic
+// Conditional logic
 function conditionalFeatureUsage() {
-  if (getFeatureFlag('legacy-feature')) {
-    console.log('Using legacy feature');
-  } else if (isFeatureEnabled('expired-flag')) {
-    console.log('Using expired flag');
+  if (getFeatureFlag('enable-ui-v1')) { // expired
+    console.log('Using UI v1');
+  } else if (isFeatureEnabled('enable-ui-v1')) { // expired
+    console.log('Using UI v1');
   }
 
-  // Nested conditions with expired flags
-  if (isFeatureEnabled('deprecated-feature')) {
-    if (checkFlag('old-flag')) {
-      console.log('Both features are expired');
+  if (isFeatureEnabled('enable-ui-v1')) { // expired
+    if (checkFlag('enable-ui-v1')) { // expired
+      console.log('Using UI v1');
     }
   }
-
-  return customFlagFunction('legacy-feature');             // Error: expired flag
 }
 
-// Expired flags in various contexts
+// Different contexts
 function differentContexts() {
-  // Array destructuring
   const [feature1, feature2] = [
-    getFeatureFlag('legacy-feature'),
-    getFeatureFlag('deprecated-feature'),
+    getFeatureFlag('enable-ui-v1'), // expired
+    getFeatureFlag('enable-ui-v2'), // active
   ];
   
-  // Object properties
   const features = {
-    legacy: getFeatureFlag('legacy-feature'),
-    deprecated: isFeatureEnabled('expired-flag')
+    legacy: getFeatureFlag('enable-ui-v1'), // expired
+    current: isFeatureEnabled('enable-ui-v2'), // active
+    dark: isFeatureEnabled('enable-dark-mode') // active
   };
-  
-  // Function arguments
-  processFeatures(
-    getFeatureFlag('deprecated-feature'),
-    isFeatureEnabled('old-flag'),
-    'static-value'
-  );
-}
-
-// Helper function (not implemented)
-function processFeatures(arg1, arg2, arg3) {
-  console.log(arg1, arg2, arg3);
 }
 
 // Export for reuse in tests

@@ -1,56 +1,59 @@
 /**
- * This file demonstrates complex scenarios and edge cases for feature flag usage
- * with mixed valid and invalid flags.
+ * Tests complex feature flag scenarios
+ * 
+ * Valid flags:
+ * - enable-homepage (expires: 2025-12-31)
+ * - enable-dark-mode (expires: 2025-06-30)
+ * - enable-feature-a (expires: 2026-01-01)
  */
 import { getFeatureFlag, isFeatureEnabled, checkFlag } from './helpers.js';
 
-// Dynamic flag selection - flags selected at runtime won't be detected by static analysis
+// Dynamic flag selection
 function dynamicFlagSelection() {
-  const flagNames = ['new-homepage', 'dark-mode', 'unknown-flag'];
+  const flagNames = [
+    'enable-homepage',    // valid
+    'enable-dark-mode',   // valid
+    'enable-test'         // undefined
+  ];
   
   flagNames.forEach(name => {
-    // Only 'unknown-flag' should trigger an error, but dynamic detection is limited
     console.log(`Flag ${name}: ${getFeatureFlag(name)}`);
   });
 }
 
-// Different contexts for flag usage
+// Usage in different contexts
 function differentContexts() {
-  // In array destructuring
-  const [feature1, feature2] = [
-    getFeatureFlag('feature-a'),       // Valid
-    getFeatureFlag('nonexistent'),     // Error: undefined flag
+  const [validFeature, invalidFeature] = [
+    getFeatureFlag('enable-feature-a'),     // valid
+    getFeatureFlag('enable-test-feature'),  // undefined
   ];
   
-  // In object properties
   const features = {
-    valid: getFeatureFlag('new-homepage'),        // Valid
-    invalid: getFeatureFlag('unpublished-feature') // Error: undefined flag
+    homepage: getFeatureFlag('enable-homepage'),    // valid
+    beta: getFeatureFlag('enable-beta')            // undefined
   };
   
-  // In function arguments
   someFunction(
-    getFeatureFlag('dark-mode'),        // Valid
-    getFeatureFlag('missing-feature'),  // Error: undefined flag
+    getFeatureFlag('enable-dark-mode'),    // valid
+    getFeatureFlag('enable-preview'),      // undefined
     'static-value'
   );
 }
 
-// Custom function wrapper that calls feature flag functions
+// Feature flag wrapper
 function withFeatureFlag(name, callback) {
-  if (getFeatureFlag(name)) {    // This line is checked by the rule
+  if (getFeatureFlag(name)) {
     return callback();
   }
   return null;
 }
 
-// Using the wrapper function
-const result1 = withFeatureFlag('new-homepage', () => 'Valid flag');   // Valid
-const result2 = withFeatureFlag('beta-feature', () => 'Invalid flag'); // Error: undefined flag
+// Wrapper usage
+const result1 = withFeatureFlag('enable-homepage', () => 'valid');   
+const result2 = withFeatureFlag('enable-beta', () => 'invalid'); 
 
-// Helper function (not implemented)
-function someFunction(arg1, arg2, arg3) {
-  console.log(arg1, arg2, arg3);
+function someFunction(...args) {
+  console.log('Args:', args);
 }
 
 // Export for reuse in tests
