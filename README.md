@@ -1,3 +1,5 @@
+
+
 # 🚀 eslint-plugin-feature-flags
 
 <p align="center">
@@ -75,7 +77,8 @@ eslint-plugin-feature-flags/
 │   └── eslint-plugin/  # Main ESLint plugin package
 ├── packages/
 │   ├── types/          # TypeScript type definitions
-│   └── core/           # Shared utilities
+│   ├── core/           # Shared utilities
+│   └── eslint-config-base/ # Shared ESLint configurations
 ├── examples/
 │   └── test-project/   # Example implementation
 ```
