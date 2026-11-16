@@ -1,5 +1,3 @@
-
-
 # 🚀 eslint-plugin-feature-flags
 
 <p align="center">
