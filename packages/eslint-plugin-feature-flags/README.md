@@ -3,6 +3,14 @@
 ESLint rules for feature flag hygiene: flags past their expiry date, flags missing from your config,
 and an autofix that removes a flag once it is settled.
 
+```text
+app.js
+   5:17  error  Feature flag "new-checkout" expired on 2026-01-31. Remove it    feature-flags/expired-feature-flag
+  13:22  error  Feature flag "new-serach" is not declared in the ESLint config  feature-flags/no-undefined-feature-flags
+
+✖ 2 problems (2 errors, 0 warnings)
+```
+
 ```sh
 npm install --save-dev eslint-plugin-feature-flags
 ```
@@ -114,3 +122,18 @@ A kept block joins the code around it with its comments, unless it declares `let
 or `function`: then its braces stay. `remove-entirely` is another name for `preserve-disabled-path`.
 
 Then delete the flag from `featureFlags` and from your flag provider.
+
+## 📚 Docs
+
+- 🚀
+  **[Tutorial](https://github.com/arnaud-zg/eslint-plugin-feature-flags/blob/main/docs/eslint-plugin-feature-flags/tutorial.md)**:
+  catch an expired flag and a typo, then remove the flag
+- 🛠️
+  **[How-to](https://github.com/arnaud-zg/eslint-plugin-feature-flags/blob/main/docs/eslint-plugin-feature-flags/how-to.md)**:
+  TypeScript, your own flag function, permanent flags
+- 📖
+  **[Reference](https://github.com/arnaud-zg/eslint-plugin-feature-flags/blob/main/docs/eslint-plugin-feature-flags/reference.md)**:
+  every setting, rule, option and message
+- 💡
+  **[Explanation](https://github.com/arnaud-zg/eslint-plugin-feature-flags/blob/main/docs/eslint-plugin-feature-flags/explanation.md)**:
+  why the rules read flags the way they do

@@ -23,6 +23,19 @@ reads your flag list and:
 👉 Install it and see every rule:
 [packages/eslint-plugin-feature-flags](./packages/eslint-plugin-feature-flags/README.md).
 
+## 📚 Documentation
+
+Start at the **[documentation index](./docs/README.md)**: four pages, each for one need.
+
+- 🚀 **[Tutorial](./docs/eslint-plugin-feature-flags/tutorial.md)**: catch an expired flag and a
+  typo, then remove the flag.
+- 🛠️ **[How-to](./docs/eslint-plugin-feature-flags/how-to.md)**: TypeScript, your own flag function,
+  permanent flags.
+- 📖 **[Reference](./docs/eslint-plugin-feature-flags/reference.md)**: every setting, rule, option
+  and message.
+- 💡 **[Explanation](./docs/eslint-plugin-feature-flags/explanation.md)**: why the rules read flags
+  the way they do.
+
 ## Development
 
 You need Node 22 and pnpm 10.

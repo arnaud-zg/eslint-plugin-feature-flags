@@ -27,17 +27,21 @@ git checkout -b fix/short-description
 pnpm test
 ```
 
-Add a test for a fix or a feature, and update the
-[plugin README](./packages/eslint-plugin-feature-flags/README.md) when users will see the change.
+Add a test for a fix or a feature. When users will see the change, update the
+[plugin README](./packages/eslint-plugin-feature-flags/README.md) and the [docs](./docs/README.md);
+an example the docs show lives in `packages/eslint-plugin-feature-flags/examples/`, linted by
+`src/examples.test.ts`.
 
-**3. Add a changeset for any change to the plugin's `src`**
+**3. Add a changeset for any change npm users will get**
 
 ```sh
 pnpm changeset --patch eslint-plugin-feature-flags -m "What now works."       # fix, perf, refactor…
 pnpm changeset --minor eslint-plugin-feature-flags -m "What users can now do." # feat, or a breaking change below 1.0.0
 ```
 
-Docs-only and tooling changes need none.
+A change to the plugin README, or to `description` or `keywords` in its `package.json`, is a
+`--patch` too: npm only shows them after a release. Changes to `docs/` and tooling need none. Every
+case: [Changeset rules](./docs/contributing/reference.md#changeset-rules).
 
 **4. Check, commit and push**
 
@@ -63,14 +67,5 @@ gh pr create
 
 ## Release (maintainer)
 
-Releases go through [shiplane](https://www.npmjs.com/package/shiplane) and
-[Changesets](https://github.com/changesets/changesets). Nobody pushes to `main` directly.
-
-```sh
-git checkout main && git pull
-pnpm shiplane status   # what is pending
-pnpm release           # with changesets pending: opens the release PR
-```
-
-Merge the release PR, then run `pnpm release` again on `main`: it tags the version, publishes it to
-npm and writes the GitHub Release from the `CHANGELOG.md` entry. It needs `gh` and `npm` signed in.
+Releasing, publishing from GitHub Actions and deprecating a package on npm:
+[Contributing how-to](./docs/contributing/how-to.md).

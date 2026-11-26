@@ -7,7 +7,7 @@ export default tseslint.config(
   {
     ignores: [
       "shiplane.config.ts",
-      "examples/**",
+      "**/examples/**",
       "**/__tests__/fixtures/**",
       ".claude/worktrees/**",
     ],
