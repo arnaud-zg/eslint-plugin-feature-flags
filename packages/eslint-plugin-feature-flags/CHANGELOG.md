@@ -1,5 +1,68 @@
 # eslint-plugin-feature-flags
 
+## 0.2.0
+
+### Minor Changes
+
+- [#14](https://github.com/arnaud-zg/eslint-plugin-feature-flags/pull/14) [`947ac89`](https://github.com/arnaud-zg/eslint-plugin-feature-flags/commit/947ac89abfa50f03ee481578de107ef579ebaccf) - `cleanup-feature-flag` treats a settled flag as the constant it became, and keeps only the code that
+  value runs.
+  
+  - `preserve-enabled-path` reads the flag as `true`, `preserve-disabled-path` as `false`.
+    `remove-entirely` is kept as another name for `preserve-disabled-path`: it used to delete the
+    `else` branch too, which still runs once the flag is off.
+  - `if`/`else`, `else if`, `? :`, `&&`, `||` and `!flag` are folded; any other read becomes `true` or
+    `false`. It no longer guesses values from variable names (a `theme` variable became `'light'`).
+  - A branch is spread into the enclosing code at the right indentation, with its comments, unless it
+    declares block-scoped names; parentheses that keep precedence stay.
+  - The rule reads `identifiers` from `settings["feature-flags"]` like the other rules.
+  - The plugin has no runtime dependency anymore.
+
+- [#13](https://github.com/arnaud-zg/eslint-plugin-feature-flags/pull/13) [`af9d185`](https://github.com/arnaud-zg/eslint-plugin-feature-flags/commit/af9d1853d8df2c38db905f674329f28b8c430f5c) - Declare your flags once and use `configs.recommended` as a flat config.
+  
+  ```js
+  import featureFlags from "eslint-plugin-feature-flags";
+  
+  export default [
+    featureFlags.configs.recommended,
+    {
+      settings: {
+        "feature-flags": {
+          featureFlags: { "new-checkout": { expires: "2026-12-31" } },
+          identifiers: ["isEnabled"],
+        },
+      },
+    },
+  ];
+  ```
+  
+  - `configs.recommended` loads in ESLint 9 and 10: it used to name its plugin as a string, which flat
+    config rejects.
+  - Every rule reads `settings["feature-flags"]`; a rule's own options still win. A setting ESLint
+    cannot use, such as an `expires` that is not `YYYY-MM-DD`, fails with an error naming its key.
+  - `cleanup-feature-flag` works on ESLint 10: it crashed on the removed `context.getSourceCode()`.
+  - Breaking: the `strict` and `base` configs are gone (`strict` was `recommended`), and ESLint 8 is
+    no longer supported. The plugin now sets `meta.name` and `meta.version`.
+
+- [#12](https://github.com/arnaud-zg/eslint-plugin-feature-flags/pull/12) [`b0dc79c`](https://github.com/arnaud-zg/eslint-plugin-feature-flags/commit/b0dc79c7d065f34c778d1b6e2afda6a3d470e278) - `expired-feature-flag` and `no-undefined-feature-flags` read flags one way.
+  
+  - `expired-feature-flag` reports each mention of an expired flag once: `isEnabled("old")` was
+    reported twice. The message shows the configured date.
+  - A flag without `expires` is permanent: declared, never expired.
+  - `expires` must be `YYYY-MM-DD`: a date ESLint cannot read used to silently never expire. A flag
+    expires the day after its `expires` date, in local time.
+  - Flag readers called as methods, such as `flags.isEnabled("x")`, and template literals such as
+    ``isEnabled(`x`)`` are read too.
+  - `no-undefined-feature-flags` no longer claims to be fixable: it never fixed anything.
+
+### Patch Changes
+
+- [#9](https://github.com/arnaud-zg/eslint-plugin-feature-flags/pull/9) [`e6a5a0a`](https://github.com/arnaud-zg/eslint-plugin-feature-flags/commit/e6a5a0a4fca33e7ba68c2e706d736d79cbd95936) - Ships as one package: the date and type helpers it used from `@eslint-plugin-feature-flags/core` and
+  `@eslint-plugin-feature-flags/types` now live inside it, so installing the plugin pulls no extra
+  package.
+
+- [#15](https://github.com/arnaud-zg/eslint-plugin-feature-flags/pull/15) [`bd802a8`](https://github.com/arnaud-zg/eslint-plugin-feature-flags/commit/bd802a8208b5d57a6ff1a3584ffd9be3de32d072) - The README starts from the one config to write: flags declared once in `settings`,
+  `configs.recommended`, and a table of what `cleanup-feature-flag` does to each shape of code.
+
 ## 0.1.1
 
 ### Patch Changes
