@@ -74,3 +74,29 @@ pnpm release           # with changesets pending: opens the release PR
 
 Merge the release PR, then run `pnpm release` again on `main`: it tags the version, publishes it to
 npm and writes the GitHub Release from the `CHANGELOG.md` entry. It needs `gh` and `npm` signed in.
+
+### Publish from GitHub Actions
+
+`pnpm release` and `pnpm shiplane test-release` ask: GitHub Actions or this machine. GitHub Actions
+runs [ship.yml](./.github/workflows/ship.yml), written by `shiplane doctor`, which keeps its pin on
+the installed shiplane version. Start it yourself, with **dry-run** to only look:
+
+```sh
+gh workflow run ship.yml --ref main -f environment=nightly -f dry-run=true
+```
+
+| Environment                      | Branch | npm gets                                       |
+| -------------------------------- | ------ | ---------------------------------------------- |
+| `snapshot`                       | any    | `<next>-<branch>.<sha>`, no tag kept           |
+| `nightly`, `alpha`, `beta`, `rc` | `main` | `<next>-<channel>.<n>` under that tag          |
+| `latest`                         | `main` | the merged release PR's version under `latest` |
+
+One-time setup, from your own terminal (npm asks for 2FA): trust the workflow, so it publishes with
+no token.
+
+```sh
+npx -y npm@^11.21.0 trust github eslint-plugin-feature-flags --file ship.yml \
+  --repo arnaud-zg/eslint-plugin-feature-flags --allow-publish -y
+```
+
+After a shiplane upgrade, run `pnpm shiplane doctor` to move the pin.
