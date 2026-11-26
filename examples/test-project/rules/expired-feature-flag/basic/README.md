@@ -1,6 +1,7 @@
 # Expired Feature Flag Example
 
-This example demonstrates the `expired-feature-flag` rule which detects usage of feature flags that have passed their expiration date.
+This example demonstrates the `expired-feature-flag` rule which detects usage of feature flags that
+have passed their expiration date.
 
 ## Current Date Context
 
@@ -16,6 +17,7 @@ The examples assume the current date is **June 15, 2025**.
 ## Code Patterns Tested
 
 The example includes various ways of using feature flags:
+
 - If statements
 - Variable assignments
 - Ternary expressions
@@ -30,4 +32,5 @@ npx eslint test.ts
 
 ## Expected Results
 
-All references to the expired flag `enable-ui-v1` should be flagged as errors with a message indicating the expiration date, while references to non-expired flags should pass validation.
+All references to the expired flag `enable-ui-v1` should be flagged as errors with a message
+indicating the expiration date, while references to non-expired flags should pass validation.

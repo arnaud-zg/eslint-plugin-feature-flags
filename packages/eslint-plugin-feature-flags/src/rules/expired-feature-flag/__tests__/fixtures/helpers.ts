@@ -21,6 +21,6 @@ export function getFeatureConfig(flagName: string): {
 } {
   return {
     enabled: getFeatureFlag(flagName),
-    name: flagName
+    name: flagName,
   };
 }

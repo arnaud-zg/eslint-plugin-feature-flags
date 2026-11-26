@@ -25,7 +25,6 @@ export interface FeatureFlag {
 /** Map of feature flag names to their definitions */
 export type FeatureFlagsConfig = Record<string, FeatureFlagDefinition>;
 
-
 /** Checks if a feature flag has expired */
 export const isExpired = (flag: FeatureFlag): boolean => {
   const expiryDate = new Date(flag.expiresOn);
@@ -36,9 +35,9 @@ export const isExpired = (flag: FeatureFlag): boolean => {
 
 /** Formats a date string into a human-readable format */
 export const formatExpirationDate = (dateString: string): string => {
-  return new Date(dateString).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
+  return new Date(dateString).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   });
 };

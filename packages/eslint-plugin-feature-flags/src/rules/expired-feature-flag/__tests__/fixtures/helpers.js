@@ -3,7 +3,6 @@ export function getFeatureFlag(flagName) {
   return Boolean(flagName); // Just to satisfy type checking, not real implementation
 }
 
-
 export function isFeatureEnabled(flagName) {
   return getFeatureFlag(flagName);
 }
@@ -34,6 +33,6 @@ export function checkFlag(flagName) {
 export function getFeatureConfig(flagName) {
   return {
     enabled: getFeatureFlag(flagName),
-    name: flagName
+    name: flagName,
   };
 }

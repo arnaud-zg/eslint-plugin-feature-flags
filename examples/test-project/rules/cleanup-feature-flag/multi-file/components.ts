@@ -1,6 +1,6 @@
 // Components file
-import { getFeatureFlag } from '../../../shared/feature-flags';
-import { shouldShowLegacyUI } from './utils';
+import { getFeatureFlag } from "../../../shared/feature-flags";
+import { shouldShowLegacyUI } from "./utils";
 
 export function Header() {
   if (shouldShowLegacyUI()) {
@@ -15,17 +15,17 @@ export function Navigation() {
 }
 
 function renderLegacyHeader() {
-  return '<div>Legacy Header</div>';
+  return "<div>Legacy Header</div>";
 }
 
 function renderModernHeader() {
-  return '<div>Modern Header</div>';
+  return "<div>Modern Header</div>";
 }
 
 function renderLegacyNavigation() {
-  return '<nav>Legacy Navigation</nav>';
+  return "<nav>Legacy Navigation</nav>";
 }
 
 function renderModernNavigation() {
-  return '<nav>Modern Navigation</nav>';
+  return "<nav>Modern Navigation</nav>";
 }

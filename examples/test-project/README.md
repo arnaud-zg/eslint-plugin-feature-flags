@@ -1,6 +1,7 @@
 # ESLint Feature Flags Test Project
 
-This project demonstrates how to use the `eslint-plugin-feature-flags` rules with practical examples that you can run and modify.
+This project demonstrates how to use the `eslint-plugin-feature-flags` rules with practical examples
+that you can run and modify.
 
 ## Example Rules
 
@@ -29,7 +30,7 @@ rules/
   │   └── basic/                  # Examples of expired and valid flags
   └── no-undefined-feature-flags/ # Undefined flag detection examples
       └── basic/                  # Examples of defined and undefined flags
-      
+
 shared/
   ├── feature-flags.ts           # Feature flag accessor functions
   └── feature-flags.init.ts      # Feature flag definitions and configuration
@@ -50,10 +51,9 @@ npx eslint rules/cleanup-feature-flag/basic/test.ts --fix
 
 ## Feature Flags Configuration
 
-| Flag Name | Expiration | Status | Cleanup Strategy |
-|-----------|------------|--------|-----------------|
-| enable-ui-v1 | 2025-01-01 | Expired | preserve-enabled-path |
-| enable-beta-feature | 2025-12-31 | Active | preserve-disabled-path |
-| enable-dark-mode | 2026-06-30 | Active | remove-entirely |
-| enable-analytics | 2026-01-15 | Active | - |
-
+| Flag Name           | Expiration | Status  | Cleanup Strategy       |
+| ------------------- | ---------- | ------- | ---------------------- |
+| enable-ui-v1        | 2025-01-01 | Expired | preserve-enabled-path  |
+| enable-beta-feature | 2025-12-31 | Active  | preserve-disabled-path |
+| enable-dark-mode    | 2026-06-30 | Active  | remove-entirely        |
+| enable-analytics    | 2026-01-15 | Active  | -                      |

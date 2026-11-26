@@ -48,9 +48,6 @@
   "dependencies": {
     "@typescript-eslint/utils": "^8.34.0"
   },
-  "peerDependencies": {
-    "eslint": ">=8.0.0 <10.0.0"
-  },
   "devDependencies": {
     "@arnaud-zg/configs": "catalog:",
     "@types/node": "catalog:",
@@ -59,6 +56,9 @@
     "prettier": "catalog:",
     "typescript": "catalog:",
     "vitest": "catalog:"
+  },
+  "peerDependencies": {
+    "eslint": ">=8.0.0 <10.0.0"
   },
   "engines": {
     "node": "^20.0.0 || ^18.0.0"

@@ -28,7 +28,8 @@
 
 ## Overview
 
-Feature flags help teams deploy safely, but often become technical debt when forgotten. This ESLint plugin solves that by:
+Feature flags help teams deploy safely, but often become technical debt when forgotten. This ESLint
+plugin solves that by:
 
 - **Finding expired flags** that should be removed
 - **Preventing undefined flags** to avoid typos and mistakes
@@ -91,11 +92,14 @@ This project is MIT licensed - see the [LICENSE](LICENSE) file for details.
 
 Resources on feature flag best practices:
 
-- [Effective Feature Flag Management](https://arnaudzg.substack.com/p/effective-feature-flag-management) - The article that inspired this plugin
-- [ESLint Plugin Documentation](./packages/eslint-plugin-feature-flags/README.md) - Full plugin details and examples
+- [Effective Feature Flag Management](https://arnaudzg.substack.com/p/effective-feature-flag-management) -
+  The article that inspired this plugin
+- [ESLint Plugin Documentation](./packages/eslint-plugin-feature-flags/README.md) - Full plugin
+  details and examples
 
 ## Acknowledgments
 
-Special thanks to [Kevin Marques](https://github.com/marques-kevin) for the idea that sparked this project, and to all contributors who help make it better!
+Special thanks to [Kevin Marques](https://github.com/marques-kevin) for the idea that sparked this
+project, and to all contributors who help make it better!
 
 Built with [Turborepo](https://turbo.build/) ⚡️
