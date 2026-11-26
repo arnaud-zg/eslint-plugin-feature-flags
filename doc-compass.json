@@ -1,0 +1,14 @@
+{
+  "docs": [
+    {
+      "folder": "docs/eslint-plugin-feature-flags",
+      "index": "../README.md",
+      "examples": "packages/eslint-plugin-feature-flags/examples"
+    },
+    {
+      "folder": "docs/contributing",
+      "index": "../README.md",
+      "examples": "packages/eslint-plugin-feature-flags/examples"
+    }
+  ]
+}
