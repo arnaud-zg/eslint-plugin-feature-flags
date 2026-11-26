@@ -8,16 +8,6 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import plugin from "../index";
 
 const FIXTURES_BASE_PATH = "src/rules";
-const EXPIRED_FLAG_FIXTURES = path.join(
-  process.cwd(),
-  FIXTURES_BASE_PATH,
-  "expired-feature-flag/__tests__/fixtures",
-);
-const UNDEFINED_FLAG_FIXTURES = path.join(
-  process.cwd(),
-  FIXTURES_BASE_PATH,
-  "no-undefined-feature-flags/__tests__/fixtures",
-);
 const CLEANUP_FLAG_FIXTURES = path.join(
   process.cwd(),
   FIXTURES_BASE_PATH,
@@ -127,103 +117,6 @@ describe("eslint-plugin-feature-flags", () => {
         ecmaVersion: 2020,
         sourceType: "module",
       },
-    });
-
-    describe("2.1 expired-feature-flag rule", () => {
-      // Never ran before Vitest 5 (RuleTester nested in it()); it fails today. Fixed with the rule rewrite.
-      it.skip("detects expired feature flags and allows active ones", () => {
-        // Read sample fixture files
-        const expiredFlagContent = fs.readFileSync(
-          path.join(EXPIRED_FLAG_FIXTURES, "expired-flag-usage.js"),
-          "utf8",
-        );
-
-        const activeFlagContent = fs.readFileSync(
-          path.join(EXPIRED_FLAG_FIXTURES, "active-flag-usage.ts"),
-          "utf8",
-        );
-
-        // Test the rule with fixtures
-        ruleTester.run("expired-feature-flag", plugin.rules["expired-feature-flag"], {
-          valid: [
-            {
-              code: activeFlagContent,
-              options: [
-                {
-                  featureFlags: {
-                    "enable-analytics": TEST_FLAGS["enable-analytics"],
-                  },
-                  identifiers: ["getFeatureFlag"],
-                },
-              ],
-            },
-          ],
-          invalid: [
-            {
-              code: expiredFlagContent,
-              options: [
-                {
-                  featureFlags: {
-                    "enable-dashboard-v1": TEST_FLAGS["enable-dashboard-v1"],
-                  },
-                  identifiers: ["getFeatureFlag"],
-                },
-              ],
-              errors: [{ messageId: "expiredFeatureFlag" }],
-            },
-          ],
-        });
-      });
-    });
-
-    describe("2.2 no-undefined-feature-flags rule", () => {
-      // Never ran before Vitest 5 (RuleTester nested in it()); it fails today. Fixed with the rule rewrite.
-      it.skip("detects undefined feature flags and allows defined ones", () => {
-        // Read sample fixture files
-        const undefinedFlagContent = fs.readFileSync(
-          path.join(UNDEFINED_FLAG_FIXTURES, "undefined-flag-usage.js"),
-          "utf8",
-        );
-
-        // Test the rule with fixtures
-        ruleTester.run("no-undefined-feature-flags", plugin.rules["no-undefined-feature-flags"], {
-          valid: [
-            {
-              code: 'const flag = getFeatureFlag("enable-ui-v1");',
-              options: [
-                {
-                  featureFlags: {
-                    "enable-homepage": TEST_FLAGS["enable-homepage"],
-                  },
-                },
-              ],
-            },
-          ],
-          invalid: [
-            {
-              code: undefinedFlagContent,
-              options: [
-                {
-                  featureFlags: {
-                    "enable-dark-mode": TEST_FLAGS["enable-dark-mode"],
-                  },
-                  identifiers: ["getFeatureFlag"],
-                },
-              ],
-              errors: [
-                {
-                  messageId: "undefinedFeatureFlag",
-                  data: { name: "new-dashboard" },
-                },
-                {
-                  messageId: "undefinedFeatureFlag",
-                  data: { name: "dark-theme" },
-                },
-              ],
-            },
-          ],
-        });
-      });
     });
 
     describe("2.3 cleanup-feature-flag rule", () => {

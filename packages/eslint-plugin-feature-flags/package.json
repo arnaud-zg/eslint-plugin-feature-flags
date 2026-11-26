@@ -50,6 +50,8 @@
   },
   "devDependencies": {
     "@arnaud-zg/configs": "catalog:",
+    "@types/estree": "^1.0.11",
+    "@types/json-schema": "^7.0.15",
     "@types/node": "catalog:",
     "@typescript-eslint/parser": "^8.72.2",
     "eslint": "catalog:",
