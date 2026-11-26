@@ -1,105 +1,50 @@
-# 🚀 eslint-plugin-feature-flags
+# 🚩 eslint-plugin-feature-flags
 
 <p align="center">
-  <img src="./assets/icon.svg" width="128" height="128" alt="Eslint Plugin Feature Flags Logo" />
+  <img src="./assets/icon.svg" width="128" height="128" alt="eslint-plugin-feature-flags logo" />
 </p>
 
 <div align="center">
-  ESLint plugin to manage feature flags and prevent technical debt
+  ESLint rules that keep feature flags from turning into technical debt.
 </div>
 
 <div align="center">
+  <a href="https://www.npmjs.com/package/eslint-plugin-feature-flags"><img src="https://img.shields.io/npm/v/eslint-plugin-feature-flags" alt="npm version"></a>
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a>
-  <a href="https://turbo.build/"><img src="https://img.shields.io/badge/Built%20with-Turborepo-blueviolet" alt="Built with Turbo"></a>
-  <img src="https://img.shields.io/badge/ESM-Ready-green" alt="ESM Ready">
-  <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white" alt="TypeScript"></a>
-  <a href="https://nodejs.org"><img src="https://img.shields.io/badge/node-v18+-green.svg" alt="Node"></a>
 </div>
 
-## Table of Contents
+Feature flags ship code safely, then stay in the code long after the decision is made. This plugin
+reads your flag list and:
 
-- [Overview](#overview)
-- [Development](#development)
-- [Project Structure](#project-structure)
-- [Key Components](#key-components)
-- [License](#license)
-- [Learn More](#want-to-learn-more)
-- [Acknowledgments](#acknowledgments)
+- **reports flags past their expiry date**, so they get removed;
+- **reports flags missing from the list**, so a typo never reads `false` in production;
+- **removes a settled flag for you**, keeping only the code its final value runs.
 
-## Overview
-
-Feature flags help teams deploy safely, but often become technical debt when forgotten. This ESLint
-plugin solves that by:
-
-- **Finding expired flags** that should be removed
-- **Preventing undefined flags** to avoid typos and mistakes
-- **Automating cleanup** with configurable strategies
-
-Common issues this plugin addresses:
-
-- **Dead flags** bloating the codebase
-- **Stale flags** creating ambiguity
-- **Hidden logic** behind flags where it doesn't belong
-- **Lack of clear ownership** of flags across teams
-
-👉 See the [example project](./examples/test-project/) for a quick demo.
+👉 Install it and see every rule:
+[packages/eslint-plugin-feature-flags](./packages/eslint-plugin-feature-flags/README.md).
 
 ## Development
 
-### Quick Start
+You need Node 22 and pnpm 10.
 
-```bash
-# Install dependencies
+```sh
 pnpm install
-
-# Build all packages
-pnpm build
-
-# Development mode
-pnpm dev
-
-# Run tests
-pnpm test
-
-# Check code quality
-pnpm lint
-pnpm format
+pnpm verify   # typecheck, lint, format, test, build
 ```
 
-## Project Structure
+The repo holds one published package, `packages/eslint-plugin-feature-flags`. How to propose a
+change and how releases work: [CONTRIBUTING.md](./CONTRIBUTING.md).
 
-This is a monorepo built with Turborepo:
+## Learn more
 
-```
-eslint-plugin-feature-flags/
-├── packages/
-│   ├── eslint-plugin-feature-flags/ # The ESLint plugin, the one published package
-│   └── eslint-config-base/ # Shared ESLint configurations
-├── examples/
-│   └── test-project/   # Example implementation
-```
-
-## Key Components
-
-- 🔍 **[ESLint Plugin](./packages/eslint-plugin-feature-flags/)** - The plugin package
-- 🧪 **[Example Project](./examples/test-project/)** - Working example
-
-## License
-
-This project is MIT licensed - see the [LICENSE](LICENSE) file for details.
-
-## Want to Learn More?
-
-Resources on feature flag best practices:
-
-- [Effective Feature Flag Management](https://arnaudzg.substack.com/p/effective-feature-flag-management) -
-  The article that inspired this plugin
-- [ESLint Plugin Documentation](./packages/eslint-plugin-feature-flags/README.md) - Full plugin
-  details and examples
+- [Effective Feature Flag Management](https://arnaudzg.substack.com/p/effective-feature-flag-management),
+  the article behind this plugin.
 
 ## Acknowledgments
 
-Special thanks to [Kevin Marques](https://github.com/marques-kevin) for the idea that sparked this
-project, and to all contributors who help make it better!
+Thanks to [Kevin Marques](https://github.com/marques-kevin) for the idea that sparked this project,
+and to everyone who helps make it better.
 
-Built with [Turborepo](https://turbo.build/) ⚡️
+## License
+
+[MIT](./LICENSE)
