@@ -99,7 +99,7 @@ const rule: TSESLint.RuleModule<MessageIds, Options> = {
 
     function getBlockContent(node: Node): string {
       if (node.type !== AST_NODE_TYPES.BlockStatement) {
-        return context.getSourceCode().getText(node);
+        return context.sourceCode.getText(node);
       }
 
       const blockNode = node;
@@ -108,7 +108,7 @@ const rule: TSESLint.RuleModule<MessageIds, Options> = {
       }
 
       if (blockNode.body.length === 1) {
-        const sourceCode = context.getSourceCode();
+        const sourceCode = context.sourceCode;
         const statementText = sourceCode.getText(blockNode.body[0]);
 
         const statementLines = statementText.split("\n");
@@ -123,7 +123,7 @@ const rule: TSESLint.RuleModule<MessageIds, Options> = {
         return statementText;
       }
 
-      const sourceCode = context.getSourceCode();
+      const sourceCode = context.sourceCode;
       const blockText = sourceCode.getText(node);
       const openBraceIndex = blockText.indexOf("{");
       const closeBraceIndex = blockText.lastIndexOf("}");
@@ -163,12 +163,12 @@ const rule: TSESLint.RuleModule<MessageIds, Options> = {
           if (node.type === AST_NODE_TYPES.IfStatement) {
             return fixer.replaceText(node, getBlockContent(node.consequent));
           } else if (node.type === AST_NODE_TYPES.ConditionalExpression) {
-            return fixer.replaceText(node, context.getSourceCode().getText(node.consequent));
+            return fixer.replaceText(node, context.sourceCode.getText(node.consequent));
           } else if (node.type === AST_NODE_TYPES.LogicalExpression && node.operator === "&&") {
-            return fixer.replaceText(node, context.getSourceCode().getText(node.right));
+            return fixer.replaceText(node, context.sourceCode.getText(node.right));
           } else if (node.type === AST_NODE_TYPES.LogicalExpression && node.operator === "||") {
             if (isInVariableDecl) {
-              return fixer.replaceText(node, context.getSourceCode().getText(node.right));
+              return fixer.replaceText(node, context.sourceCode.getText(node.right));
             }
             return fixer.remove(node);
           }
@@ -181,7 +181,7 @@ const rule: TSESLint.RuleModule<MessageIds, Options> = {
             }
             return fixer.replaceText(node, getBlockContent(node.alternate));
           } else if (node.type === AST_NODE_TYPES.ConditionalExpression) {
-            return fixer.replaceText(node, context.getSourceCode().getText(node.alternate));
+            return fixer.replaceText(node, context.sourceCode.getText(node.alternate));
           } else if (node.type === AST_NODE_TYPES.LogicalExpression && node.operator === "&&") {
             if (isInVariableDecl) {
               const parent = node.parent as { id?: { name: string } };
@@ -197,19 +197,19 @@ const rule: TSESLint.RuleModule<MessageIds, Options> = {
             }
             return fixer.remove(node);
           } else if (node.type === AST_NODE_TYPES.LogicalExpression && node.operator === "||") {
-            return fixer.replaceText(node, context.getSourceCode().getText(node.right));
+            return fixer.replaceText(node, context.sourceCode.getText(node.right));
           }
           break;
 
         case "remove-entirely":
           if (isInVariableDecl) {
             if (node.type === AST_NODE_TYPES.ConditionalExpression) {
-              return fixer.replaceText(node, context.getSourceCode().getText(node.alternate));
+              return fixer.replaceText(node, context.sourceCode.getText(node.alternate));
             }
 
             if (node.type === AST_NODE_TYPES.LogicalExpression) {
               if (node.operator === "&&") {
-                const rightText = context.getSourceCode().getText(node.right);
+                const rightText = context.sourceCode.getText(node.right);
 
                 if (/^(true|false)$/.test(rightText)) {
                   return fixer.replaceText(node, "false");
@@ -221,7 +221,7 @@ const rule: TSESLint.RuleModule<MessageIds, Options> = {
               }
 
               if (node.operator === "||") {
-                return fixer.replaceText(node, context.getSourceCode().getText(node.right));
+                return fixer.replaceText(node, context.sourceCode.getText(node.right));
               }
             }
 
@@ -236,7 +236,7 @@ const rule: TSESLint.RuleModule<MessageIds, Options> = {
           }
 
           if (node.type === AST_NODE_TYPES.ConditionalExpression) {
-            const falsePathValue = context.getSourceCode().getText(node.alternate);
+            const falsePathValue = context.sourceCode.getText(node.alternate);
 
             if (
               node.parent.type === AST_NODE_TYPES.BinaryExpression ||
@@ -298,7 +298,7 @@ const rule: TSESLint.RuleModule<MessageIds, Options> = {
                     messageId: "cleanupFeatureFlag",
                     data: { name: flagName, strategy },
                     fix(fixer) {
-                      return fixer.replaceText(init, context.getSourceCode().getText(init.right));
+                      return fixer.replaceText(init, context.sourceCode.getText(init.right));
                     },
                   });
                   return;
@@ -347,7 +347,7 @@ const rule: TSESLint.RuleModule<MessageIds, Options> = {
                       init.operator === "&&" &&
                       init.right.type === AST_NODE_TYPES.LogicalExpression
                     ) {
-                      return fixer.replaceText(init, context.getSourceCode().getText(init.right));
+                      return fixer.replaceText(init, context.sourceCode.getText(init.right));
                     }
                     return applyFix(fixer, init, strategy);
                   },
