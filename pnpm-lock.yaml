@@ -9,15 +9,72 @@ catalogs:
     '@arnaud-zg/configs':
       specifier: 0.4.0
       version: 0.4.0
+    '@commitlint/cli':
+      specifier: ^21.2.4
+      version: 21.2.4
+    '@commitlint/config-conventional':
+      specifier: ^21.2.4
+      version: 21.2.4
+    '@eslint/js':
+      specifier: ^9.39.5
+      version: 9.39.5
+    '@ianvs/prettier-plugin-sort-imports':
+      specifier: ^4.7.1
+      version: 4.7.1
+    '@shiplane/changesets':
+      specifier: 0.6.0-nightly.18
+      version: 0.6.0-nightly.18
+    '@shiplane/git':
+      specifier: 0.6.0-nightly.18
+      version: 0.6.0-nightly.18
+    '@shiplane/github':
+      specifier: 0.6.0-nightly.18
+      version: 0.6.0-nightly.18
+    '@shiplane/npm':
+      specifier: 0.6.0-nightly.18
+      version: 0.6.0-nightly.18
+    '@stryker-mutator/core':
+      specifier: 10.1.1
+      version: 10.1.1
+    '@stryker-mutator/vitest-runner':
+      specifier: 10.1.1
+      version: 10.1.1
     '@types/node':
       specifier: ^22.20.5
       version: 22.20.7
+    eslint:
+      specifier: ^9.39.5
+      version: 9.39.5
+    eslint-config-prettier:
+      specifier: ^10.1.8
+      version: 10.1.8
+    lefthook:
+      specifier: ^2.2.2
+      version: 2.2.3
     prettier:
       specifier: ^3.10.1
       version: 3.10.1
+    prettier-plugin-packagejson:
+      specifier: ^3.1.0
+      version: 3.1.0
+    remark-cli:
+      specifier: ^12.0.1
+      version: 12.0.1
+    remark-preset-lint-recommended:
+      specifier: ^7.0.1
+      version: 7.0.1
+    shiplane:
+      specifier: 0.6.0-nightly.18
+      version: 0.6.0-nightly.18
+    tsdown:
+      specifier: 0.21.10
+      version: 0.21.10
     typescript:
       specifier: 6.0.3
       version: 6.0.3
+    typescript-eslint:
+      specifier: ^8.72.2
+      version: 8.74.0
     vitest:
       specifier: ^5.1.0
       version: 5.1.2
@@ -49,16 +106,16 @@ importers:
         version: 4.7.1(prettier@3.10.1)
       '@shiplane/changesets':
         specifier: 'catalog:'
-        version: 0.5.2(shiplane@0.5.2)
+        version: 0.6.0-nightly.18(shiplane@0.6.0-nightly.18)
       '@shiplane/git':
         specifier: 'catalog:'
-        version: 0.5.2(shiplane@0.5.2)
+        version: 0.6.0-nightly.18(shiplane@0.6.0-nightly.18)
       '@shiplane/github':
         specifier: 'catalog:'
-        version: 0.5.2(shiplane@0.5.2)
+        version: 0.6.0-nightly.18(shiplane@0.6.0-nightly.18)
       '@shiplane/npm':
         specifier: 'catalog:'
-        version: 0.5.2(shiplane@0.5.2)
+        version: 0.6.0-nightly.18(shiplane@0.6.0-nightly.18)
       '@stryker-mutator/core':
         specifier: 'catalog:'
         version: 10.1.1(@types/node@22.20.7)
@@ -91,7 +148,7 @@ importers:
         version: 7.0.1
       shiplane:
         specifier: 'catalog:'
-        version: 0.5.2
+        version: 0.6.0-nightly.18
       tsdown:
         specifier: 'catalog:'
         version: 0.21.10(typescript@6.0.3)
@@ -1160,25 +1217,25 @@ packages:
   '@sec-ant/readable-stream@0.4.1':
     resolution: {integrity: sha512-831qok9r2t8AlxLko40y2ebgSDhenenCatLVeW/uBtnHPyhHOvG0C7TvfgecV+wHzIm5KUICgzmVpWS+IMEAeg==}
 
-  '@shiplane/changesets@0.5.2':
-    resolution: {integrity: sha512-0Gg4J4KCbtk1LwDwOXKcxVfN9HmkU0ViDsr0UCN5Nq7N9UqWLb69RcXVxNANYphfToxD2wMIROOndSdGIJ/iKQ==}
+  '@shiplane/changesets@0.6.0-nightly.18':
+    resolution: {integrity: sha512-A+TnNPGZ8yRQhOXs9FcQvIj3i019bPMRf9XJOwcmSh8fJEuE44Gjw8KG9I0IV44F48KstvWF/R9XzV1uunwNUw==}
     peerDependencies:
-      shiplane: 0.5.2
+      shiplane: 0.6.0-nightly.18
 
-  '@shiplane/git@0.5.2':
-    resolution: {integrity: sha512-ceYEevXjPTa5YZxNz4jDMoEW+TA3G1am++ImBLGrQWkAqYpONpZ5QiYHnQPqw5u7LN2K0pF//nHUSVDubA/elA==}
+  '@shiplane/git@0.6.0-nightly.18':
+    resolution: {integrity: sha512-GeySgKYvjfr+HTjq5ra+pS9gm2duVtVBLY6L+Qje+No4lH4KN9ChIqp5LxVzSkYsk0/KdZilNLCj4GCVhRiB/A==}
     peerDependencies:
-      shiplane: 0.5.2
+      shiplane: 0.6.0-nightly.18
 
-  '@shiplane/github@0.5.2':
-    resolution: {integrity: sha512-1bwlTsZzbE6P+1Usu8anfWHsMKM1ZG+W+YFs9dGiRLY1chYcBTsmyiAUhyjOphkf1sewBSKU/eSHh2xQGKxEKA==}
+  '@shiplane/github@0.6.0-nightly.18':
+    resolution: {integrity: sha512-oBRFua+uwNtKfabN8JlJBzTSGVILgkVN/Wx3KJwoQHl1stgac2FFZwVo92Cz9idayGKZwp5Ul5TMRE/OIqAgzQ==}
     peerDependencies:
-      shiplane: 0.5.2
+      shiplane: 0.6.0-nightly.18
 
-  '@shiplane/npm@0.5.2':
-    resolution: {integrity: sha512-efAI6iYK1lCraqIWGsXdZekq6rtxb73XnjwayMT3/c4O43cFN09gKsq0RypKr+s5+osfWzMQGj+d0HUhXICkog==}
+  '@shiplane/npm@0.6.0-nightly.18':
+    resolution: {integrity: sha512-krzTc+6MiLbdTJjTPFVi6p9uo4kE4v6ckvfyWySxjK5YMwYiTEvfIHoQeAmntyg+orTsN1hyeRAV0ZZxYHvufA==}
     peerDependencies:
-      shiplane: 0.5.2
+      shiplane: 0.6.0-nightly.18
 
   '@simple-libs/child-process-utils@2.0.0':
     resolution: {integrity: sha512-dvNoRKLijXnD0XoJAz94pbNuB5GQgDr55UhpSPhffDkTT0Cmcqh9jSCOtwfT2d4H6MI9E7c4SgtMuJXZ6F3c6A==}
@@ -2726,8 +2783,8 @@ packages:
     resolution: {integrity: sha512-PcByqNyT/38F2kDNi006HAMRJaULuBzq/FOsw3qdZvX/GA9W/jamDaRskgHjubHiftXK5sIFxLNkvrXUwcof6Q==}
     engines: {node: '>= 0.4'}
 
-  shiplane@0.5.2:
-    resolution: {integrity: sha512-1eD5ebCRj3VoW/8LQWVR1y8DNPqjdPzasaezapZMZp1IWLeucbkEHVLwhBlOn9phYxCj9GHjCJ2E2Ptue/a43g==}
+  shiplane@0.6.0-nightly.18:
+    resolution: {integrity: sha512-oU8kVI2Q9uKROTIUYt/f7eJEsACulDfd9pr2smi76Q2JqUp155V3qoKJLfp/MowS42IiVxlYur1Ao9vvE1v4ow==}
     hasBin: true
 
   side-channel-list@1.0.1:
@@ -3231,12 +3288,12 @@ snapshots:
   '@babel/core@8.0.10':
     dependencies:
       '@babel/code-frame': 8.0.6
-      '@babel/generator': 8.0.10
+      '@babel/generator': 8.1.3
       '@babel/helper-compilation-targets': 8.0.7
       '@babel/helpers': 8.1.3
-      '@babel/parser': 8.0.10
+      '@babel/parser': 8.1.3
       '@babel/template': 8.1.2
-      '@babel/traverse': 8.0.10
+      '@babel/traverse': 8.1.3
       '@babel/types': 8.1.3
       '@types/gensync': 1.0.5
       convert-source-map: 2.0.0
@@ -3266,7 +3323,7 @@ snapshots:
 
   '@babel/generator@8.0.10':
     dependencies:
-      '@babel/parser': 8.0.10
+      '@babel/parser': 8.1.3
       '@babel/types': 8.1.3
       '@jridgewell/gen-mapping': 0.4.0-beta.0
       '@jridgewell/trace-mapping': 0.3.31
@@ -3302,7 +3359,7 @@ snapshots:
       '@babel/helper-optimise-call-expression': 8.0.0
       '@babel/helper-replace-supers': 8.0.1(@babel/core@8.0.10)
       '@babel/helper-skip-transparent-expression-wrappers': 8.1.0
-      '@babel/traverse': 8.0.10
+      '@babel/traverse': 8.1.3
       verkit: 0.5.0
 
   '@babel/helper-globals@7.29.7': {}
@@ -3317,7 +3374,7 @@ snapshots:
 
   '@babel/helper-module-imports@8.0.0':
     dependencies:
-      '@babel/traverse': 8.0.10
+      '@babel/traverse': 8.1.3
       '@babel/types': 8.1.3
 
   '@babel/helper-module-transforms@8.1.3(@babel/core@8.0.10)':
@@ -3340,7 +3397,7 @@ snapshots:
       '@babel/core': 8.0.10
       '@babel/helper-member-expression-to-functions': 8.1.2
       '@babel/helper-optimise-call-expression': 8.0.0
-      '@babel/traverse': 8.0.10
+      '@babel/traverse': 8.1.3
 
   '@babel/helper-skip-transparent-expression-wrappers@8.1.0':
     dependencies:
@@ -3498,9 +3555,9 @@ snapshots:
   '@babel/traverse@8.0.10':
     dependencies:
       '@babel/code-frame': 8.0.6
-      '@babel/generator': 8.0.10
+      '@babel/generator': 8.1.3
       '@babel/helper-globals': 8.0.6
-      '@babel/parser': 8.0.10
+      '@babel/parser': 8.1.3
       '@babel/template': 8.1.2
       '@babel/types': 8.1.3
       obug: 3.0.0
@@ -4277,21 +4334,22 @@ snapshots:
 
   '@sec-ant/readable-stream@0.4.1': {}
 
-  '@shiplane/changesets@0.5.2(shiplane@0.5.2)':
+  '@shiplane/changesets@0.6.0-nightly.18(shiplane@0.6.0-nightly.18)':
     dependencies:
-      shiplane: 0.5.2
+      '@changesets/config': 4.0.1
+      shiplane: 0.6.0-nightly.18
 
-  '@shiplane/git@0.5.2(shiplane@0.5.2)':
+  '@shiplane/git@0.6.0-nightly.18(shiplane@0.6.0-nightly.18)':
     dependencies:
-      shiplane: 0.5.2
+      shiplane: 0.6.0-nightly.18
 
-  '@shiplane/github@0.5.2(shiplane@0.5.2)':
+  '@shiplane/github@0.6.0-nightly.18(shiplane@0.6.0-nightly.18)':
     dependencies:
-      shiplane: 0.5.2
+      shiplane: 0.6.0-nightly.18
 
-  '@shiplane/npm@0.5.2(shiplane@0.5.2)':
+  '@shiplane/npm@0.6.0-nightly.18(shiplane@0.6.0-nightly.18)':
     dependencies:
-      shiplane: 0.5.2
+      shiplane: 0.6.0-nightly.18
 
   '@simple-libs/child-process-utils@2.0.0':
     dependencies:
@@ -6093,7 +6151,7 @@ snapshots:
 
   rxjs@7.8.2:
     dependencies:
-      tslib: 2.8.1
+      tslib: 2.9.1
 
   safer-buffer@2.1.2: {}
 
@@ -6107,7 +6165,7 @@ snapshots:
 
   shell-quote@1.12.0: {}
 
-  shiplane@0.5.2:
+  shiplane@0.6.0-nightly.18:
     dependencies:
       '@clack/prompts': 1.9.0
       jiti: 2.7.0
@@ -6283,8 +6341,7 @@ snapshots:
 
   tslib@2.8.1: {}
 
-  tslib@2.9.1:
-    optional: true
+  tslib@2.9.1: {}
 
   tunnel@0.0.6: {}
 
