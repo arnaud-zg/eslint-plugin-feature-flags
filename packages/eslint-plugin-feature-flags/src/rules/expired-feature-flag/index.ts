@@ -1,6 +1,5 @@
 /** ESLint rule to detect and report usage of expired feature flags */
-import { FeatureFlagsConfig, FeatureFlag } from '@eslint-plugin-feature-flags/types';
-import { formatExpirationDate, isExpired } from '@eslint-plugin-feature-flags/core';
+import { FeatureFlagsConfig, FeatureFlag, formatExpirationDate, isExpired } from '../../flags';
 import { Rule } from 'eslint';
 
 

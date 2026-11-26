@@ -1,5 +1,5 @@
 /** ESLint rule to detect usage of undefined feature flags */
-import { FeatureFlagsConfig } from '@eslint-plugin-feature-flags/types';
+import { FeatureFlagsConfig } from '../../flags';
 import { Rule } from 'eslint';
 
 

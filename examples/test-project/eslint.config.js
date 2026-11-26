@@ -2,7 +2,7 @@
 import { fileURLToPath } from 'node:url';
 
 // Import ESLint plugins
-import featureFlagsPlugin from '../../apps/eslint-plugin/dist/index.esm.js';
+import featureFlagsPlugin from '../../packages/eslint-plugin-feature-flags/dist/index.esm.js';
 import typescript from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
 
