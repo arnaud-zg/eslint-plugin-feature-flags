@@ -1,4 +1,4 @@
-import type { ESLint, Linter, Rule } from "eslint";
+import type { ESLint, Linter } from "eslint";
 
 import pkg from "../package.json" with { type: "json" };
 import cleanupFeatureFlag from "./rules/cleanup-feature-flag";
@@ -10,8 +10,7 @@ const plugin = {
   rules: {
     "expired-feature-flag": expiredFeatureFlag,
     "no-undefined-feature-flags": noUndefinedFeatureFlags,
-    // Typed with typescript-eslint's types until the next change rewrites it on ESLint's.
-    "cleanup-feature-flag": cleanupFeatureFlag as unknown as Rule.RuleModule,
+    "cleanup-feature-flag": cleanupFeatureFlag,
   },
 } satisfies ESLint.Plugin;
 
