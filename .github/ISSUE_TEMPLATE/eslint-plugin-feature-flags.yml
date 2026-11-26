@@ -1,0 +1,17 @@
+name: "eslint-plugin-feature-flags"
+description: "A bug, an idea or a question about the plugin or its rules."
+labels: []
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, or what do you want?
+      description: A bug, an idea or a question. One sentence is enough to start.
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: How to reproduce
+      description: Optional. The rule options, the code it reads, versions (`npm ls eslint-plugin-feature-flags eslint`, `node -v`).
+      render: shell

@@ -1,10 +1,8 @@
 {
-  "$schema": "https://unpkg.com/@changesets/config@3.1.1/schema.json",
+  "$schema": "https://unpkg.com/@changesets/config@3.0.0/schema.json",
   "changelog": [
     "@changesets/changelog-github",
-    {
-      "repo": "arnaud-zg/eslint-plugin-feature-flags"
-    }
+    { "repo": "arnaud-zg/eslint-plugin-feature-flags" }
   ],
   "commit": false,
   "fixed": [],
@@ -12,5 +10,6 @@
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
+  "bumpVersionsWithWorkspaceProtocolOnly": true,
   "ignore": []
 }

@@ -21,6 +21,18 @@ catalogs:
     '@ianvs/prettier-plugin-sort-imports':
       specifier: ^4.7.1
       version: 4.7.1
+    '@shiplane/changesets':
+      specifier: 0.5.2
+      version: 0.5.2
+    '@shiplane/git':
+      specifier: 0.5.2
+      version: 0.5.2
+    '@shiplane/github':
+      specifier: 0.5.2
+      version: 0.5.2
+    '@shiplane/npm':
+      specifier: 0.5.2
+      version: 0.5.2
     '@stryker-mutator/core':
       specifier: 10.1.1
       version: 10.1.1
@@ -51,6 +63,9 @@ catalogs:
     remark-preset-lint-recommended:
       specifier: ^7.0.1
       version: 7.0.1
+    shiplane:
+      specifier: 0.5.2
+      version: 0.5.2
     tsdown:
       specifier: 0.21.10
       version: 0.21.10
@@ -89,6 +104,18 @@ importers:
       '@ianvs/prettier-plugin-sort-imports':
         specifier: 'catalog:'
         version: 4.7.1(prettier@3.10.1)
+      '@shiplane/changesets':
+        specifier: 'catalog:'
+        version: 0.5.2(shiplane@0.5.2)
+      '@shiplane/git':
+        specifier: 'catalog:'
+        version: 0.5.2(shiplane@0.5.2)
+      '@shiplane/github':
+        specifier: 'catalog:'
+        version: 0.5.2(shiplane@0.5.2)
+      '@shiplane/npm':
+        specifier: 'catalog:'
+        version: 0.5.2(shiplane@0.5.2)
       '@stryker-mutator/core':
         specifier: 'catalog:'
         version: 10.1.1(@types/node@22.20.7)
@@ -119,6 +146,9 @@ importers:
       remark-preset-lint-recommended:
         specifier: 'catalog:'
         version: 7.0.1
+      shiplane:
+        specifier: 'catalog:'
+        version: 0.5.2
       tsdown:
         specifier: 'catalog:'
         version: 0.21.10(typescript@6.0.3)
@@ -1150,6 +1180,26 @@ packages:
   '@sec-ant/readable-stream@0.4.1':
     resolution: {integrity: sha512-831qok9r2t8AlxLko40y2ebgSDhenenCatLVeW/uBtnHPyhHOvG0C7TvfgecV+wHzIm5KUICgzmVpWS+IMEAeg==}
 
+  '@shiplane/changesets@0.5.2':
+    resolution: {integrity: sha512-0Gg4J4KCbtk1LwDwOXKcxVfN9HmkU0ViDsr0UCN5Nq7N9UqWLb69RcXVxNANYphfToxD2wMIROOndSdGIJ/iKQ==}
+    peerDependencies:
+      shiplane: 0.5.2
+
+  '@shiplane/git@0.5.2':
+    resolution: {integrity: sha512-ceYEevXjPTa5YZxNz4jDMoEW+TA3G1am++ImBLGrQWkAqYpONpZ5QiYHnQPqw5u7LN2K0pF//nHUSVDubA/elA==}
+    peerDependencies:
+      shiplane: 0.5.2
+
+  '@shiplane/github@0.5.2':
+    resolution: {integrity: sha512-1bwlTsZzbE6P+1Usu8anfWHsMKM1ZG+W+YFs9dGiRLY1chYcBTsmyiAUhyjOphkf1sewBSKU/eSHh2xQGKxEKA==}
+    peerDependencies:
+      shiplane: 0.5.2
+
+  '@shiplane/npm@0.5.2':
+    resolution: {integrity: sha512-efAI6iYK1lCraqIWGsXdZekq6rtxb73XnjwayMT3/c4O43cFN09gKsq0RypKr+s5+osfWzMQGj+d0HUhXICkog==}
+    peerDependencies:
+      shiplane: 0.5.2
+
   '@simple-libs/child-process-utils@2.0.0':
     resolution: {integrity: sha512-dvNoRKLijXnD0XoJAz94pbNuB5GQgDr55UhpSPhffDkTT0Cmcqh9jSCOtwfT2d4H6MI9E7c4SgtMuJXZ6F3c6A==}
     engines: {node: '>=22'}
@@ -1439,6 +1489,10 @@ packages:
     resolution: {integrity: sha512-7NzBL0rN6fMUW+f7A6Io4h40qQlG+xGmtMxfbnH/K7TAtt8JQWVQK+6g0UXKMeVJoyV5EkkNsErQ8pVD3bLHbA==}
     engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
 
+  chalk@6.0.1:
+    resolution: {integrity: sha512-/Ce6KNm3vIbWdMlNna6RVIZ/ICQxnJxCicet5LBKK9ZffBkqzDw0xh9EiKSljdRtiIQ1S1z4YgcscUUGzNCWrA==}
+    engines: {node: '>=22'}
+
   character-entities-html4@2.1.0:
     resolution: {integrity: sha512-1v7fgQRj6hnSwFpq1Eu0ynr/CDEw0rXo2B61qXrLNdHZmPKgb7fqS1a2JwF0rISo9q77jDI8VMEHoApn8qDoZA==}
 
@@ -1461,6 +1515,14 @@ packages:
   ci-info@4.5.0:
     resolution: {integrity: sha512-d1uM8k5UZEyPza1n/MG3ko8nKupKN0KJpFsipgPcgaCCvV+IqIfJ+NzTjetlLM+UcXZx3+cLrNr76+eAO7G1Mw==}
     engines: {node: '>=8'}
+
+  cli-cursor@5.0.0:
+    resolution: {integrity: sha512-aCj4O5wKyszjMmDT4tZj93kxyydN/K5zPWSCe6/0AV/AA1pqe5ZBIw0a2ZfPQV7lL5/yb5HsUreJ6UFAF1tEQw==}
+    engines: {node: '>=18'}
+
+  cli-spinners@3.4.0:
+    resolution: {integrity: sha512-bXfOC4QcT1tKXGorxL3wbJm6XJPDqEnij2gQ2m7ESQuE+/z9YFIWnl/5RpTiKWbMq3EVKR4fRLJGn6DVfu0mpw==}
+    engines: {node: '>=18.20'}
 
   cli-width@4.1.0:
     resolution: {integrity: sha512-ouuZd4/dm2Sw5Gmqy6bGyNNNe1qt9RpmxveLSO7KcgsTnU7RXfsw+/bukWGo1abgBiMAic068rclZsO4IWmmxQ==}
@@ -1911,6 +1973,10 @@ packages:
   is-hexadecimal@2.0.1:
     resolution: {integrity: sha512-DgZQp241c8oO6cA1SbTEWiXeoxV42vlcJxgH+B3hi1AiqqKruZR3ZGF8In3fj4+/y/7rHvlOZLZtgJ/4ttYGZg==}
 
+  is-interactive@2.0.0:
+    resolution: {integrity: sha512-qP1vozQRI+BMOPcjFzrjXuQvdak2pHNUMZoeG2eRbiSqyvbEf/wQtEOTOX1guk6E3t36RkaqiSt8A/6YElNxLQ==}
+    engines: {node: '>=12'}
+
   is-plain-obj@4.1.0:
     resolution: {integrity: sha512-+Pgi+vMuUNkJyExiMBt5IlFoMyKnr5zhJ4Uspz58WOhBF5QoIZkFyNHIbBAtHwzVAgk5RtndVNsDRN61/mmDqg==}
     engines: {node: '>=12'}
@@ -2147,6 +2213,10 @@ packages:
   lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
 
+  log-symbols@7.0.1:
+    resolution: {integrity: sha512-ja1E3yCr9i/0hmBVaM0bfwDjnGy8I/s6PP4DFp+yP+a+mrHO4Rm7DtmnqROTUkHIkqffC84YY7AeqX6oFk0WFg==}
+    engines: {node: '>=18'}
+
   longest-streak@3.1.0:
     resolution: {integrity: sha512-9Ri+o0JYgehTaVBBDoMqIl8GXtbWg711O3srftcHhZ0dqnETqLaoIK0x17fUw9rFSlK/0NlsKe0Ahhyl5pXE2g==}
 
@@ -2251,6 +2321,10 @@ packages:
   micromark@4.0.3:
     resolution: {integrity: sha512-oGYfQzHSG5dOMovQcJ3fyTmZlWAWpi0XA0sJwJs+i6OT88o1+Jtw/8z0CmdowSLxGhhFK89rQ/oXph/wN02PNw==}
 
+  mimic-function@5.0.1:
+    resolution: {integrity: sha512-VP79XUPxV2CigYP3jWwAUFSku2aKqBH7uTAapFWCBqutsbmDo96KY5o8uh6U+/YSIn5OxJnXp73beVkpqMIGhA==}
+    engines: {node: '>=18'}
+
   minimalistic-assert@1.0.1:
     resolution: {integrity: sha512-UtJcAD4yEaGtjPezWuO9wC4nwUnVH/8/Im3yEHQP4b67cXlD/Qr9hdITCU1xDbSEXg2XKNaP8jsReV7vQd00/A==}
 
@@ -2349,9 +2423,17 @@ packages:
     resolution: {integrity: sha512-5vvB5+W7ePv+p3uqxi+RcW1XAzLW0/hxt3/4X4Lc4qHudzOhmBiBwOY6DRob4WnanAEGvNcLjF+KNOufrUoEQw==}
     engines: {node: '>=12.20.0'}
 
+  onetime@7.0.0:
+    resolution: {integrity: sha512-VXJjc87FScF88uafS3JllDgvAm+c/Slfz06lorj2uAY34rlUu0Nt+v8wreiImcrgAjjIHp1rXpTDlLOGw29WwQ==}
+    engines: {node: '>=18'}
+
   optionator@0.9.4:
     resolution: {integrity: sha512-6IpQ7mKUxRcZNLIObR0hz7lxsapSSIYNZJwXPGeF0mTVqGKFIXj1DQcMoT22S3ROcLyY/rz0PWaWZ9ayWmad9g==}
     engines: {node: '>= 0.8.0'}
+
+  ora@10.0.0:
+    resolution: {integrity: sha512-jlxvSlLi1aKgPUnRf8NMjwyor1CM4K+faxuycHYTvygjjtkM596tQBXGEp/PQAVqzftrCBMRJlw6+RAJS5nOtQ==}
+    engines: {node: '>=22'}
 
   p-limit@3.1.0:
     resolution: {integrity: sha512-TYOanM3wGwNGsZN2cVTYPArw454xnXj5qmWF1bEoAc4+cU/ol7GVh7odevjp1FNHduHc3KZMcFduxU5Xc6uJRQ==}
@@ -2557,6 +2639,10 @@ packages:
   resolve-pkg-maps@1.0.0:
     resolution: {integrity: sha512-seS2Tj26TBVOC2NIc2rOe2y2ZO7efxITtLZcGSOnHHNOQ7CkiUBfw0Iw2ck6xkIhPwLhKNLS8BO+hEpngQlqzw==}
 
+  restore-cursor@5.1.0:
+    resolution: {integrity: sha512-oMA2dcrw6u0YfxJQXm342bFKX/E4sG9rbTzO9ptUcR/e8A33cHuvStiYOwH7fszkZlZ1z/ta9AAoPk2F4qIOHA==}
+    engines: {node: '>=18'}
+
   retry@0.12.0:
     resolution: {integrity: sha512-9LkiTwjUh6rT555DtE9rTX+BKByPfrMzEAtnlEtdEwr3Nkffwiihqe2bWADg+OQRjt9gl6ICdmB/ZFDCGAtSow==}
     engines: {node: '>= 4'}
@@ -2612,6 +2698,10 @@ packages:
   shell-quote@1.12.0:
     resolution: {integrity: sha512-PcByqNyT/38F2kDNi006HAMRJaULuBzq/FOsw3qdZvX/GA9W/jamDaRskgHjubHiftXK5sIFxLNkvrXUwcof6Q==}
     engines: {node: '>= 0.4'}
+
+  shiplane@0.5.2:
+    resolution: {integrity: sha512-1eD5ebCRj3VoW/8LQWVR1y8DNPqjdPzasaezapZMZp1IWLeucbkEHVLwhBlOn9phYxCj9GHjCJ2E2Ptue/a43g==}
+    hasBin: true
 
   side-channel-list@1.0.1:
     resolution: {integrity: sha512-mjn/0bi/oUURjc5Xl7IaWi/OJJJumuoJFQJfDDyO46+hBWsfaVM65TBHq2eoZBhzl9EchxOijpkbRC8SVBQU0w==}
@@ -2670,6 +2760,10 @@ packages:
 
   std-env@4.3.0:
     resolution: {integrity: sha512-OtU/EgQ1kIm5KwqQpBC6ZEMXrZRui11w8zgfTWp8cdO9B8OaPsbA8bTHO2P+HNo1VlUTGMVBwPhydu6poeXiag==}
+
+  stdin-discarder@0.3.2:
+    resolution: {integrity: sha512-eCPu1qRxPVkl5605OTWF8Wz40b4Mf45NY5LQmVPQ599knfs5QhASUm9GbJ5BDMDOXgrnh0wyEdvzmL//YMlw0A==}
+    engines: {node: '>=18'}
 
   string-width@4.2.3:
     resolution: {integrity: sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==}
@@ -4091,6 +4185,22 @@ snapshots:
 
   '@sec-ant/readable-stream@0.4.1': {}
 
+  '@shiplane/changesets@0.5.2(shiplane@0.5.2)':
+    dependencies:
+      shiplane: 0.5.2
+
+  '@shiplane/git@0.5.2(shiplane@0.5.2)':
+    dependencies:
+      shiplane: 0.5.2
+
+  '@shiplane/github@0.5.2(shiplane@0.5.2)':
+    dependencies:
+      shiplane: 0.5.2
+
+  '@shiplane/npm@0.5.2(shiplane@0.5.2)':
+    dependencies:
+      shiplane: 0.5.2
+
   '@simple-libs/child-process-utils@2.0.0':
     dependencies:
       '@simple-libs/stream-utils': 2.0.0
@@ -4427,6 +4537,8 @@ snapshots:
 
   chalk@5.6.2: {}
 
+  chalk@6.0.1: {}
+
   character-entities-html4@2.1.0: {}
 
   character-entities-legacy@3.0.0: {}
@@ -4442,6 +4554,12 @@ snapshots:
       readdirp: 4.1.2
 
   ci-info@4.5.0: {}
+
+  cli-cursor@5.0.0:
+    dependencies:
+      restore-cursor: 5.1.0
+
+  cli-spinners@3.4.0: {}
 
   cli-width@4.1.0: {}
 
@@ -4845,6 +4963,8 @@ snapshots:
 
   is-hexadecimal@2.0.1: {}
 
+  is-interactive@2.0.0: {}
+
   is-plain-obj@4.1.0: {}
 
   is-stream@4.0.1: {}
@@ -5023,6 +5143,11 @@ snapshots:
   lodash.groupby@4.6.0: {}
 
   lodash.merge@4.6.2: {}
+
+  log-symbols@7.0.1:
+    dependencies:
+      is-unicode-supported: 2.1.0
+      yoctocolors: 2.2.0
 
   longest-streak@3.1.0: {}
 
@@ -5247,6 +5372,8 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  mimic-function@5.0.1: {}
+
   minimalistic-assert@1.0.1: {}
 
   minimatch@10.2.6:
@@ -5333,6 +5460,10 @@ snapshots:
 
   obug@3.0.0: {}
 
+  onetime@7.0.0:
+    dependencies:
+      mimic-function: 5.0.1
+
   optionator@0.9.4:
     dependencies:
       deep-is: 0.1.4
@@ -5341,6 +5472,17 @@ snapshots:
       prelude-ls: 1.2.1
       type-check: 0.4.0
       word-wrap: 1.2.5
+
+  ora@10.0.0:
+    dependencies:
+      chalk: 6.0.1
+      cli-cursor: 5.0.0
+      cli-spinners: 3.4.0
+      is-interactive: 2.0.0
+      is-unicode-supported: 2.1.0
+      log-symbols: 7.0.1
+      stdin-discarder: 0.3.2
+      string-width: 8.3.0
 
   p-limit@3.1.0:
     dependencies:
@@ -5640,6 +5782,11 @@ snapshots:
 
   resolve-pkg-maps@1.0.0: {}
 
+  restore-cursor@5.1.0:
+    dependencies:
+      onetime: 7.0.0
+      signal-exit: 4.1.0
+
   retry@0.12.0: {}
 
   rolldown-plugin-dts@0.23.2(rolldown@1.0.0-rc.17)(typescript@6.0.3):
@@ -5719,6 +5866,14 @@ snapshots:
 
   shell-quote@1.12.0: {}
 
+  shiplane@0.5.2:
+    dependencies:
+      '@clack/prompts': 1.9.0
+      jiti: 2.7.0
+      ora: 10.0.0
+      yaml: 2.9.1
+      zod: 4.6.7
+
   side-channel-list@1.0.1:
     dependencies:
       es-errors: 1.3.0
@@ -5784,6 +5939,8 @@ snapshots:
   spdx-license-ids@3.0.24: {}
 
   std-env@4.3.0: {}
+
+  stdin-discarder@0.3.2: {}
 
   string-width@4.2.3:
     dependencies:
