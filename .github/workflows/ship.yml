@@ -1,0 +1,55 @@
+# Ships with shiplane: `pnpm shiplane ship --via ci`, or Run workflow here.
+# Written by `shiplane setup`; `shiplane doctor` keeps the pin current.
+name: Ship
+run-name: Ship to ${{ inputs.environment }}${{ inputs.dry-run && ' (dry run)' || '' }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      units:
+        description: "Units to ship, space separated (empty: every unit the environment lacks)"
+        type: string
+        default: ""
+      environment:
+        description: "Where to ship the ref this runs on"
+        type: choice
+        options: [snapshot, nightly, alpha, beta, rc, latest]
+        default: snapshot
+      ref:
+        description: "The tag to ship; shiplane sets it (empty: the ref this runs on)"
+        type: string
+        default: ""
+      dry-run:
+        description: "Show what would ship, ship nothing"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  deployments: write
+  actions: read
+  id-token: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  ship:
+    name: Ship to ${{ inputs.environment }}
+    runs-on: ubuntu-26.04
+    # A dry run reads the environment's secrets and records no deployment.
+    environment:
+      name: ${{ inputs.environment }}
+      deployment: ${{ !inputs.dry-run }}
+    concurrency:
+      group: ship-${{ inputs.environment }}
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ contains(fromJSON('[]'), inputs.environment) && inputs.ref || '' }}
+          fetch-depth: 0
+      - uses: arnaud-zg/js-packages/.github/actions/ship@70a8bd6176f01b46dfca1c10a84ecb7e1e80ebed # shiplane@0.6.0-nightly.18
+        with:
+          units: ${{ inputs.units }}
+          environment: ${{ inputs.environment }}
+          dry-run: ${{ inputs.dry-run }}
