@@ -1,7 +1,7 @@
 /** Tests for date utility functions using fixed date (June 10, 2025) */
 import { describe, it, expect, vi, beforeAll, afterAll } from 'vitest';
-import { isExpired, formatExpirationDate } from '../index.js';
-import type { FeatureFlag } from '@eslint-plugin-feature-flags/types';
+import { isExpired, formatExpirationDate } from '../flags';
+import type { FeatureFlag } from '../flags';
 
 describe('Date Utilities', () => {
   const fixedDate = new Date(2025, 5, 10); // June 10, 2025

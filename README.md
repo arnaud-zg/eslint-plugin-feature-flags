@@ -71,11 +71,8 @@ This is a monorepo built with Turborepo:
 
 ```
 eslint-plugin-feature-flags/
-├── apps/
-│   └── eslint-plugin/  # Main ESLint plugin package
 ├── packages/
-│   ├── types/          # TypeScript type definitions
-│   ├── core/           # Shared utilities
+│   ├── eslint-plugin-feature-flags/ # The ESLint plugin, the one published package
 │   └── eslint-config-base/ # Shared ESLint configurations
 ├── examples/
 │   └── test-project/   # Example implementation
@@ -83,9 +80,7 @@ eslint-plugin-feature-flags/
 
 ## Key Components
 
-- 🔍 **[ESLint Plugin](./apps/eslint-plugin/)** - The main plugin package
-- 🧩 **[Core](./packages/core/)** - Shared utilities and logic
-- 📝 **[Types](./packages/types/)** - TypeScript definitions
+- 🔍 **[ESLint Plugin](./packages/eslint-plugin-feature-flags/)** - The plugin package
 - 🧪 **[Example Project](./examples/test-project/)** - Working example
 
 ## License
@@ -97,7 +92,7 @@ This project is MIT licensed - see the [LICENSE](LICENSE) file for details.
 Resources on feature flag best practices:
 
 - [Effective Feature Flag Management](https://arnaudzg.substack.com/p/effective-feature-flag-management) - The article that inspired this plugin
-- [ESLint Plugin Documentation](./apps/eslint-plugin/README.md) - Full plugin details and examples
+- [ESLint Plugin Documentation](./packages/eslint-plugin-feature-flags/README.md) - Full plugin details and examples
 
 ## Acknowledgments
 

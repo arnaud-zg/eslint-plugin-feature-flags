@@ -6,7 +6,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/arnaud-zg/eslint-plugin-feature-flags.git",
-    "directory": "apps/eslint-plugin-feature-flags"
+    "directory": "packages/eslint-plugin-feature-flags"
   },
   "main": "./dist/index.esm.js",
   "types": "./dist/index.d.ts",
@@ -40,8 +40,6 @@
   "author": "Arnaud Zheng",
   "license": "MIT",
   "dependencies": {
-    "@eslint-plugin-feature-flags/core": "workspace:^",
-    "@eslint-plugin-feature-flags/types": "workspace:^",
     "@typescript-eslint/utils": "^8.34.0"
   },
   "peerDependencies": {
