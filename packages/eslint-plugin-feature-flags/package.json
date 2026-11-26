@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-feature-flags",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "ESLint rules for feature flag hygiene: flags past their expiry date, flags missing from your config, and an autofix that removes a flag once it is settled.",
   "keywords": [
     "eslint",
