@@ -1,0 +1,13 @@
+{
+  "extends": ["@arnaud-zg/configs/tsconfig/base.json", "../../tsconfig.base.json"],
+  "compilerOptions": {
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "target": "esnext",
+    "noEmit": true,
+    "composite": false,
+    "types": ["node"]
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["src/**/*.test.ts", "src/**/__tests__/**"]
+}

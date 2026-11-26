@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    // @arnaud-zg/configs 0.4.0 turned this off. Keep it on here: every indexed read stays
+    // `T | undefined`, so the guards in this repo keep checking real cases.
+    "noUncheckedIndexedAccess": true
+  }
+}

@@ -48,26 +48,29 @@ npm install --save-dev eslint-plugin-feature-flags
 
 ```js
 // eslint.config.js (ESLint v9+)
-import featureFlags from 'eslint-plugin-feature-flags';
+import featureFlags from "eslint-plugin-feature-flags";
 
 const config = {
-  'new-feature': {
-    expires: '2025-12-31',
-    description: 'New feature rollout',
-  }
+  "new-feature": {
+    expires: "2025-12-31",
+    description: "New feature rollout",
+  },
 };
 
 export default [
   featureFlags.configs.recommended,
   {
-    plugins: { 'feature-flags': featureFlags },
+    plugins: { "feature-flags": featureFlags },
     rules: {
-      'feature-flags/expired-feature-flag': ['error', {
-        featureFlags: config,
-        identifiers: ['isFeatureEnabled']
-      }]
-    }
-  }
+      "feature-flags/expired-feature-flag": [
+        "error",
+        {
+          featureFlags: config,
+          identifiers: ["isFeatureEnabled"],
+        },
+      ],
+    },
+  },
 ];
 ```
 
@@ -76,11 +79,11 @@ export default [
 ```typescript
 // Define your feature flags
 type Features = {
-  'new-feature': boolean;
+  "new-feature": boolean;
 };
 
 const FLAGS: Features = {
-  'new-feature': false
+  "new-feature": false,
 };
 
 function isFeatureEnabled(flag: keyof Features): boolean {
@@ -88,7 +91,7 @@ function isFeatureEnabled(flag: keyof Features): boolean {
 }
 
 // ESLint will check this usage
-if (isFeatureEnabled('new-feature')) {
+if (isFeatureEnabled("new-feature")) {
   // New code
 } else {
   // Old code
@@ -119,14 +122,15 @@ This plugin provides three powerful rules to help manage feature flags throughou
 ```
 
 **Examples**:
+
 ```js
 // ❌ Error: Feature flag "old-feature" expired on 2025-01-01
-if (isFeatureEnabled('old-feature')) {
+if (isFeatureEnabled("old-feature")) {
   doSomething();
 }
 
 // ✅ OK: Feature not expired
-if (isFeatureEnabled('new-feature')) {
+if (isFeatureEnabled("new-feature")) {
   doSomething();
 }
 ```
@@ -150,14 +154,15 @@ if (isFeatureEnabled('new-feature')) {
 ```
 
 **Examples**:
+
 ```js
 // ❌ Error: Feature flag "unknown-flag" is not defined
-if (isFeatureEnabled('unknown-flag')) {
+if (isFeatureEnabled("unknown-flag")) {
   doSomething();
 }
 
 // ✅ OK: Feature is defined in config
-if (isFeatureEnabled('enable-dark-mode')) {
+if (isFeatureEnabled("enable-dark-mode")) {
   doSomething();
 }
 ```
@@ -183,9 +188,10 @@ if (isFeatureEnabled('enable-dark-mode')) {
 **Cleanup Strategies**:
 
 1. **preserve-enabled-path**: Keeps only the code inside the "if" condition
+
    ```js
    // Before:
-   if (isFeatureEnabled('legacy-ui')) {
+   if (isFeatureEnabled("legacy-ui")) {
      showNewUI();
    } else {
      showOldUI();
@@ -196,9 +202,10 @@ if (isFeatureEnabled('enable-dark-mode')) {
    ```
 
 2. **preserve-disabled-path**: Keeps only the code inside the "else" condition
+
    ```js
    // Before:
-   if (isFeatureEnabled('enable-beta-feature')) {
+   if (isFeatureEnabled("enable-beta-feature")) {
      enableBeta();
    } else {
      useStable();
@@ -211,7 +218,7 @@ if (isFeatureEnabled('enable-dark-mode')) {
 3. **remove-entirely**: Removes the entire statement
    ```js
    // Before:
-   if (isFeatureEnabled('temp-flag')) {
+   if (isFeatureEnabled("temp-flag")) {
      doTemporaryThing();
    }
 
@@ -225,44 +232,47 @@ if (isFeatureEnabled('enable-dark-mode')) {
 
 ```js
 // eslint.config.js
-import featureFlags from 'eslint-plugin-feature-flags';
+import featureFlags from "eslint-plugin-feature-flags";
 
 // Define your feature flags
 const flags = {
-  'ui-v1': {
-    expires: '2025-01-01',
-    description: 'Legacy UI (deprecated)',
+  "ui-v1": {
+    expires: "2025-01-01",
+    description: "Legacy UI (deprecated)",
   },
-  'ui-v2': {
-    expires: '2025-12-31',
-    description: 'Current UI version',
-  }
+  "ui-v2": {
+    expires: "2025-12-31",
+    description: "Current UI version",
+  },
 };
 
 // Shared options for rules
 const options = {
   featureFlags: flags,
-  identifiers: ['isFeatureEnabled', 'getFlag'],
+  identifiers: ["isFeatureEnabled", "getFlag"],
 };
 
 export default [
   featureFlags.configs.recommended,
   {
-    plugins: { 'feature-flags': featureFlags },
+    plugins: { "feature-flags": featureFlags },
     rules: {
       // Detect expired flags
-      'feature-flags/expired-feature-flag': ['error', options],
-      
+      "feature-flags/expired-feature-flag": ["error", options],
+
       // Prevent undefined flags
-      'feature-flags/no-undefined-feature-flags': ['error', options],
-      
+      "feature-flags/no-undefined-feature-flags": ["error", options],
+
       // Clean up old flags
-      'feature-flags/cleanup-feature-flag': ['warn', {
-        ...options,
-        flagsToCleanup: {
-          'ui-v1': 'preserve-enabled-path'
-        }
-      }]
+      "feature-flags/cleanup-feature-flag": [
+        "warn",
+        {
+          ...options,
+          flagsToCleanup: {
+            "ui-v1": "preserve-enabled-path",
+          },
+        },
+      ],
     },
   },
 ];
@@ -273,28 +283,34 @@ export default [
 ```js
 // .eslintrc.js
 const flags = {
-  'ui-v1': {
-    expires: '2025-01-01',
-    description: 'Legacy UI (deprecated)',
+  "ui-v1": {
+    expires: "2025-01-01",
+    description: "Legacy UI (deprecated)",
   },
-  'ui-v2': {
-    expires: '2025-12-31',
-    description: 'Current UI version',
-  }
+  "ui-v2": {
+    expires: "2025-12-31",
+    description: "Current UI version",
+  },
 };
 
 module.exports = {
-  plugins: ['feature-flags'],
-  extends: ['plugin:feature-flags/recommended'],
+  plugins: ["feature-flags"],
+  extends: ["plugin:feature-flags/recommended"],
   rules: {
-    'feature-flags/expired-feature-flag': ['error', {
-      featureFlags: flags,
-      identifiers: ['isFeatureEnabled']
-    }],
-    'feature-flags/no-undefined-feature-flags': ['error', {
-      featureFlags: flags,
-      identifiers: ['isFeatureEnabled']
-    }],
+    "feature-flags/expired-feature-flag": [
+      "error",
+      {
+        featureFlags: flags,
+        identifiers: ["isFeatureEnabled"],
+      },
+    ],
+    "feature-flags/no-undefined-feature-flags": [
+      "error",
+      {
+        featureFlags: flags,
+        identifiers: ["isFeatureEnabled"],
+      },
+    ],
   },
 };
 ```
@@ -308,9 +324,9 @@ A typical setup follows these steps:
 ```ts
 // feature-flags.ts
 export const FLAGS = {
-  'enable-dark-mode': false,
-  'experimental-ui': false,
-  'enable-beta-feature': false
+  "enable-dark-mode": false,
+  "experimental-ui": false,
+  "enable-beta-feature": false,
 };
 
 export type FeatureFlag = keyof typeof FLAGS;
@@ -324,38 +340,44 @@ export function isFeatureEnabled(flag: FeatureFlag): boolean {
 
 ```js
 // eslint.config.js
-import featureFlags from 'eslint-plugin-feature-flags';
+import featureFlags from "eslint-plugin-feature-flags";
 
 const flagDefinitions = {
-  'enable-dark-mode': {
+  "enable-dark-mode": {
     expires: null, // permanent flag
-    description: 'Dark mode theme option'
+    description: "Dark mode theme option",
   },
-  'experimental-ui': {
-    expires: '2025-12-31',
-    description: 'New UI components being tested'
+  "experimental-ui": {
+    expires: "2025-12-31",
+    description: "New UI components being tested",
   },
-  'enable-beta-feature': {
-    expires: '2025-06-30',
-    description: 'Beta feature for select users'
-  }
+  "enable-beta-feature": {
+    expires: "2025-06-30",
+    description: "Beta feature for select users",
+  },
 };
 
 export default [
   featureFlags.configs.recommended,
   {
-    plugins: { 'feature-flags': featureFlags },
+    plugins: { "feature-flags": featureFlags },
     rules: {
-      'feature-flags/expired-feature-flag': ['error', {
-        featureFlags: flagDefinitions,
-        identifiers: ['isFeatureEnabled']
-      }],
-      'feature-flags/no-undefined-feature-flags': ['error', {
-        featureFlags: flagDefinitions,
-        identifiers: ['isFeatureEnabled']
-      }]
-    }
-  }
+      "feature-flags/expired-feature-flag": [
+        "error",
+        {
+          featureFlags: flagDefinitions,
+          identifiers: ["isFeatureEnabled"],
+        },
+      ],
+      "feature-flags/no-undefined-feature-flags": [
+        "error",
+        {
+          featureFlags: flagDefinitions,
+          identifiers: ["isFeatureEnabled"],
+        },
+      ],
+    },
+  },
 ];
 ```
 

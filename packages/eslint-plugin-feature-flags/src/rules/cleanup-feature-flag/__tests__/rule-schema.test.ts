@@ -1,94 +1,96 @@
 /** Tests for the cleanup-feature-flag rule schema */
-import { describe, it, expect } from 'vitest';
-import { RuleTester } from 'eslint';
-import * as parser from '@typescript-eslint/parser';
-import rule from '..';
+import * as parser from "@typescript-eslint/parser";
+import { RuleTester } from "eslint";
+import { describe, expect, it } from "vitest";
 
-describe('cleanup-feature-flag rule configuration', () => {
+import rule from "..";
+
+describe("cleanup-feature-flag rule configuration", () => {
   const ruleTester = new RuleTester({
     languageOptions: {
       parser,
       ecmaVersion: 2020,
-      sourceType: 'module',
+      sourceType: "module",
     },
   });
 
-  describe('schema validation', () => {
-    it('should have correct schema definition', () => {
-      expect(rule.meta?.schema).toEqual([
+  describe("schema validation", () => {
+    it("should have correct schema definition", () => {
+      expect(rule.meta.schema).toEqual([
         {
-          type: 'object',
+          type: "object",
           properties: {
             // Configuration of feature flags (shared with other rules)
             featureFlags: {
-              type: 'object',
+              type: "object",
               additionalProperties: {
-                type: 'object',
+                type: "object",
                 properties: {
-                  expires: { type: 'string' }, // Date in YYYY-MM-DD format
-                  description: { type: 'string' },
+                  expires: { type: "string" }, // Date in YYYY-MM-DD format
+                  description: { type: "string" },
                 },
-                required: ['expires'],
+                required: ["expires"],
                 additionalProperties: false,
               },
             },
             // Names of functions that access feature flags (e.g., getFeatureFlag)
             identifiers: {
-              type: 'array',
+              type: "array",
               items: {
-                type: 'string',
+                type: "string",
               },
             },
             // Feature flags to clean up with their strategies
             flagsToCleanup: {
-              type: 'object',
+              type: "object",
               additionalProperties: {
-                type: 'string',
-                enum: ['preserve-enabled-path', 'preserve-disabled-path', 'remove-entirely'],
+                type: "string",
+                enum: ["preserve-enabled-path", "preserve-disabled-path", "remove-entirely"],
               },
             },
           },
-          required: ['flagsToCleanup'],
+          required: ["flagsToCleanup"],
           additionalProperties: false,
         },
       ]);
     });
 
-    it('should have the correct meta information', () => {
-      expect(rule?.meta?.type).toBe('suggestion');
-      expect(rule?.meta?.docs).toEqual({
-        description: 'Clean up feature flags based on specified strategy',
+    it("should have the correct meta information", () => {
+      expect(rule.meta.type).toBe("suggestion");
+      expect(rule.meta.docs).toEqual({
+        description: "Clean up feature flags based on specified strategy",
       });
-      expect(rule?.meta?.fixable).toBe('code');
+      expect(rule.meta.fixable).toBe("code");
     });
 
-    it('should define the correct error message', () => {
-      expect(rule?.meta?.messages).toEqual({
-        cleanupFeatureFlag: 'Feature flag \"{{name}}\" should be cleaned up using strategy \"{{strategy}}\"',
+    it("should define the correct error message", () => {
+      expect(rule.meta.messages).toEqual({
+        cleanupFeatureFlag:
+          'Feature flag "{{name}}" should be cleaned up using strategy "{{strategy}}"',
       });
     });
 
-    it('should accept valid configurations', () => {
+    it("should accept valid configurations", () => {
       // Test with valid configurations
       const validConfigs = [
         {
-          name: 'Basic configuration with flagsToCleanup',
+          name: "Basic configuration with flagsToCleanup",
           config: {
             flagsToCleanup: {
-              'enable-ui-v1': 'preserve-enabled-path',
+              "enable-ui-v1": "preserve-enabled-path",
             },
           },
         },
         {
-          name: 'Configuration with multiple strategies',
+          name: "Configuration with multiple strategies",
           config: {
             flagsToCleanup: {
-              'enable-ui-v1': 'preserve-enabled-path',
-              'enable-ui-v2': 'preserve-disabled-path',
-              'enable-dark-mode': 'remove-entirely',
-              'enable-analytics': 'preserve-enabled-path',
+              "enable-ui-v1": "preserve-enabled-path",
+              "enable-ui-v2": "preserve-disabled-path",
+              "enable-dark-mode": "remove-entirely",
+              "enable-analytics": "preserve-enabled-path",
             },
-            identifiers: ['getFeatureFlag', 'isFeatureEnabled'],
+            identifiers: ["getFeatureFlag", "isFeatureEnabled"],
           },
         },
       ];
@@ -96,10 +98,10 @@ describe('cleanup-feature-flag rule configuration', () => {
       // Test valid configurations
       validConfigs.forEach((testCase) => {
         expect(() => {
-          ruleTester.run('test-valid-config', rule, {
+          ruleTester.run("test-valid-config", rule, {
             valid: [
               {
-                code: '// Empty file',
+                code: "// Empty file",
                 options: [testCase.config],
               },
             ],

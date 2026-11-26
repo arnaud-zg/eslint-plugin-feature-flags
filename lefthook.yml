@@ -1,0 +1,8 @@
+extends:
+  - node_modules/@arnaud-zg/configs/lefthook/lefthook.yml
+
+# Unit tests only. Mutation testing (`pnpm test:mutate`) is slow: run it by hand, never from a hook.
+pre-push:
+  commands:
+    test:
+      run: pnpm test

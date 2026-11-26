@@ -1,49 +1,48 @@
 /** ESLint rule to detect usage of undefined feature flags */
-import { FeatureFlagsConfig } from '../../flags';
-import { Rule } from 'eslint';
+import { Rule } from "eslint";
 
+import { FeatureFlagsConfig } from "../../flags";
 
 const rule: Rule.RuleModule = {
   meta: {
-    type: 'problem',
+    type: "problem",
     docs: {
-      description: 'Detect usage of undefined feature flags',
-      category: 'Possible Errors',
+      description: "Detect usage of undefined feature flags",
+      category: "Possible Errors",
       recommended: true,
     },
-    fixable: 'code', // This rule provides automated fixes
+    fixable: "code", // This rule provides automated fixes
     schema: [
       {
-        type: 'object',
+        type: "object",
         properties: {
           // Configuration of feature flags (shared with expired-feature-flag rule)
           featureFlags: {
-            type: 'object',
+            type: "object",
             additionalProperties: {
-              type: 'object',
+              type: "object",
               properties: {
-                expires: { type: 'string' }, // Date in YYYY-MM-DD format
-                description: { type: 'string' },
+                expires: { type: "string" }, // Date in YYYY-MM-DD format
+                description: { type: "string" },
               },
-              required: ['expires'],
+              required: ["expires"],
               additionalProperties: false,
             },
           },
           // Names of functions that access feature flags (e.g., getFeatureFlag)
           identifiers: {
-            type: 'array',
+            type: "array",
             items: {
-              type: 'string',
+              type: "string",
             },
           },
         },
-        required: ['featureFlags'],
+        required: ["featureFlags"],
         additionalProperties: false,
       },
     ],
     messages: {
-      undefinedFeatureFlag:
-        'Feature flag "{{name}}" is not defined in the ESLint configuration.',
+      undefinedFeatureFlag: 'Feature flag "{{name}}" is not defined in the ESLint configuration.',
     },
   },
   create(context) {
@@ -54,28 +53,27 @@ const rule: Rule.RuleModule = {
     const featureFlags: FeatureFlagsConfig = options.featureFlags || {};
 
     // Functions that are used to access feature flags (e.g., getFeatureFlag, isFeatureEnabled)
-    const identifiers: string[] = options.identifiers || ['getFeatureFlag'];
-    
+    const identifiers: string[] = options.identifiers || ["getFeatureFlag"];
+
     /**
      * Create a set of defined flag names for quick lookup
      */
     const definedFlags = new Set(Object.keys(featureFlags));
-    
-  
+
     /**
      * Reports a violation when an undefined flag is found
      */
-    const reportUndefinedFlag = (node: Rule.Node, flagName: string) => {      
+    const reportUndefinedFlag = (node: Rule.Node, flagName: string) => {
       // Skip if the flag is defined
       if (definedFlags.has(flagName)) return;
 
       // Base report data
       const report: Rule.ReportDescriptor = {
         node,
-        messageId: 'undefinedFeatureFlag',
+        messageId: "undefinedFeatureFlag",
         data: {
           name: flagName,
-        }
+        },
       };
 
       // Report the error
@@ -88,15 +86,15 @@ const rule: Rule.RuleModule = {
        * Example: getFeatureFlag('undefined-flag')
        */
       CallExpression(node) {
+        const [firstArgument] = node.arguments;
         // Check for feature flag function calls with string literal arguments
         if (
-          node.callee.type === 'Identifier' &&
+          node.callee.type === "Identifier" &&
           identifiers.includes(node.callee.name) &&
-          node.arguments.length > 0 &&
-          node.arguments[0].type === 'Literal' &&
-          typeof node.arguments[0].value === 'string'
+          firstArgument?.type === "Literal" &&
+          typeof firstArgument.value === "string"
         ) {
-          reportUndefinedFlag(node, node.arguments[0].value);
+          reportUndefinedFlag(node, firstArgument.value);
         }
       },
     };

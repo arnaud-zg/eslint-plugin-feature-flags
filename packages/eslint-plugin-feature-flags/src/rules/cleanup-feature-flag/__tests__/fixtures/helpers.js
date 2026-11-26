@@ -26,9 +26,17 @@ export function enableFeature() {}
 export function disableFeature() {}
 export function useExperimentalSearch() {}
 export function useStandardSearch() {}
-export function complexFunction() { return 'complex'; }
-export function fallbackFunction() { return 'fallback'; }
-export function experimentalFunction() { return 'experimental'; }
-export function standardFunction() { return 'standard'; }
+export function complexFunction() {
+  return "complex";
+}
+export function fallbackFunction() {
+  return "fallback";
+}
+export function experimentalFunction() {
+  return "experimental";
+}
+export function standardFunction() {
+  return "standard";
+}
 
 export const someOtherCondition = true;

@@ -1,42 +1,42 @@
 /** ESLint rule to detect and report usage of expired feature flags */
-import { FeatureFlagsConfig, FeatureFlag, formatExpirationDate, isExpired } from '../../flags';
-import { Rule } from 'eslint';
+import { Rule } from "eslint";
 
+import { FeatureFlag, FeatureFlagsConfig, formatExpirationDate, isExpired } from "../../flags";
 
 const rule: Rule.RuleModule = {
   meta: {
-    type: 'problem',
+    type: "problem",
     docs: {
-      description: 'Detect usage of expired feature flags',
-      category: 'Possible Errors',
+      description: "Detect usage of expired feature flags",
+      category: "Possible Errors",
       recommended: true,
     },
     schema: [
       {
-        type: 'object',
+        type: "object",
         properties: {
           // Configuration of feature flags with their expiration dates
           featureFlags: {
-            type: 'object',
+            type: "object",
             additionalProperties: {
-              type: 'object',
+              type: "object",
               properties: {
-                expires: { type: 'string' }, // Date in YYYY-MM-DD format
-                description: { type: 'string' },
+                expires: { type: "string" }, // Date in YYYY-MM-DD format
+                description: { type: "string" },
               },
-              required: ['expires'],
+              required: ["expires"],
               additionalProperties: false,
             },
           },
           // Names of functions that access feature flags (e.g., getFeatureFlag)
           identifiers: {
-            type: 'array',
+            type: "array",
             items: {
-              type: 'string',
+              type: "string",
             },
           },
         },
-        required: ['featureFlags'],
+        required: ["featureFlags"],
         additionalProperties: false,
       },
     ],
@@ -53,7 +53,7 @@ const rule: Rule.RuleModule = {
     const featureFlags: FeatureFlagsConfig = options.featureFlags || {};
 
     // Functions that are used to access feature flags (e.g., getFeatureFlag, isFeatureEnabled)
-    const identifiers: string[] = options.identifiers || ['getFeatureFlag'];
+    const identifiers: string[] = options.identifiers || ["getFeatureFlag"];
 
     /**
      * Create a map of expired flags for quick lookup
@@ -63,7 +63,7 @@ const rule: Rule.RuleModule = {
       (acc, [flagName, flagConfig]) => {
         const flag: FeatureFlag = {
           name: flagName,
-          description: flagConfig.description || '',
+          description: flagConfig.description || "",
           defaultValue: false,
           expiresOn: flagConfig.expires,
         };
@@ -74,7 +74,7 @@ const rule: Rule.RuleModule = {
         }
         return acc;
       },
-      {}
+      {},
     );
 
     /**
@@ -85,7 +85,7 @@ const rule: Rule.RuleModule = {
 
       context.report({
         node,
-        messageId: 'expiredFeatureFlag',
+        messageId: "expiredFeatureFlag",
         data: {
           name: flagName,
           expirationDate: formatExpirationDate(expiredFlags[flagName]),
@@ -99,7 +99,7 @@ const rule: Rule.RuleModule = {
        * Example: 'enable-ui-v1' in const flag = 'enable-ui-v1';
        */
       Literal(node) {
-        if (typeof node.value === 'string') {
+        if (typeof node.value === "string") {
           reportExpiredFlag(node, node.value);
         }
       },
@@ -109,14 +109,14 @@ const rule: Rule.RuleModule = {
        * Example: getFeatureFlag('enable-ui-v1')
        */
       CallExpression(node) {
+        const [firstArgument] = node.arguments;
         if (
-          node.callee.type === 'Identifier' &&
+          node.callee.type === "Identifier" &&
           identifiers.includes(node.callee.name) &&
-          node.arguments.length > 0 &&
-          node.arguments[0].type === 'Literal' &&
-          typeof node.arguments[0].value === 'string'
+          firstArgument?.type === "Literal" &&
+          typeof firstArgument.value === "string"
         ) {
-          reportExpiredFlag(node, node.arguments[0].value);
+          reportExpiredFlag(node, firstArgument.value);
         }
       },
 
@@ -128,11 +128,11 @@ const rule: Rule.RuleModule = {
        */
       MemberExpression(node) {
         // Check property access with dot notation (obj.prop)
-        if (node.property.type === 'Identifier') {
+        if (node.property.type === "Identifier") {
           reportExpiredFlag(node, node.property.name);
         }
         // Check property access with bracket notation (obj['prop'])
-        else if (node.property.type === 'Literal' && typeof node.property.value === 'string') {
+        else if (node.property.type === "Literal" && typeof node.property.value === "string") {
           reportExpiredFlag(node, node.property.value);
         }
       },

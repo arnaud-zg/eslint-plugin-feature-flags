@@ -29,6 +29,7 @@ npx eslint test.ts --fix
 ```
 
 After running the fix command:
+
 - `enable-ui-v1` checks will be replaced with just the "if" branch code
 - `enable-beta-feature` checks will be replaced with just the "else" branch code
 - `enable-dark-mode` checks will be removed entirely
