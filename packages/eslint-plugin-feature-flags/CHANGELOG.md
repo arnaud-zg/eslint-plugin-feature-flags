@@ -1,5 +1,12 @@
 # eslint-plugin-feature-flags
 
+## 0.2.1
+
+### Patch Changes
+
+- [#21](https://github.com/arnaud-zg/eslint-plugin-feature-flags/pull/21) [`8a1d2ed`](https://github.com/arnaud-zg/eslint-plugin-feature-flags/commit/8a1d2ed0559f8865cb5b6953576c46fbd42ac60e) - The README opens with what ESLint reports and links the new tutorial, how-to, reference and
+  explanation pages.
+
 ## 0.2.0
 
 ### Minor Changes
