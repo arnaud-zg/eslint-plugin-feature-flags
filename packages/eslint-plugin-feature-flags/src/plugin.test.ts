@@ -76,6 +76,14 @@ describe("configs.recommended", () => {
 });
 
 describe("settings", () => {
+  it("names identifiers that are not a list of function names", async () => {
+    const broken = { "feature-flags": { identifiers: "isEnabled" } };
+
+    await expect(
+      lint(`isEnabled("x");`, featureFlags.configs.recommended, { settings: broken }),
+    ).rejects.toThrow('settings["feature-flags"].identifiers must be a list of function names.');
+  });
+
   it("names the setting that holds a date ESLint cannot read", async () => {
     const broken = {
       "feature-flags": { featureFlags: { "old-checkout": { expires: "31/12/2025" } } },
@@ -85,6 +93,31 @@ describe("settings", () => {
       lint(`isEnabled("old-checkout");`, featureFlags.configs.recommended, { settings: broken }),
     ).rejects.toThrow(
       'settings["feature-flags"].featureFlags["old-checkout"].expires must be a YYYY-MM-DD date.',
+    );
+  });
+});
+
+describe("rule options", () => {
+  it("rejects an expires that is not YYYY-MM-DD", async () => {
+    const rules: Linter.RulesRecord = {
+      "feature-flags/expired-feature-flag": [
+        "error",
+        { featureFlags: { "old-checkout": { expires: "2025-12" } } },
+      ],
+    };
+
+    await expect(
+      lint(`isEnabled("old-checkout");`, featureFlags.configs.recommended, { rules }),
+    ).rejects.toThrow(/"2025-12" should match pattern/);
+  });
+
+  it("rejects a cleanup strategy it does not know", async () => {
+    const rules: Linter.RulesRecord = {
+      "feature-flags/cleanup-feature-flag": ["error", { flagsToCleanup: { x: "keep-both" } }],
+    };
+
+    await expect(lint(`x;`, featureFlags.configs.recommended, { rules })).rejects.toThrow(
+      /"keep-both" should be equal to one of the allowed values/,
     );
   });
 });
