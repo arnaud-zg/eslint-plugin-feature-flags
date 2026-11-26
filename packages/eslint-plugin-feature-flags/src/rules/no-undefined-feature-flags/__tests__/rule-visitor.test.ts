@@ -1,5 +1,5 @@
 /** Tests for the no-undefined-feature-flags rule visitor */
-import { describe } from 'vitest';
+import { describe, it } from 'vitest';
 import { RuleTester } from 'eslint';
 import * as parser from '@typescript-eslint/parser';
 import rule from '..';
@@ -28,7 +28,7 @@ describe('no-undefined-feature-flags rule visitor', () => {
   };
 
   // Run rule tests
-  ruleTester.run('no-undefined-feature-flags', rule, {
+  it('checks flag calls against the config', () => ruleTester.run('no-undefined-feature-flags', rule, {
     valid: [
       /**
        * Valid test cases - these should NOT trigger the rule
@@ -210,5 +210,5 @@ describe('no-undefined-feature-flags rule visitor', () => {
         ],
       },
     ],
-  });
+  }));
 });

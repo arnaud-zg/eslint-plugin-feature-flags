@@ -42,7 +42,7 @@ describe('cleanup-feature-flag rule visitor', () => {
       });
     });
 
-    describe('preserve-enabled-path strategy', () => {
+    it('preserve-enabled-path strategy', () => {
       ruleTester.run('preserve-enabled-path', rule, {
         valid: [],
         invalid: [
@@ -71,7 +71,7 @@ describe('cleanup-feature-flag rule visitor', () => {
       });
     });
 
-    describe('preserve-disabled-path strategy', () => {
+    it('preserve-disabled-path strategy', () => {
       ruleTester.run('preserve-disabled-path', rule, {
         valid: [],
         invalid: [
@@ -100,7 +100,7 @@ describe('cleanup-feature-flag rule visitor', () => {
       });
     });
 
-    describe('remove-entirely strategy', () => {
+    it('remove-entirely strategy', () => {
       ruleTester.run('remove-entirely', rule, {
         valid: [],
         invalid: [

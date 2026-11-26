@@ -1,48 +1,66 @@
 {
   "name": "eslint-plugin-feature-flags",
   "version": "0.1.2",
-  "description": "Lint rules to enforce feature flag hygiene: expire old flags, restrict usage, ensure test coverage.",
-  "type": "module",
+  "description": "ESLint rules for feature flag hygiene: flags past their expiry date, flags missing from your config, and an autofix that removes a flag once it is settled.",
+  "keywords": [
+    "eslint",
+    "eslintplugin",
+    "eslint-plugin",
+    "feature-flags",
+    "feature-toggles",
+    "technical-debt"
+  ],
+  "homepage": "https://github.com/arnaud-zg/eslint-plugin-feature-flags/tree/main/packages/eslint-plugin-feature-flags#readme",
+  "bugs": {
+    "url": "https://github.com/arnaud-zg/eslint-plugin-feature-flags/issues"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/arnaud-zg/eslint-plugin-feature-flags.git",
     "directory": "packages/eslint-plugin-feature-flags"
   },
-  "main": "./dist/index.esm.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.esm.js",
-      "default": "./dist/index.esm.js"
-    }
-  },
-  "files": [
-    "dist"
-  ],
-  "engines": {
-    "node": "^20.0.0 || ^18.0.0"
-  },
-  "scripts": {
-    "build": "tsup",
-    "dev": "tsup --watch",
-    "lint": "eslint",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage",
-    "clean": "rimraf dist"
-  },
-  "keywords": [
-    "eslint",
-    "eslint-plugin",
-    "feature-flags"
-  ],
-  "author": "Arnaud Zheng",
   "license": "MIT",
+  "author": "Arnaud Zheng",
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.js",
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsdown",
+    "clean": "git clean -xdf .cache dist node_modules",
+    "format": "prettier --write . --ignore-path ../../.prettierignore --cache --cache-location .cache/.prettiercache",
+    "lint": "eslint --cache --cache-location .cache/.eslintcache",
+    "prepublishOnly": "pnpm run build",
+    "test": "vitest run",
+    "test:mutate": "stryker run ../../stryker.config.mjs",
+    "typecheck": "tsc -p tsconfig.typecheck.json"
+  },
+  "prettier": "@arnaud-zg/configs/prettier",
   "dependencies": {
     "@typescript-eslint/utils": "^8.34.0"
   },
   "peerDependencies": {
     "eslint": ">=8.0.0 <10.0.0"
+  },
+  "devDependencies": {
+    "@arnaud-zg/configs": "catalog:",
+    "@types/node": "catalog:",
+    "@typescript-eslint/parser": "^8.72.2",
+    "eslint": "catalog:",
+    "prettier": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  },
+  "engines": {
+    "node": "^20.0.0 || ^18.0.0"
   }
 }

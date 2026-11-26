@@ -1,15 +1,8 @@
 {
-  "extends": "../../tsconfig.json",
+  "files": [],
+  "include": ["src/**/*.ts", "*.config.ts"],
+  "extends": ["@arnaud-zg/configs/tsconfig/base.json", "../../tsconfig.base.json"],
   "compilerOptions": {
-    "outDir": "dist",
-    "rootDir": "."
-  },
-  "include": [
-    "src/**/*.ts"
-  ],
-  "files": [
-    "tsup.config.ts",
-    "vitest.config.ts"
-  ],
-  "exclude": ["node_modules", "dist"]
+    "types": ["node"]
+  }
 }
