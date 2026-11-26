@@ -5,6 +5,9 @@ export interface FlagDefinition {
   description?: string;
 }
 
+/** The form of `expires`: `YYYY-MM-DD`. */
+export const EXPIRY_DATE = /^\d{4}-\d{2}-\d{2}$/;
+
 /** Every flag the project knows, by name. */
 export type FlagDefinitions = Record<string, FlagDefinition>;
 

@@ -54,15 +54,15 @@
     "@types/json-schema": "^7.0.15",
     "@types/node": "catalog:",
     "@typescript-eslint/parser": "^8.72.2",
-    "eslint": "catalog:",
+    "eslint": "^10.15.0",
     "prettier": "catalog:",
     "typescript": "catalog:",
     "vitest": "catalog:"
   },
   "peerDependencies": {
-    "eslint": ">=8.0.0 <10.0.0"
+    "eslint": ">=9.0.0"
   },
   "engines": {
-    "node": "^20.0.0 || ^18.0.0"
+    "node": "^18.18.0 || ^20.9.0 || >=21.1.0"
   }
 }
