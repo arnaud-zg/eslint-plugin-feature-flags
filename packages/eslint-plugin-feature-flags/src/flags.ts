@@ -1,43 +1,23 @@
-/**
- * Feature flag configuration from ESLint settings
- */
-export interface FeatureFlagDefinition {
-  /** When the flag should expire (YYYY-MM-DD format) */
-  expires: string;
-  /** Optional description of what the flag is for */
+/** A flag as the config declares it. Without `expires`, the flag is permanent. */
+export interface FlagDefinition {
+  /** The last day the flag may live, as `YYYY-MM-DD`. */
+  expires?: string;
   description?: string;
 }
 
-/**
- * Internal representation of a feature flag with normalized fields
- */
-export interface FeatureFlag {
-  /** The name/key of the flag */
-  name: string;
-  /** Description of what the flag is for */
-  description: string;
-  /** Default value if not specified */
-  defaultValue: boolean;
-  /** When the flag should expire (YYYY-MM-DD format) */
-  expiresOn: string;
-}
+/** Every flag the project knows, by name. */
+export type FlagDefinitions = Record<string, FlagDefinition>;
 
-/** Map of feature flag names to their definitions */
-export type FeatureFlagsConfig = Record<string, FeatureFlagDefinition>;
+const pad = (value: number) => String(value).padStart(2, "0");
 
-/** Checks if a feature flag has expired */
-export const isExpired = (flag: FeatureFlag): boolean => {
-  const expiryDate = new Date(flag.expiresOn);
-  const today = new Date();
+/** `today` as `YYYY-MM-DD` in local time, the form `expires` is written in. */
+const localDay = (today: Date) =>
+  `${today.getFullYear()}-${pad(today.getMonth() + 1)}-${pad(today.getDate())}`;
 
-  return expiryDate < today;
-};
+/** A flag expires the day after its `expires` date. A permanent flag never does. */
+export const isExpired = (definition: FlagDefinition, today: Date): boolean =>
+  definition.expires !== undefined && definition.expires < localDay(today);
 
-/** Formats a date string into a human-readable format */
-export const formatExpirationDate = (dateString: string): string => {
-  return new Date(dateString).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-};
+/** Whether the project declares this flag. */
+export const isDefined = (definitions: FlagDefinitions, name: string): boolean =>
+  Object.hasOwn(definitions, name);
