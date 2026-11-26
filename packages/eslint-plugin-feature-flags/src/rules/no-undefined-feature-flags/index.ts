@@ -86,15 +86,15 @@ const rule: Rule.RuleModule = {
        * Example: getFeatureFlag('undefined-flag')
        */
       CallExpression(node) {
+        const [firstArgument] = node.arguments;
         // Check for feature flag function calls with string literal arguments
         if (
           node.callee.type === "Identifier" &&
           identifiers.includes(node.callee.name) &&
-          node.arguments.length > 0 &&
-          node.arguments[0].type === "Literal" &&
-          typeof node.arguments[0].value === "string"
+          firstArgument?.type === "Literal" &&
+          typeof firstArgument.value === "string"
         ) {
-          reportUndefinedFlag(node, node.arguments[0].value);
+          reportUndefinedFlag(node, firstArgument.value);
         }
       },
     };

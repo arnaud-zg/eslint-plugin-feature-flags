@@ -109,14 +109,14 @@ const rule: Rule.RuleModule = {
        * Example: getFeatureFlag('enable-ui-v1')
        */
       CallExpression(node) {
+        const [firstArgument] = node.arguments;
         if (
           node.callee.type === "Identifier" &&
           identifiers.includes(node.callee.name) &&
-          node.arguments.length > 0 &&
-          node.arguments[0].type === "Literal" &&
-          typeof node.arguments[0].value === "string"
+          firstArgument?.type === "Literal" &&
+          typeof firstArgument.value === "string"
         ) {
-          reportExpiredFlag(node, node.arguments[0].value);
+          reportExpiredFlag(node, firstArgument.value);
         }
       },
 

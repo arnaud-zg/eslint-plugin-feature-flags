@@ -83,28 +83,27 @@ const rule: TSESLint.RuleModule<MessageIds, Options> = {
     function getFeatureFlagName(node: TSESTree.CallExpression): string | null {
       if (
         node.callee.type !== AST_NODE_TYPES.Identifier ||
-        !identifiers.includes((node.callee as Identifier).name) ||
+        !identifiers.includes(node.callee.name) ||
         node.arguments.length === 0
       ) {
         return null;
       }
 
-      const arg = node.arguments[0];
-      if (arg.type !== AST_NODE_TYPES.Literal || typeof (arg as Literal).value !== "string") {
+      const [arg] = node.arguments;
+      if (arg?.type !== AST_NODE_TYPES.Literal || typeof arg.value !== "string") {
         return null;
       }
 
-      const flagName = (arg as Literal).value as string;
-      return flagsToCleanup[flagName] ? flagName : null;
+      return flagsToCleanup[arg.value] ? arg.value : null;
     }
 
     function getBlockContent(node: Node): string {
-      if (!node || node.type !== AST_NODE_TYPES.BlockStatement) {
+      if (node.type !== AST_NODE_TYPES.BlockStatement) {
         return context.getSourceCode().getText(node);
       }
 
-      const blockNode = node as BlockStatement;
-      if (!blockNode.body || blockNode.body.length === 0) {
+      const blockNode = node;
+      if (blockNode.body.length === 0) {
         return "";
       }
 
@@ -114,7 +113,7 @@ const rule: TSESLint.RuleModule<MessageIds, Options> = {
 
         const statementLines = statementText.split("\n");
         if (statementLines.length > 1) {
-          const baseIndentMatch = statementLines[0].match(/^\s*/);
+          const baseIndentMatch = (statementLines[0] ?? "").match(/^\s*/);
           const baseIndent = baseIndentMatch ? baseIndentMatch[0] : "";
           return statementLines
             .map((line, i) => (i === 0 ? line : line.replace(/^\s*/, baseIndent)))
@@ -186,7 +185,7 @@ const rule: TSESLint.RuleModule<MessageIds, Options> = {
           } else if (node.type === AST_NODE_TYPES.LogicalExpression && node.operator === "&&") {
             if (isInVariableDecl) {
               const parent = node.parent as { id?: { name: string } };
-              if (parent?.id?.name) {
+              if (parent.id?.name) {
                 const varName = parent.id.name.toLowerCase();
                 if (varName.includes("theme")) return fixer.replaceText(node, "'light'");
                 if (varName.includes("enabled") || varName.includes("active"))
@@ -231,7 +230,7 @@ const rule: TSESLint.RuleModule<MessageIds, Options> = {
 
           if (
             node.type === AST_NODE_TYPES.LogicalExpression &&
-            node.parent?.type === AST_NODE_TYPES.ExpressionStatement
+            node.parent.type === AST_NODE_TYPES.ExpressionStatement
           ) {
             return fixer.remove(node.parent);
           }
@@ -240,9 +239,9 @@ const rule: TSESLint.RuleModule<MessageIds, Options> = {
             const falsePathValue = context.getSourceCode().getText(node.alternate);
 
             if (
-              node.parent?.type === AST_NODE_TYPES.BinaryExpression ||
-              node.parent?.type === AST_NODE_TYPES.CallExpression ||
-              node.parent?.type === AST_NODE_TYPES.MemberExpression
+              node.parent.type === AST_NODE_TYPES.BinaryExpression ||
+              node.parent.type === AST_NODE_TYPES.CallExpression ||
+              node.parent.type === AST_NODE_TYPES.MemberExpression
             ) {
               return fixer.replaceText(node, falsePathValue);
             }
@@ -270,6 +269,7 @@ const rule: TSESLint.RuleModule<MessageIds, Options> = {
 
             if (flagName) {
               const strategy = flagsToCleanup[flagName];
+              if (!strategy) return;
               context.report({
                 node: init,
                 messageId: "cleanupFeatureFlag",
@@ -286,6 +286,7 @@ const rule: TSESLint.RuleModule<MessageIds, Options> = {
               const flagName = getFeatureFlagName(init.left);
               if (flagName) {
                 const strategy = flagsToCleanup[flagName];
+                if (!strategy) return;
 
                 if (
                   strategy === "preserve-enabled-path" &&
@@ -316,14 +317,14 @@ const rule: TSESLint.RuleModule<MessageIds, Options> = {
               const processNestedExpression = (expr: Expression): CleanupStrategy | null => {
                 if (expr.type === AST_NODE_TYPES.CallExpression) {
                   const flagName = getFeatureFlagName(expr);
-                  return flagName ? flagsToCleanup[flagName] : null;
+                  return flagName ? (flagsToCleanup[flagName] ?? null) : null;
                 }
                 if (
                   expr.type === AST_NODE_TYPES.LogicalExpression &&
                   expr.left.type === AST_NODE_TYPES.CallExpression
                 ) {
                   const flagName = getFeatureFlagName(expr.left);
-                  return flagName ? flagsToCleanup[flagName] : null;
+                  return flagName ? (flagsToCleanup[flagName] ?? null) : null;
                 }
                 if (
                   expr.type === AST_NODE_TYPES.LogicalExpression &&
@@ -363,6 +364,7 @@ const rule: TSESLint.RuleModule<MessageIds, Options> = {
 
           if (flagName) {
             const strategy = flagsToCleanup[flagName];
+            if (!strategy) return;
             context.report({
               node,
               messageId: "cleanupFeatureFlag",
@@ -376,7 +378,7 @@ const rule: TSESLint.RuleModule<MessageIds, Options> = {
       },
 
       ConditionalExpression(node: TSESTree.ConditionalExpression) {
-        if (node.parent?.type === AST_NODE_TYPES.VariableDeclarator) {
+        if (node.parent.type === AST_NODE_TYPES.VariableDeclarator) {
           return;
         }
 
@@ -385,6 +387,7 @@ const rule: TSESLint.RuleModule<MessageIds, Options> = {
 
           if (flagName) {
             const strategy = flagsToCleanup[flagName];
+            if (!strategy) return;
             context.report({
               node,
               messageId: "cleanupFeatureFlag",
@@ -403,6 +406,7 @@ const rule: TSESLint.RuleModule<MessageIds, Options> = {
 
           if (flagName) {
             const strategy = flagsToCleanup[flagName];
+            if (!strategy) return;
             context.report({
               node,
               messageId: "cleanupFeatureFlag",

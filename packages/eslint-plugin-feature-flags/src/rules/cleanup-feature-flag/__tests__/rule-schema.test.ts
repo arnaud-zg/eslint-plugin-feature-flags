@@ -16,7 +16,7 @@ describe("cleanup-feature-flag rule configuration", () => {
 
   describe("schema validation", () => {
     it("should have correct schema definition", () => {
-      expect(rule.meta?.schema).toEqual([
+      expect(rule.meta.schema).toEqual([
         {
           type: "object",
           properties: {
@@ -56,17 +56,17 @@ describe("cleanup-feature-flag rule configuration", () => {
     });
 
     it("should have the correct meta information", () => {
-      expect(rule?.meta?.type).toBe("suggestion");
-      expect(rule?.meta?.docs).toEqual({
+      expect(rule.meta.type).toBe("suggestion");
+      expect(rule.meta.docs).toEqual({
         description: "Clean up feature flags based on specified strategy",
       });
-      expect(rule?.meta?.fixable).toBe("code");
+      expect(rule.meta.fixable).toBe("code");
     });
 
     it("should define the correct error message", () => {
-      expect(rule?.meta?.messages).toEqual({
+      expect(rule.meta.messages).toEqual({
         cleanupFeatureFlag:
-          'Feature flag \"{{name}}\" should be cleaned up using strategy \"{{strategy}}\"',
+          'Feature flag "{{name}}" should be cleaned up using strategy "{{strategy}}"',
       });
     });
 
