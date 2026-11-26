@@ -1,0 +1,3 @@
+# yaml-language-server: $schema=../../node_modules/.cache/shiplane/schema.json
+# Published to npm. Every key: shiplane docs published-package
+module: published-package
